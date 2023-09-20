@@ -9,7 +9,7 @@ This browser based web application to ...
 ## 2. Names of Contributors
 List team members and/or short bio's here... 
 * Guido He
-* I want some conflict
+* Radmir G
 * Donghoon
 	
 ## 3. Technologies and Resources Used
