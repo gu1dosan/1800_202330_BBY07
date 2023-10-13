@@ -21,11 +21,10 @@
 
   <!-- Link to styles of your own -->
   <link rel="stylesheet" href="./styles/style.css">
-
 </head>
 
 <body>
-
+    
   <!------------------------------>
   <!-- Your HTML Layout go here -->
   <!------------------------------>
@@ -46,46 +45,54 @@
             <a class="nav-link active" aria-current="page" href="#">Home</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="#">Features</a>
-          </li>
-          <li class="nav-item">
             <a class="nav-link" href="#">Pricing</a>
           </li>
           <li class="nav-item">
             <a class="nav-link disabled">Disabled</a>
           </li>
+
         </ul>
       </div>
     </div>
   </nav>
 
   <!-- Add a Big Welcome -->
-  <div class="p-5 mb-4 bg-light rounded-3">
+  <div class="p-5 mb-4 bg-success rounded-3">
     <div class="container-fluid py-5">
       <h1 class="display-5 fw-bold">Welcome to Waste Sorting</h1>
       <p class="col-md-8 fs-4">Search or describe your item...</p>
 
-      <nav class="navbar navbar-light bg-light">
+      <nav class="navbar navbar-success bg-success">
         <div class="container-fluid">
+            
           <form class="d-flex">
             <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-            <button class="btn btn-outline-success" type="submit">Search</button>
+            <button class="btn btn-info" type="submit">Search</button>
           </form>
-        </div>
-      </nav>
+                </div>
+      
 
       <!-- Add an onclick attribute to define click event handler -->
+
       <!-- <button onclick="window.location.href='login.html'" class="btn btn-primary btn-lg" type="button">Login/Signup</button> -->
-    </div>
-  </div>
 
   <!---------------------------------------------->
   <!-- Your own JavaScript functions go here    -->
   <!---------------------------------------------->
+      <p class="col-md-8 fs-4">Or take a photo...</p>
 
+        <div class="container-fluid">
+            
+          <form class="d-flex">
+                <button type="submit">
+        <img src="https://icons.veryicon.com/png/o/miscellaneous/iview30-ios-style/ios-camera-6.png" alt="buttonpng" border="0" width="300" height="300"/>
+      </button>
+          </form>
+          </div>
+        </nav>
+    </div>
   <!-- Link to scripts of your own -->
   <!-- <script src="./scripts/script.js"></script> -->
-
 </body>
 
 </html>
