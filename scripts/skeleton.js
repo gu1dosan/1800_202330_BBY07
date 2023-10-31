@@ -4,6 +4,7 @@
 //---------------------------------------------------
 function loadSkeleton() {
     console.log($('#navbarPlaceholder').load('./components/nav_before_login.html'));
+    console.log($('#offcanvasPlaceholder').load('./components/offcanvas.html'));
     // firebase.auth().onAuthStateChanged(function (user) {
     //     if (user) {                   //if the pointer to "user" object is not null, then someone is logged in
     //         // User is signed in.
