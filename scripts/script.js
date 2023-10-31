@@ -4,6 +4,7 @@ function sayHello() {
 function takePicture() {
     $("#selectedPicture").click();
  }
+
 document.getElementById("searchButton").onclick = function () {
     location.href = "../searchIndex.html";
 }
@@ -13,3 +14,6 @@ document.getElementById("photo").onclick = function () {
 document.getElementById("searchButtonNav").onclick = function () {
     location.href = "../itemlist.html";
 }
+
+
+
