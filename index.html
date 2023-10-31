@@ -18,6 +18,7 @@
     crossorigin="anonymous"></script>
 
   <!-- Other libraries go here -->
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 
   <!-- Link to styles of your own -->
   <link rel="stylesheet" href="./styles/style.css">
@@ -29,32 +30,7 @@
   <!-- Your HTML Layout go here -->
   <!------------------------------>
   <!-- Stuff for body goes here -->
-  <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
-    <div class="container-fluid">
-      <a class="navbar-brand" href="/">
-        <img src="./images/logo.jpg" height="36">
-        Waste Sorting App
-      </a>
-      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
-        aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-      <div class="collapse navbar-collapse" id="navbarNav">
-        <ul class="navbar-nav">
-          <li class="nav-item">
-            <a class="nav-link active" aria-current="page" href="#">Home</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#">Pricing</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link disabled">Disabled</a>
-          </li>
-
-        </ul>
-      </div>
-    </div>
-  </nav>
+  <nav id="navbarPlaceholder"></nav>
 
   <!-- Add a Big Welcome -->
   <div class="p-5 mb-4 bg-success rounded-3">
@@ -69,28 +45,26 @@
             <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
             <button class="btn btn-info" type="submit">Search</button>
           </form>
-                </div>
-      
+        </div>
+        <p class="col-md-8 fs-4">Or take a photo...</p>
 
-      <!-- Add an onclick attribute to define click event handler -->
-
-      <!-- <button onclick="window.location.href='login.html'" class="btn btn-primary btn-lg" type="button">Login/Signup</button> -->
+        <div class="container-fluid">
+              
+          <button type="submit" onclick="location.href = 'photoIndex.html';">
+            <img src="https://icons.veryicon.com/png/o/miscellaneous/iview30-ios-style/ios-camera-6.png" width="300" height="300"/>
+          </button>
+        </div>
+      </nav>
+    </div>
+  </div>
 
   <!---------------------------------------------->
   <!-- Your own JavaScript functions go here    -->
   <!---------------------------------------------->
-      <p class="col-md-8 fs-4">Or take a photo...</p>
-
-        <div class="container-fluid">
-              
-            <button type="submit" onclick="location.href = 'photoIndex.html';">
-              <img src="https://icons.veryicon.com/png/o/miscellaneous/iview30-ios-style/ios-camera-6.png" width="300" height="300"/>
-            </button>
-          </div>
-        </nav>
-    </div>
+      
   <!-- Link to scripts of your own -->
-  <!-- <script src="./scripts/script.js"></script> -->
+  <script src="./scripts/script.js"></script>
+  <script src="./scripts/skeleton.js"></script>
 </body>
 
 </html>
