@@ -35,7 +35,8 @@
   <!------------------------------>
   <!-- Stuff for body goes here -->
 
-  <button type="button" class="btn home-button">
+
+  <button id="searchButton" type="button" class="btn home-button">
     <img class="home-button-icon" src="./images/material-icon-search.svg" alt="search-icon" />
     <p class="home-button-text">Search or describe your item...</p>
   </button>
@@ -46,7 +47,7 @@
               capture="environment"
               accept="image/*"> -->
   <img class="or" src="./images/or.svg" alt="or..." />
-  <button type="button" class="btn home-button" onclick="$('#cameraInput').trigger('click'); return true;">
+  <button  type="button" class="btn home-button" onclick="$('#cameraInput').trigger('click'); return true;">
     <img class="home-button-icon" src="./images/material-icon-camera.svg" alt="search-icon" />
     <p class="home-button-text">Take a picture of your item...</p>
   </button>
