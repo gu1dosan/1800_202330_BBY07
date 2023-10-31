@@ -19,6 +19,7 @@
 
   <!-- Other libraries go here -->
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
 
   <!-- Link to styles of your own -->
   <link rel="stylesheet" href="./styles/style.css">
@@ -28,12 +29,32 @@
     
   <!------------------------------>
   <!-- Your HTML Layout go here -->
+  <nav id="navbarPlaceholder"></nav>
+  <nav id="offcanvasPlaceholder"></nav>
+
   <!------------------------------>
   <!-- Stuff for body goes here -->
-  <nav id="navbarPlaceholder"></nav>
+
+  <button type="button" class="btn home-button">
+    <img class="home-button-icon" src="./images/material-icon-search.svg" alt="search-icon" />
+    <p class="home-button-text">Search or describe your item...</p>
+  </button>
+  <!-- <label for="environment">Capture environment</label>
+              <input
+              type="file"
+              id="environment"
+              capture="environment"
+              accept="image/*"> -->
+  <img class="or" src="./images/or.svg" alt="or..." />
+  <button type="button" class="btn home-button" onclick="$('#cameraInput').trigger('click'); return true;">
+    <img class="home-button-icon" src="./images/material-icon-camera.svg" alt="search-icon" />
+    <p class="home-button-text">Take a picture of your item...</p>
+  </button>
+  <input id="cameraInput" type="file" name="image" accept="image/*" hidden>
+  
 
   <!-- Add a Big Welcome -->
-  <div class="p-5 mb-4 bg-success rounded-3">
+  <!-- <div class="p-5 mb-4 bg-success rounded-3">
     <div class="container-fluid py-5">
       <h1 class="display-5 fw-bold">Welcome to Waste Sorting</h1>
       <p class="col-md-8 fs-4">Search or describe your item...</p>
@@ -43,8 +64,6 @@
             
           <form class="d-flex">
             <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-            <!-- <button class="btn btn-info" type="submit">Search</button> -->
-            <!-- change <a tag> to <button tag> later -->
             <a href="/itemlist.html" class="btn btn-info" type="submit">Search</a>
           </form>
         </div>
@@ -63,7 +82,7 @@
         </div>
       </nav>
     </div>
-  </div>
+  </div> -->
 
   <!---------------------------------------------->
   <!-- Your own JavaScript functions go here    -->
