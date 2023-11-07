@@ -19,61 +19,110 @@
         <!-- Other libraries go here -->
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
         <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
-      
+        <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-firestore.js"></script>
+
         <!-- Link to styles of your own -->
         <link rel="stylesheet" href="./styles/style.css">
     </head>
     <body>
         <nav id="nav_with_searchPlaceholder"></nav>
         <nav id="offcanvasPlaceholder"></nav>
+        <div id="items-go-here">
+          <!-- Templates for general use, not displayed -->
+          <template id="itemCardTemplate">
+            <div class="card">
+              <div class="card-header">
+                Most Common Item 3
+              </div>
+              <div class="card-body" onclick="goToDetail()">
+                <!-- <h5 class="card-title">paper bag</h5> -->
+                <!-- <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p> -->
+                <button onclick="goToDetail()" type="button">
+                  <p class="card-text">
+                    Some quick example text to build on the card title and make up the
+                    bulk of the card's content.
+                </p>
+                  <img src="./images/drink3.jpg" class="d-block w-100" height="100px" alt="...">
+                </button>
+              </div>
+            </div>
+          </template>
+        </div>
+        
         <div class="card">
           <div class="card-header">
-            Most Common Item 1
+            Most Common Item 3
+          </div>
+          <div class="card-body" onclick="goToDetail()">
+            <!-- <h5 class="card-title">paper bag</h5> -->
+            <!-- <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p> -->
+            <button onclick="goToDetail()" type="button">
+              <img src="./images/drink3.jpg" class="d-block w-100" height="100px" alt="...">
+            </button>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card-header">
+            Most Common Item 2
+          </div>
+          <div class="card-body" onclick="goToDetail()">
+            <!-- <h5 class="card-title">paper bag</h5> -->
+            <!-- <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p> -->
+            <button onclick="goToDetail()" type="button">
+              <img src="./images/drink2.jpg" class="d-block w-100" height="100px" alt="...">
+            </button>
+          </div>
+        </div>
+        <div class="card">
+          <div class="card-header">
+            Most Common Item 3
+          </div>
+          <div class="card-body" onclick="goToDetail()">
+            <!-- <h5 class="card-title">paper bag</h5> -->
+            <!-- <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p> -->
+            <button onclick="goToDetail()" type="button">
+              <img src="./images/drink3.jpg" class="d-block w-100" height="100px" alt="...">
+            </button>
+          </div>
+        </div>
+        <div class="card" onclick="goToDetail()">
+          <div class="card-header">
+            Most Common Item 4
           </div>
           <div class="card-body">
             <!-- <h5 class="card-title">paper bag</h5> -->
             <!-- <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p> -->
             <button onclick="goToDetail()" type="button">
-                <img src="./images/drink1.jpg" class="d-block w-100" height="100px" alt="...">
+              <img src="./images/templateimage.png" class="d-block w-100" height="100px" width="40px" alt="...">
             </button>
-            </div>
+          </div>
+        </div>
 
-            </div>
-            <div class="card">
-              <div class="card-header">
-                Most Common Item 2
-              </div>
-              <div class="card-body">
-                <!-- <h5 class="card-title">paper bag</h5> -->
-                <!-- <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p> -->
-                <button onclick="goToDetail()" type="button">
-                    <img src="./images/drink2.jpg" class="d-block w-100" height="100px" alt="...">
-                </button>
-                </div>
-                </div>
-                <div class="card">
-                  <div class="card-header">
-                    Most Common Item 3
+        <div class="container">
+          <div id="hikes-go-here" class="row row-cols-auto">
+            <!-- Templates for general use, not displayed -->
+            <template id="hikeCardTemplate">
+              <div class="card py-2 mx-2" style="width: 18rem">
+                  <img class="card-image card-img-top" src=" ..." alt="..." />
+                  <div class="card-body">
+                      <h5 class="card-title">Card title</h5>
+                      <p class="card-length">placeholder</p>
+                      <br />
+                      <p class="card-text">
+                          Some quick example text to build on the card title and make up the
+                          bulk of the card's content.
+                      </p>
+                      <a class="btn btn-primary card-href">Read more ...</a>
                   </div>
-                  <div class="card-body" onclick="goToDetail()">
-                    <!-- <h5 class="card-title">paper bag</h5> -->
-                    <!-- <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p> -->
-                        <img src="./images/drink3.jpg" class="d-block w-100" height="100px" alt="...">
-                    </div>
-                    </div>
-                    <div class="card" onclick="goToDetail()">
-                      <div class="card-header">
-                        Most Common Item 4
-                      </div>
-                      <div class="card-body">
-                        <!-- <h5 class="card-title">paper bag</h5> -->
-                        <!-- <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p> -->
-                        
-                            <img src="./images/templateimage.png" class="d-block w-100" height="100px" width="40px" alt="...">
-                        
-                        </div>
-                        </div>
+              </div>
+            </template>
+          </div>
+        </div>
+        <script src="./scripts/firebaseAPI_BBY07.js"></script>
         <script src="./scripts/script.js"></script>
         <script src="./scripts/skeleton.js"></script> 
+        <script src="./scripts/searchIndex.js"></script> 
     </body>
 </html>
