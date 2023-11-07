@@ -47,16 +47,16 @@
               capture="environment"
               accept="image/*"> -->
   <img class="or" src="./images/or.svg" alt="or..." />
-  <button  type="button" class="btn home-button" onclick="$('#cameraInput').trigger('click'); return true;">
+  <button id = "capture" type="button" class="btn home-button" onclick="takePhoto()";>
     <img class="home-button-icon" src="./images/material-icon-camera.svg" alt="search-icon" />
     <p class="home-button-text">Take a picture of your item...</p>
   </button>
-  <input id="cameraInput" type="file" name="image" accept="image/*" hidden>
-  
 
+
+  
   <!-- Add a Big Welcome -->
   <!-- <div class="p-5 mb-4 bg-success rounded-3">
-    <div class="container-fluid py-5">
+    <div class="contain er-fluid py-5">
       <h1 class="display-5 fw-bold">Welcome to Waste Sorting</h1>
       <p class="col-md-8 fs-4">Search or describe your item...</p>
 
@@ -90,6 +90,7 @@
   <!---------------------------------------------->
       
   <!-- Link to scripts of your own -->
+  
   <script src="./scripts/script.js"></script>
   <script src="./scripts/skeleton.js"></script>
 </body>
