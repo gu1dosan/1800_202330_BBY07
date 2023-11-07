@@ -16,6 +16,12 @@ document.getElementById("searchButtonNav").onclick = function () {
     
 }
 
+function goToDetail() {
+    
+    window.location.href = "../detailpage.html";
+    
+}
+
 function takePhoto() {
     window.location.href = "../TakePhoto.html";
 
