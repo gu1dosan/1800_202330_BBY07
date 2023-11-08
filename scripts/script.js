@@ -1,7 +1,12 @@
 function sayHello() {
 }
 
-
+// let params = new URL( window.location.href ); 
+// let query = params.searchParams.get( "search" ); 
+// if (query && document.getElementById('searchBar')) {
+//     console.log(query);
+//     document.getElementById('searchBar').value = query;
+// }
 
 document.getElementById("searchButton").onclick = function () {
     location.href = "../searchIndex.html";
@@ -11,8 +16,14 @@ document.getElementById("photo").onclick = function () {
     location.href = "../TakePhoto.html";
 }
 document.getElementById("searchButtonNav").onclick = function () {
-    
-    location.href = "../itemlist.html";
+    var query = document.getElementById('searchBar').value;
+    console.log("query= " + query)
+    if(query){
+        console.log("query= " + query)
+        location.href = "../searchIndex.html?search=" + query;
+    } else {
+        location.href = "../searchIndex.html";
+    }
     
 }
 
