@@ -4,19 +4,16 @@
 //---------------------------------------------------
 function loadSkeleton() {
     console.log($('#navbarPlaceholder').load('./components/nav_before_login.html'));
-    console.log($('#offcanvasPlaceholder').load('./components/offcanvas.html'));
     console.log($('#nav_with_searchPlaceholder').load('./components/nav_with_search.html'));
-    // firebase.auth().onAuthStateChanged(function (user) {
-    //     if (user) {                   //if the pointer to "user" object is not null, then someone is logged in
-    //         // User is signed in.
-    //         // Do something for the user here.
-    //         console.log($('#navbarPlaceholder').load('./components/nav_after_login.html'));
-    //         console.log($('#footerPlaceholder').load('./text/footer.html'));
-    //     } else {
-    //         // No user is signed in.
-    //         console.log($('#navbarPlaceholder').load('./components/nav_before_login.html'));
-    //         console.log($('#footerPlaceholder').load('./text/footer.html'));
-    //     }
-    // });
+    firebase.auth().onAuthStateChanged(function (user) {
+        if (user) {                   //if the pointer to "user" object is not null, then someone is logged in
+            // User is signed in.
+            // Do something for the user here.
+            console.log($('#offcanvasPlaceholder').load('./components/offcanvas.html'));
+        } else {
+            // No user is signed in.
+            console.log($('#offcanvasPlaceholder').load('./components/offcanvas_logged_in.html'));
+        }
+    });
 }
 loadSkeleton(); //invoke the function
