@@ -9,7 +9,7 @@ function sayHello() {
 // }
 
 document.getElementById("searchButton").onclick = function () {
-    location.href = "../searchIndex.html";
+    location.href = "../main.html";
 }
 document.getElementById("photo").onclick = function () {
     $("#selectedPicture").click();
@@ -20,9 +20,9 @@ document.getElementById("searchButtonNav").onclick = function () {
     console.log("query= " + query)
     if(query){
         console.log("query= " + query)
-        location.href = "../searchIndex.html?search=" + query;
+        location.href = "../main.html?search=" + query;
     } else {
-        location.href = "../searchIndex.html";
+        location.href = "../main.html";
     }
     
 }
