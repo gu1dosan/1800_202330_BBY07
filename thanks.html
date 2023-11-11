@@ -20,32 +20,39 @@
   <!-- Other libraries go here -->
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
-
+  <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-firestore.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-auth.js"></script>
   <!-- Link to styles of your own -->
   <link rel="stylesheet" href="./styles/style.css">
 </head>
 
 <body>
+    
+  <!------------------------------>
+  <!-- Your HTML Layout go here -->
+  <nav id="navbarPlaceholder"></nav>
+  <nav id="offcanvasPlaceholder"></nav>
 
-    <!------------------------------>
-    <!-- Your HTML Layout go here -->
-    <!------------------------------>
-    <!-- Stuff for body goes here -->
-    <nav id="navbarPlaceholder"></nav>
-    <nav id="offcanvasPlaceholder"></nav>
-
-    <div class="list-group">
-        <a href="/detailpage.html" class="list-group-item list-group-item-action">garbage 1</a>
-        <a href="/detailpage.html" class="list-group-item list-group-item-action">garbage 2</a>
-        <a href="/detailpage.html" class="list-group-item list-group-item-action">garbage 3</a>
-        <a href="/detailpage.html" class="list-group-item list-group-item-action">garbage 4</a>
-        <a href="/detailpage.html" class="list-group-item list-group-item-action">garbage 5</a>
-        <a href="/detailpage.html" class="list-group-item list-group-item-action">garbage 6</a>
-      </div>
-
-        <!-- Link to scripts of your own -->
-    <script src="./scripts/script.js"></script>
-    <script src="./scripts/skeleton.js"></script>
+  <!------------------------------>
+  <!-- Stuff for body goes here -->
+  <div class="card text-center">
+    <div class="card-header">
+      Item received successfully!
+    </div>
+    <div class="card-body">
+      <h5 class="card-title">Thank you for adding to the database!</h5>
+      <a href="searchIndex.html" class="btn btn-primary">See additional items</a>
+    </div>
+  </div>  
+  <!---------------------------------------------->
+  <!-- Your own JavaScript functions go here    -->
+  <!---------------------------------------------->
+      
+  <!-- Link to scripts of your own -->
+  <script src="./scripts/firebaseAPI_BBY07.js"></script>
+  <script src="./scripts/script.js"></script>
+  <script src="./scripts/skeleton.js"></script>
 </body>
 
 </html>
