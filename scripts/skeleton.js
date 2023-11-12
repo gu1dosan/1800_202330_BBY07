@@ -9,10 +9,10 @@ function loadSkeleton() {
         if (user) {                   //if the pointer to "user" object is not null, then someone is logged in
             // User is signed in.
             // Do something for the user here.
-            console.log($('#offcanvasPlaceholder').load('./components/offcanvas_logged_in.html'));
+            console.log($('#offcanvasPlaceholder').load('./components/offcanvas_after_login.html'));
         } else {
             // No user is signed in.
-            console.log($('#offcanvasPlaceholder').load('./components/offcanvas.html'));
+            console.log($('#offcanvasPlaceholder').load('./components/offcanvas_before_login.html'));
         }
     });
 }
