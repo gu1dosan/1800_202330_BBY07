@@ -27,9 +27,8 @@ chooseFileListener();
     let bin = document.getElementById("bin").value;
     let description = document.getElementById("description").value;
     var user = firebase.auth().currentUser;
-
     if (user) {
-        var storageRef = storage.ref("images/" + user.uid + ".png"); // Assuming it's a PNG file
+        var storageRef = storage.ref("images/" + ".png"); // Assuming it's a PNG file
 
         // Asynch call to put File Object (global variable ImageFile) onto Cloud
         storageRef.put(ImageFile, { contentType: ImageFile.type })
