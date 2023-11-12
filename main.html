@@ -33,19 +33,25 @@
           <!-- Templates for general use, not displayed -->
           <template id="itemCardTemplate">
             <div class="card">
-              <div class="card-header">
-                item name placeholder
-              </div>
-              <div class="card-body" onclick="goToDetail()">
-                <button onclick="goToDetail()" type="button">
-                  <img src="./images/drink3.jpg" class="d-block w-100" height="100px" alt="...">
-                  <p class="card-text">
-                    description placeholder
-                  </p>
-                </button>
-              </div>
+                <div class="card-header">
+                    Item name placeholder
+                </div>
+                <div class="card-body d-flex"> <!-- Updated class to use flexbox -->
+                    <!-- Image container -->
+                    <div class="image-container"> <!-- Created a div for the image -->
+                      <img src="" class="card-img-top" alt="..."> <!-- Initially empty src, to be filled by JS -->
+                      <!-- Removed width and height attributes -->
+                    </div>
+                    <!-- Description container -->
+                    <div class="description-container flex-grow-1"> <!-- Created a div for the description -->
+                        <p class="card-text">
+                            Description placeholder
+                        </p>
+                    </div>
+                </div>
             </div>
-          </template>
+        </template>
+        
         </div>
         
         <!-- <div class="card">
@@ -110,9 +116,11 @@
             </template>
           </div>
         </div>
+        <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-storage.js"></script>
         <script src="./scripts/firebaseAPI_BBY07.js"></script>
         <script src="./scripts/script.js"></script>
         <script src="./scripts/skeleton.js"></script> 
         <script src="./scripts/searchIndex.js"></script> 
+        <script src="./scripts/goToAdd.js"></script>
     </body>
 </html>

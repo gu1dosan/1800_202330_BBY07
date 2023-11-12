@@ -99,3 +99,30 @@ a.sidebar-button > p {
     font-weight: 500;
     /* font-size: 1em; */
 }
+
+.card-body {
+    display: flex; /* This will make your card body a flex container */
+}
+
+.image-container {
+    flex-shrink: 0; /* Prevents the image container from shrinking */
+    width: 200px; /* Set your preferred fixed width */
+    height: 200px; /* Set your preferred fixed height */
+}
+
+.image-container img {
+    width: 100%; /* This will make your image fill the container */
+    height: 100%;
+    object-fit: cover; /* This will cover the area, use 'contain' if you don't want cropping */
+}
+
+.description-container {
+    padding-left: 15px; /* Adds some spacing between the image and the text */
+    display: flex;
+    align-items: center; /* This will vertically center your text */
+    flex-grow: 1; /* This will make the description take the remaining space */
+}
+
+.card-text {
+    margin: 0; /* Removes the default paragraph margin */
+}
