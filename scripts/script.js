@@ -9,7 +9,7 @@ function sayHello() {
 // }
 
 document.getElementById("searchButton").onclick = function () {
-    location.href = "../main.html";
+    location.href = "../index.html";
 }
 document.getElementById("photo").onclick = function () {
     $("#selectedPicture").click();
@@ -20,9 +20,9 @@ document.getElementById("searchButtonNav").onclick = function () {
     console.log("query= " + query)
     if(query){
         console.log("query= " + query)
-        location.href = "../main.html?search=" + query;
+        location.href = "../index.html?search=" + query;
     } else {
-        location.href = "../main.html";
+        location.href = "../index.html";
     }
     
 }
@@ -45,4 +45,18 @@ document.getElementById(takePhoto()).src = photo;
 
 function goToProfile(){
     window.location.href = "../profile.html";
+}
+
+
+
+
+/*
+ * User Handling function
+ */
+function displayUserName() {
+
+}
+
+function logout() {
+
 }
