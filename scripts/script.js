@@ -1,6 +1,3 @@
-function sayHello() {
-}
-
 // let params = new URL( window.location.href ); 
 // let query = params.searchParams.get( "search" ); 
 // if (query && document.getElementById('searchBar')) {
@@ -8,13 +5,16 @@ function sayHello() {
 //     document.getElementById('searchBar').value = query;
 // }
 
-document.getElementById("searchButton").onclick = function () {
-    location.href = "../index.html";
-}
-document.getElementById("photo").onclick = function () {
-    $("#selectedPicture").click();
-    location.href = "../TakePhoto.html";
-}
+// document.getElementById("searchButton").onclick = function () {
+//     location.href = "../index.html";
+// }
+// document.getElementById("photo").onclick = function () {
+//     $("#selectedPicture").click();
+//     location.href = "../TakePhoto.html";
+// }
+
+
+
 document.getElementById("searchButtonNav").onclick = function () {
     var query = document.getElementById('searchBar').value;
     console.log("query= " + query)
@@ -48,15 +48,28 @@ function goToProfile(){
 }
 
 
-
+console.log("hey");
 
 /*
- * User Handling function
+Log out function
  */
-function displayUserName() {
+document.getElementById("sidebar-profile-logout-button").addEventListener("click" , (evt) => {
+    evt.preventDefault();
+    firebase.auth().signOut().then(() => {
+        console.log("logging out successsfully");
+    }).catch((err) => {
+        console.log(err);
+    });
+});
 
+function ex() {
+firebase.auth().signOut().then(() => {
+    console.log("logging out successsfully");
+}).catch((err) => {
+    console.log(err);
+});
 }
 
-function logout() {
+ex();
 
-}
+console.log("hey");
