@@ -42,3 +42,7 @@ function takePhoto() {
 var photo = ""
 
 document.getElementById(takePhoto()).src = photo;
+
+function goToProfile(){
+    window.location.href = "../profile.html";
+}
