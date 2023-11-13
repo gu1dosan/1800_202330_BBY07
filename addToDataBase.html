@@ -36,7 +36,47 @@
 
   <!------------------------------>
   <!-- Stuff for body goes here -->
+  <div class="container">
+    <br>
+    <h1>Help us add to the database!</h1>
+    <br>
+    <form>
+        <div class="form-group">
+            <label for="exampleFormControlInput1">What is the name of your garbage?</label>
+            <input type="text" class="form-control" id="title" placeholder="Title">
+        </div><br>
+        <div class="form-group">
+          <label for="exampleFormControlTextarea1">Take a photo of your item!</label>
+              <div class="container text-center py-3">
+                <img id="mypic-goes-here" src="/images/templateimage.png" width=50 height=50/>
+                <input type="file" id="garbagePhoto" accept="image/*" />
+              </div> 
+      </div>
+      <br>
+        <div class="form-group">
+            <label for="exampleFormControlSelect1">What bin does it go into?</label>
+            <select class="form-control" id="bin">
+                <option>Black bin (General waste)</option>
+                <option>Green bin (Food waste)</option>
+                <option>Blue bin (Recylable waste)</option>
+                <option>Yellow bin (Cans)</option>
+            </select>
+            <br>
+            </div>
+            <div class="form-group">
+                <label for="exampleFormControlTextarea1">Any extra description of your item?</label>
+                <textarea class="form-control" id="description" rows="3"></textarea>
+            </div>
+            <br>
 
+            <br>
+            <div class="d-flex justify-content-end">
+                <button type="button" class="btn btn-lg btn-primary pull-right"
+                    onclick="writeReview()">Submit</button>
+            </div>
+        </div>
+    </form>
+</div>
   <!---------------------------------------------->
   <!-- Your own JavaScript functions go here    -->
   <!---------------------------------------------->
@@ -44,9 +84,9 @@
   <!-- Link to scripts of your own -->
   <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-storage.js"></script>
   <script src="./scripts/firebaseAPI_BBY07.js"></script>
-  <script src="./scripts/script.js"></script>
-  <script src="./scripts/goToAdd.js"></script>
   <script src="./scripts/skeleton.js"></script>
+  <script src="./scripts/TakingAPhoto.js"></script>
+
 </body>
 
 </html>

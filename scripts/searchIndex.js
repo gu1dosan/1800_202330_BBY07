@@ -28,29 +28,26 @@ function displayCardsDynamically(collection) {
     } else {
         db.collection(collection)
         .get()
-            .then(items=> {
-                items.forEach(item => { //iterate thru each doc
-                    console.log(item.data());
-                    var name = item.data().name;   
-                    var description = item.data().description;  
-                    // var bin_color = item.data().bin_color;
-                    let id = item.id;
-    
-                    let newcard = cardTemplate.content.cloneNode(true); // Clone the HTML template to create a new card (newcard) that will be filled with Firestore data.
-    
-                    //update title and text and image
-                    newcard.querySelector('.card-header').innerHTML = name;
-                    newcard.querySelector('.card-text').innerHTML = description;
-                    newcard.querySelector('.card-body').href = "../detailpage.html?id=" + id;
-                    if(item.data().image) {
-                        newcard.querySelector('img').src = item.data().image;
-                    }
-                    newcard.querySelector('.card-body').href = "../detailpage.html?id=" + id;
-                    document.getElementById("items-go-here").appendChild(newcard);
-    
-                    //i++;   //Optional: iterate variable to serve as unique ID
-                })
-            })
+        .then(items => {
+            items.forEach(item => {
+                console.log(item.data());
+                var name = item.data().title;
+                var description = item.data().description;
+                var imageUrl = item.data().photo; // Assuming 'photo' is the field in your Firestore document for the image URL
+                // var bin_color = item.data().bin_color;
+                let id = item.id;
+
+                let newcard = cardTemplate.content.cloneNode(true); // Clone the HTML template to create a new card
+        
+                // Update title, text, and image in the new card
+                newcard.querySelector('.card-header').innerHTML = name;
+                newcard.querySelector('.card-text').innerHTML = description;
+                newcard.querySelector('img').src = imageUrl; // Set the image source
+                newcard.querySelector('.card-body').href = "../detailpage.html?id=" + id;
+        
+                document.getElementById("items-go-here").appendChild(newcard);
+            });
+        })
     }
     
 }

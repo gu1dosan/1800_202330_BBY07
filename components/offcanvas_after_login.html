@@ -10,11 +10,13 @@
     <div id="sidebar-header">
       <button id="sidebar-close" type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
       <div id="sidebar-profile">
+        <a role="button" href="../profile.html" id="sidebar-profile-login-button" class="btn"> <!-- Doesnt work -->
         <img id="sidebar-profile-pic-svg" src="./images/material-icon-account.svg" alt="profile-pic" />
+        </a>
         <p id="sidebar-profile-name">
           Name
         </p>
-        <a role="button" href="/login.html" id="sidebar-profile-login-button" class="btn">
+        <a role="button" href="/" id="sidebar-profile-logout-button" class="btn">
           <p id="sidebar-profile-login-button-text">
             Logout
           </p>
@@ -27,7 +29,7 @@
     </div>
   </div>
   <div class="offcanvas-body">
-    <a role="button" href="/" class="btn sidebar-button">
+    <a role="button" href="../index.html" class="btn sidebar-button">
       <span class="material-symbols-rounded">
         home
       </span>
@@ -53,3 +55,4 @@
     </a>
   </div>
 </div>
+<script src="../scripts/script.js"></script>
