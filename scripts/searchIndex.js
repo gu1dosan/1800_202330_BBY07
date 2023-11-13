@@ -30,16 +30,22 @@ function displayCardsDynamically(collection) {
         .get()
             .then(items=> {
                 items.forEach(item => { //iterate thru each doc
-                    console.log(item.data())
+                    console.log(item.data());
                     var name = item.data().name;   
                     var description = item.data().description;  
                     // var bin_color = item.data().bin_color;
+                    let id = item.id;
     
                     let newcard = cardTemplate.content.cloneNode(true); // Clone the HTML template to create a new card (newcard) that will be filled with Firestore data.
     
                     //update title and text and image
                     newcard.querySelector('.card-header').innerHTML = name;
                     newcard.querySelector('.card-text').innerHTML = description;
+                    newcard.querySelector('.card-body').href = "../detailpage.html?id=" + id;
+                    if(item.data().image) {
+                        newcard.querySelector('img').src = item.data().image;
+                    }
+                    newcard.querySelector('.card-body').href = "../detailpage.html?id=" + id;
                     document.getElementById("items-go-here").appendChild(newcard);
     
                     //i++;   //Optional: iterate variable to serve as unique ID
@@ -49,4 +55,8 @@ function displayCardsDynamically(collection) {
     
 }
 
-displayCardsDynamically("waste");  //input param is the name of the collection
+displayCardsDynamically("posts");  //input param is the name of the collection
+
+function goToDetail(id) {
+    window.location.href = "../detailpage.html?id=" + id;
+}
