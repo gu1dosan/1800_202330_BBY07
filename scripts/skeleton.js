@@ -43,6 +43,7 @@ function logout() {
         evt.preventDefault();
         firebase.auth().signOut().then(() => {
             console.log("logging out successsfully");
+            location.href = "/index.html";
         }).catch((err) => {
             console.log(err);
         });
