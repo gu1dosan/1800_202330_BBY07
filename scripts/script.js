@@ -15,11 +15,11 @@
 
 
 
-function goToDetail() {
+// function goToDetail() {
     
-    window.location.href = "../detailpage.html";
+//     window.location.href = "../detailpage.html";
     
-}
+// }
 
 // function takePhoto() {
 //     window.location.href = "../TakePhoto.html";

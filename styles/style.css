@@ -126,3 +126,7 @@ a.sidebar-button > p {
 .card-text {
     margin: 0; /* Removes the default paragraph margin */
 }
+
+.item-list-button {
+    width: 100%;
+}
