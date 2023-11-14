@@ -127,10 +127,6 @@ a.sidebar-button > p {
     margin: 0; /* Removes the default paragraph margin */
 }
 
-.item-list-button {
-    width: 100%;
-}
-
 div.search-bar {
     margin: 1vw;
     display: flex;
@@ -140,4 +136,49 @@ div.search-bar {
 div.search-bar form {
     margin-right: 1vw;
     width: 100%;
+}
+
+button.item-list-button {
+    width: 100%;
+    height: 100px;
+    padding: 0;
+}
+
+div.item-card {
+    width: 100%;
+    height: 100px;
+    display: flex;
+    align-items: center;
+    /* justify-content: space-between; */
+}
+
+div.item-card-color-band {
+    width: 2vw;
+    margin-right: 2vw;
+    height: 100%;
+    background-color: grey;
+}
+
+div.item-card-likes {
+    /* height: 100%; */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    /* justify-content: space-around; */
+    margin-right: 2vw;
+}
+div.item-card-likes-gap {
+    height: 8px;
+}
+
+div.item-card-name {
+    flex: 1;
+    font-size: 1.5rem;
+    text-align: left;
+}
+
+img.item-card-image {
+    width: 150px;
+    height: 100px;
+    object-fit: contain;
 }

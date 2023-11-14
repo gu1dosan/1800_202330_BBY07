@@ -35,23 +35,32 @@
           <!-- Templates for general use, not displayed -->
           <template id="itemCardTemplate">
             <button type="button" class="btn item-list-button">
-              <div class="card">
-                <div class="card-header">
-                    Item name placeholder
+              <div class="item-card">
+                <div class="item-card-color-band">
                 </div>
-                <div class="card-body d-flex"> <!-- Updated class to use flexbox -->
-                    <!-- Image container -->
-                    <div class="image-container"> <!-- Created a div for the image -->
-                      <img src="" class="card-img-top" alt="..."> <!-- Initially empty src, to be filled by JS -->
-                      <!-- Removed width and height attributes -->
+                <div class="item-card-likes">
+                  <span class="material-symbols-rounded thumbs-up">
+                    thumb_up
+                  </span>
+                  <div class="item-card-likes-gap"></div>
+                  <span class="material-symbols-rounded thumbs-down">
+                    thumb_down
+                  </span>
+                </div>
+                <div class="item-card-name">
+                  Item name placeholder
+                </div>
+                <!-- <div class="card-body d-flex">
+                    <div class="image-container"> 
+                      <img src="" class="card-img-top" alt="..."> 
                     </div>
-                    <!-- Description container -->
-                    <div class="description-container flex-grow-1"> <!-- Created a div for the description -->
+                    <div class="description-container flex-grow-1">
                         <p class="card-text">
                             Description placeholder
                         </p>
                     </div>
-                </div>
+                </div> -->
+                <img class="item-card-image" src="" class="card-img-top" alt="...">
               </div>
             </button>
           </template>
