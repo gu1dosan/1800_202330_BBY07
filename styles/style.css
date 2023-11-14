@@ -130,3 +130,14 @@ a.sidebar-button > p {
 .item-list-button {
     width: 100%;
 }
+
+div.search-bar {
+    margin: 1vw;
+    display: flex;
+    align-items: center;
+    flex: 1;
+}
+div.search-bar form {
+    margin-right: 1vw;
+    width: 100%;
+}
