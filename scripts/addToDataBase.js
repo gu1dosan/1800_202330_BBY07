@@ -34,6 +34,7 @@ chooseFileListener();
         storageRef.put(ImageFile, { contentType: ImageFile.type })
             .then(function () {
                 console.log('Uploaded to Cloud Storage.');
+                var likes = 0;
 
                 // Asynch call to get URL from Cloud
                 storageRef.getDownloadURL().then(function (url) {
@@ -46,6 +47,7 @@ chooseFileListener();
                         photo: url, // Use the URL obtained from Cloud Storage
                         bin: bin,
                         description: description,
+                        likes: likes,
                         timestamp: firebase.firestore.FieldValue.serverTimestamp()
                     }).then(() => {
                         window.location.href = "thanks.html"; // Redirect to the thanks page

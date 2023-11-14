@@ -73,3 +73,4 @@ function getBinColor(bin) {
 function goToDetail(id) {
     window.location.href = "../detailpage.html?id=" + id;
 }
+
