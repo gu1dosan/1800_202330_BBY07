@@ -4,19 +4,7 @@
 //---------------------------------------------------
 function loadSkeleton() {
     console.log($('#navbarPlaceholder').load('./components/nav_before_login.html'));
-    console.log($('#nav_with_searchPlaceholder').load('./components/nav_with_search.html', function() {
-        document.getElementById("searchButtonNav").onclick = function () {
-            var query = document.getElementById('searchBar').value;
-            console.log("query= " + query)
-            if(query){
-                console.log("query= " + query)
-                location.href = "../index.html?search=" + query;
-            } else {
-                location.href = "../index.html";
-            }
-            
-        }
-    }));
+    console.log($('#nav_with_searchPlaceholder').load('./components/nav_with_search.html'));
     firebase.auth().onAuthStateChanged(function (user) {
         if (user) {                   //if the pointer to "user" object is not null, then someone is logged in
             // User is signed in.

@@ -1,0 +1,22 @@
+
+
+div.detail-content {
+  overflow: auto;
+  margin: 3vw;
+  /* padding: 2vw; */
+  background-color: white;
+}
+
+h2.detail-name {
+  margin: 2vw;
+  font-weight: 700;
+  font-size: 1.8rem;
+}
+
+p.detail-description {
+  margin: 2vw;
+}
+
+div.carousel-item {
+  text-align: center;
+}

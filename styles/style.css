@@ -10,7 +10,8 @@ body {
     height: 100vh;
 }
 .bg-body-tertiary {
-    background-color: transparent !important;
+    /* background-color: transparent !important; */
+    background-color: white !important;
 }
 .navbar-toggler {
     border: none;

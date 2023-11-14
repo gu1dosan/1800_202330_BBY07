@@ -6,8 +6,8 @@ function displayCardsDynamically(collection) {
 
     let where = query ? 
         db.collection(collection)
-        .where('name', '>=', query)
-        .where('name', '<=', query+ '\uf8ff') 
+        .where('title', '>=', query)
+        .where('title', '<=', query+ '\uf8ff') 
         : db.collection(collection);
 
     where
