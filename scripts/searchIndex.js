@@ -83,7 +83,7 @@ function getBinColor(bin) {
         case "Green bin (Organic waste)":
             return "#017d47";
         case "Black bin (General waste)":
-            return "black";
+            return "#443f39";
         case "Yellow bin/bag (Mixed paper)":
             return "#ffc525";
         default:
