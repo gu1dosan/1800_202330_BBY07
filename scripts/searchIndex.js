@@ -15,6 +15,7 @@ function displayCardsDynamically(collection) {
             if (query) {
                 where = where.where('title', '>=', query)
                              .where('title', '<=', query + '\uf8ff')
+                             .orderBy('title')
                              .orderBy('totalLikes', 'desc'); //try to use index guido
             } else {
                 where = where.orderBy('totalLikes', 'desc');
