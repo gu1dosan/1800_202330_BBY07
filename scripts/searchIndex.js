@@ -1,6 +1,4 @@
-let postIDS = []; // Global variable to hold post IDs
 
-// Modified displayCardsDynamically to be called within onAuthStateChanged
 function displayCardsDynamically(collection) {
     firebase.auth().onAuthStateChanged(function(user) {
 
@@ -22,7 +20,6 @@ function displayCardsDynamically(collection) {
             }
             where.get().then(items => {
                 items.forEach(item => {
-                    postIDS.push(item.id);
                     console.log(item.data());
                     
                     var name = item.data().title;
@@ -43,12 +40,10 @@ function displayCardsDynamically(collection) {
                     let userHasLiked = item.data().whoLiked && item.data().whoLiked.includes(user.uid);
                     let userHasDisLiked = item.data().whoDisLiked && item.data().whoDisLiked.includes(user.uid);
                     let likeIcon = newcard.querySelector('.likes');
-                    console.log(newcard.querySelector('.likes'));
                     
                     likeIcon.src = userHasLiked ? '../images/thumb_up_liked.png' : '../images/thumb_up_unliked.png';
                     
                     let disLikeIcon = newcard.querySelector('.disLikes');
-                    console.log(newcard.querySelector('.disLikes'));
                     
                     disLikeIcon.src = userHasDisLiked ? '../images/thumb_down_active.png' : '../images/thumb_down.png';
                     newcard.querySelector('.likes').onclick = () => incrementLike(id);
@@ -60,7 +55,7 @@ function displayCardsDynamically(collection) {
             });
 
             // Remove recently searched header if applicable
-            if(true) { // Replace with your actual condition to check for recently searched items
+            if(true) { 
                 document.querySelector("#recently-searched-header")?.remove();
                 document.querySelector("#most-frequently-searched-header")?.remove();
             }
@@ -97,6 +92,10 @@ function goToDetail(id) {
 }
 
 function incrementDisLike(id) {
+    //newDisLikes exists as a bug fix.
+    //Without this variable it's going to not subtract from the total likes twice
+    //if user is already liked and presses dislike.
+    //Something to do with firebase being too slow if you want to edit the code keep this.
     let newDisLikes = 0; 
     let docID = id;
     var user = firebase.auth().currentUser;
@@ -118,7 +117,6 @@ function incrementDisLike(id) {
   
           // Check if the user has already disliked the post
           if (whoDisLiked.includes(user.uid)) {
-            console.log('User is removing their dislike from this post.');
   
             // Remove the user's ID from the whoDisLiked string
             let newWhoDisLiked = whoDisLiked.split(',').filter(id => id !== user.uid).join(',');
@@ -135,28 +133,27 @@ function incrementDisLike(id) {
   
             return;
           } else if (whoLiked.includes(user.uid)) {
-            console.log('User is removing their like and adding dislike from this post.');
   
             // Remove the user's ID from the whoLiked string
             let newWhoLiked = whoLiked.split(',').filter(id => id !== user.uid).join(',');
   
-            // Decrement the totalLikes count
+          
             let totalLikes = wasteDoc.data().totalLikes;
+            //Here it used to be in the update to just subtract 1 from total likes.
+            //but it couldn't do it twice. So we are just adding to newDisLikes to only update once.
             newDisLikes++;
   
             // Update the document with the new values
             transaction.update(wasteDocRef, {
               whoLiked: newWhoLiked
             });
-            console.log("updated 1");
           }
   
           // Add user to the whoDisLiked string
           const newWhoDisLiked = whoDisLiked ? `${whoDisLiked},${user.uid}` : user.uid;
   
-     
+          //add 1 to new dislikes and update right after.
           newDisLikes++;
-          console.log("updated 2");
           totalLikes = wasteDoc.data().totalLikes;
           newDisLikes = totalLikes - newDisLikes;
           transaction.update(wasteDocRef, {
@@ -166,7 +163,6 @@ function incrementDisLike(id) {
 
         });
       }).then(() => {
-        console.log('DisLike incremented successfully!');
         window.location.reload();
       }).catch(error => {
         console.error('Transaction failed: ', error);
@@ -179,6 +175,8 @@ function incrementDisLike(id) {
 
   
   function incrementLike(id) {
+    //newLikes is a bug fix, look at the incrementDisLike function
+    //for it's counterpart, and why it exists.
     let newLikes = 0;
     let docID = id;
     var user = firebase.auth().currentUser;
@@ -205,7 +203,7 @@ function incrementDisLike(id) {
             // Remove the user's ID from the whoLiked string
             let newWhoLiked = whoLiked.split(',').filter(id => id !== user.uid).join(',');
   
-            // Decrement the totalLikes count
+            // Again, look at the incrementDisLike.
             let totalLikes = wasteDoc.data().totalLikes;
             let newLikes = totalLikes - 1;
   
@@ -222,13 +220,12 @@ function incrementDisLike(id) {
             // Remove the user's ID from the whoDisLiked string
             let newWhoDisLiked = whoDisLiked.split(',').filter(id => id !== user.uid).join(',');
   
-            // Increment the totalLikes count
+            // Increment the totalLikes count and then update only 1 time in the function.
             let totalLikes = wasteDoc.data().totalLikes;
             newLikes++;
   
             // Update the document with the new values
             transaction.update(wasteDocRef, {
-
               whoDisLiked: newWhoDisLiked
             });
             console.log("updated 1");

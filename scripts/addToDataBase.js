@@ -66,11 +66,11 @@ chooseFileListener();
             });
     } else {
         console.log("No user is signed in");
-        window.location.href = 'login.html';
+        window.location.href = 'index.html';
     }
 }
 
 
 function goToIndex(){
-    window.location.href = "../index.html";
+    window.location.href = "../search.html";
 }
