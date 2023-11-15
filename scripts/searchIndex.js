@@ -70,13 +70,13 @@ displayCardsDynamically("waste");
 function getBinColor(bin) {
     switch (bin) {
         case "Blue bin (Recylable waste)":
-            return "#0140ef";
-        case "Green bin (Food waste)":
-            return "green";
+            return "#0070b8";
+        case "Green bin (Organic waste)":
+            return "#017d47";
         case "Black bin (General waste)":
             return "black";
-        case "Yellow bin (Cans)":
-            return "yellow";
+        case "Yellow bin/bag (Mixed paper)":
+            return "#ffc525";
         default:
             return "grey";
     }
