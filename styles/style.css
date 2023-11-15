@@ -185,7 +185,6 @@ img.item-card-image {
 }
 
 
-.thumbs-up.liked {
-    color: red !important;
+.btnRed {
+    background-color: red !important;
   }
-  

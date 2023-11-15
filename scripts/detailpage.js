@@ -19,6 +19,8 @@ function displayItemInfo() {
             document.querySelector( ".detail-image" ).src = item.photo;
             document.querySelector( ".detail-description" ).innerHTML = doc.data().description;
             document.querySelector('body').style = "background-color: " + getBinColor(doc.data().bin) + ";";
+            document.getElementById("likesInput").innerText = doc.data().totalLikes;
+            
         } );
 }
 displayItemInfo();
@@ -37,4 +39,8 @@ function getBinColor(bin) {
         default:
             return "grey";
     }
+}
+
+function goToIndex(){
+    window.location.href = "../index.html";
 }
