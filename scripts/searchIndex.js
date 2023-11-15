@@ -11,8 +11,11 @@ function displayCardsDynamically(collection) {
             console.log(query);
             //just made it so that if there is no query it will order by the amount of total likes.
             if (query) {
-                where = where.where("title", '>=', query)
-                             .where("title", '<=', query + '\uf8ff')
+                where = where.where('title', '>=', query)
+                             .where('title', '<=', query + '\uf8ff')
+                             .orderBy('title')
+                             .orderBy('totalLikes', 'desc'); //try to use index guido
+
             } else {
                 where = where.orderBy('totalLikes', 'desc');
             }
@@ -77,7 +80,7 @@ function getBinColor(bin) {
         case "Green bin (Organic waste)":
             return "#017d47";
         case "Black bin (General waste)":
-            return "black";
+            return "#443f39";
         case "Yellow bin/bag (Mixed paper)":
             return "#ffc525";
         default:
