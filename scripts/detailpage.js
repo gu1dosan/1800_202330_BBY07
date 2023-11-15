@@ -42,5 +42,5 @@ function getBinColor(bin) {
 }
 
 function goToIndex(){
-    window.location.href = "../index.html";
+    window.location.href = "../search.html";
 }

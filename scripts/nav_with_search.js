@@ -10,9 +10,9 @@ document.getElementById("searchButtonNav").onclick = function () {
   console.log("query= " + query)
   if(query){
       console.log("query= " + query)
-      location.href = "../index.html?search=" + query;
+      location.href = "../search.html?search=" + query;
   } else {
-      location.href = "../index.html";
+      location.href = "../search.html";
   }
   
 }

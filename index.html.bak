@@ -79,7 +79,7 @@
         accept="image/*">
         <div class="container-fluid">
               
-          <button type="submit" onclick="location.href = 'photoIndex.html';">
+          <button type="submit" onclick="location.href = 'photosearch.html';">
             <img src="https://icons.veryicon.com/png/o/miscellaneous/iview30-ios-style/ios-camera-6.png" width="300" height="300"/>
           </button>
         </div>

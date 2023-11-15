@@ -6,7 +6,7 @@
 // }
 
 // document.getElementById("searchButton").onclick = function () {
-//     location.href = "../index.html";
+//     location.href = "../search.html";
 // }
 // document.getElementById("photo").onclick = function () {
 //     $("#selectedPicture").click();

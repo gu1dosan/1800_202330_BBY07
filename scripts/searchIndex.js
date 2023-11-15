@@ -164,7 +164,7 @@ function incrementDisLike(id) {
 
         });
       }).then(() => {
-        // window.location.reload();
+        window.location.reload();
       }).catch(error => {
         console.error('Transaction failed: ', error);
       });
@@ -249,7 +249,7 @@ function incrementDisLike(id) {
         });
       }).then(() => {
         console.log('Like incremented successfully!');
-        // window.location.reload();
+        window.location.reload();
       }).catch(error => {
         console.error('Transaction failed: ', error);
       });
