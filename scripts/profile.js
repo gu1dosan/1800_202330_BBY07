@@ -25,9 +25,29 @@ function populateUserInfo() {
                     document.getElementById("emailInput").value = userEmail;
                 }
                 document.getElementById("emailInput").innerText = userEmail;
-                document.getElementById("likesInput").innerText = userLikes;
-                document.getElementById("numOfPostInput").innerText = userNumOfPost;
-            })
+                let numOfPosts = 0;
+                let numOfLikes = 0;
+
+                db.collection("waste").get().then((querySnapshot) => {
+                    querySnapshot.forEach((doc) => {
+                        if (doc.data().userID === user.uid){
+                            numOfPosts++;
+                            numOfLikes += doc.data().totalLikes;
+                        }
+                        console.log(doc.id, " => ", doc.data());
+                    });
+                    currentUser.update({
+                        numOfPost: numOfPosts,
+                        numOfLikes: numOfLikes
+                    }).then(() => {
+                        console.log('User collection successfully updated with new number of posts and likes.');
+                        document.getElementById("likesInput").innerText = numOfLikes;
+                        document.getElementById("numOfPostInput").innerText = numOfPosts;
+                    })
+
+                })
+            });
+
         } else {
             // No user is signed in.
             console.log("No user is signed in");
