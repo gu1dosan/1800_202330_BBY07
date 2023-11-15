@@ -183,3 +183,9 @@ img.item-card-image {
     height: 100px;
     object-fit: contain;
 }
+
+
+.thumbs-up.liked {
+    color: red !important;
+  }
+  

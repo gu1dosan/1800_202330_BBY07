@@ -27,6 +27,7 @@ chooseFileListener();
     let bin = document.getElementById("bin").value;
     let description = document.getElementById("description").value;
     var user = firebase.auth().currentUser;
+
     if (user) {
         var storageRef = firebase.storage().ref(ImageFile.name);
 
@@ -34,7 +35,8 @@ chooseFileListener();
         storageRef.put(ImageFile, { contentType: ImageFile.type })
             .then(function () {
                 console.log('Uploaded to Cloud Storage.');
-                var likes = 0;
+                var whoLikedThis = "";
+                var totalNumOfLikes = 0;
 
                 // Asynch call to get URL from Cloud
                 storageRef.getDownloadURL().then(function (url) {
@@ -47,7 +49,8 @@ chooseFileListener();
                         photo: url, // Use the URL obtained from Cloud Storage
                         bin: bin,
                         description: description,
-                        likes: likes,
+                        whoLiked: whoLikedThis,
+                        totalLikes: totalNumOfLikes,
                         timestamp: firebase.firestore.FieldValue.serverTimestamp()
                     }).then(() => {
                         window.location.href = "thanks.html"; // Redirect to the thanks page
@@ -65,3 +68,5 @@ chooseFileListener();
         window.location.href = 'login.html';
     }
 }
+
+

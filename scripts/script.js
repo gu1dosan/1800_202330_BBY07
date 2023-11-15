@@ -13,24 +13,7 @@
 //     location.href = "../TakePhoto.html";
 // }
 
-
-
-// function goToDetail() {
-    
-//     window.location.href = "../detailpage.html";
-    
-// }
-
-// function takePhoto() {
-//     window.location.href = "../TakePhoto.html";
-
-// }
-
-
-// var photo = ""
-
-// document.getElementById(takePhoto()).src = photo;
-
 function goToProfile(){
     window.location.href = "../profile.html";
 }
+
