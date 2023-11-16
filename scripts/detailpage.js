@@ -3,7 +3,7 @@ function displayItemInfo() {
     let ID = params.searchParams.get( "id" ); //get value for key "id"
     // console.log( ID );
 
-    db.collection( "waste" )
+    db.collection("waste")
         .doc( ID )
         .get()
         .then( doc => {
@@ -71,3 +71,22 @@ function getBinColor(bin) {
 function goToIndex(){
     window.location.href = "../search.html";
 }
+
+function deleteThis() {
+    let params = new URL(window.location.href);
+    let ID = params.searchParams.get("id");
+    var docRef = firebase.firestore().collection('waste').doc(ID);
+    var user = firebase.auth().currentUser;
+
+    if (user) {
+        docRef.get().then((doc) => {
+            if (user.uid === doc.data().userID) {
+                docRef.delete().then(() => {
+                    console.log("Document successfully deleted!");
+                    window.location.href = "../search.html";
+                });
+            } 
+        });
+    }
+}
+

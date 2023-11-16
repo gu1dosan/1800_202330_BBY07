@@ -1,89 +1,81 @@
+var DELETEMINIMUM = -3;
 
 function displayCardsDynamically(collection) {
-    firebase.auth().onAuthStateChanged(function(user) {
+  firebase.auth().onAuthStateChanged(function(user) {
+      if (user) {
+          let params = new URL(window.location.href);
+          let query = params.searchParams.get("search");
 
-        if (user) {
-            let params = new URL(window.location.href);
-            let query = params.searchParams.get("search");
+          let cardTemplate = document.getElementById("itemCardTemplate");
+          let where = db.collection(collection);
+          console.log(query);
+          
+          if (query) {
+              where = where.where('title', '>=', query)
+                           .where('title', '<=', query + '\uf8ff')
+                           .orderBy('title')
+                           .orderBy('totalLikes', 'desc');
+          } else {
+              where = where.orderBy('totalLikes', 'desc');
+          }
 
-            let cardTemplate = document.getElementById("itemCardTemplate");
-            let where = db.collection(collection);
-            console.log(query);
-            //just made it so that if there is no query it will order by the amount of total likes.
-            if (query) {
-                where = where.where('title', '>=', query)
-                             .where('title', '<=', query + '\uf8ff')
-                             .orderBy('title')
-                             .orderBy('totalLikes', 'desc');
-            } else {
-                where = where.orderBy('totalLikes', 'desc');
-            }
-            where.get().then(items => {
-                items.forEach(item => {
-                    console.log(item.data());
-                    
-                    var name = item.data().title;
-                    var imageUrl = item.data().photo; // Assuming 'photo' is the field in your Firestore document for the image URL
-                    let id = item.id;
+          where.get().then(items => {
+              items.forEach(item => {
+                  if (item.data().totalLikes < DELETEMINIMUM) {
+                      db.collection("waste").doc(item.id).delete();
+                  } else {
+                      console.log(item.data());
 
-                    let newcard = cardTemplate.content.cloneNode(true); // Clone the HTML template to create a new card
-                    newcard.querySelector('.item-card-name').innerHTML = name;
-                    newcard.querySelector('.item-card-image').src = imageUrl;
-                    newcard.querySelector('.item-card-image').onclick = () => goToDetail(id);
-                    newcard.querySelector('.item-card-name').onclick = () => goToDetail(id);
-                    newcard.querySelector('.item-card-color-band').style = "background-color: " + getBinColor(item.data().bin) + ";";
-                    newcard.querySelector('.item-card-likes').style = "color: " + getBinColor(item.data().bin) + ";";
-                    
-                    
+                      var name = item.data().title;
+                      var imageUrl = item.data().photo;
+                      let id = item.id;
 
-                    // Update the like icon based on whether the user has liked the post
+                      let newcard = cardTemplate.content.cloneNode(true);
+                      newcard.querySelector('.item-card-name').innerHTML = name;
+                      newcard.querySelector('.item-card-image').src = imageUrl;
+                      newcard.querySelector('.item-card-image').onclick = () => goToDetail(id);
+                      newcard.querySelector('.item-card-name').onclick = () => goToDetail(id);
+                      newcard.querySelector('.item-card-color-band').style = "background-color: " + getBinColor(item.data().bin) + ";";
+                      newcard.querySelector('.item-card-likes').style = "color: " + getBinColor(item.data().bin) + ";";
 
-
-                      // Attach event listeners
                       let likeIcon = newcard.querySelector('.likes');
                       let disLikeIcon = newcard.querySelector('.disLikes');
-  
-                      likeIcon.addEventListener('click', () => incrementLike(item.id));
-                      disLikeIcon.addEventListener('click', () => incrementDisLike(item.id));
 
+                      likeIcon.addEventListener('click', () => incrementLike(id));
+                      disLikeIcon.addEventListener('click', () => incrementDisLike(id));
 
-                    // Reference to Firestore document to listen for real-time updates
-                    let itemRef = db.collection(collection).doc(item.id);
+                      let itemRef = db.collection(collection).doc(item.id);
+                      itemRef.onSnapshot((doc) => {
+                          if (doc.exists) {
+                              const itemData = doc.data();
 
-                    // Listening for real-time updates on the specific document
-                    itemRef.onSnapshot((doc) => {
-                        if (doc.exists) {
-                            // Extract the updated data from the document
-                            const itemData = doc.data();
+                              let userHasLiked = itemData.whoLiked && itemData.whoLiked.includes(user.uid);
+                              let userHasDisLiked = itemData.whoDisLiked && itemData.whoDisLiked.includes(user.uid);
 
-                            // Check if the user has liked or disliked the item
-                            let userHasLiked = itemData.whoLiked && itemData.whoLiked.includes(user.uid);
-                            let userHasDisLiked = itemData.whoDisLiked && itemData.whoDisLiked.includes(user.uid);
-                            likeIcon.src = userHasLiked ? '../images/thumb_up_liked.png' : '../images/thumb_up_unliked.png';
-                            disLikeIcon.src = userHasDisLiked ? '../images/thumb_down_active.png' : '../images/thumb_down.png';
-                        } else {
-                            console.log('Document does not exist');
-                        }
-                    });
+                              likeIcon.src = userHasLiked ? '../images/thumb_up_liked.png' : '../images/thumb_up_unliked.png';
+                              disLikeIcon.src = userHasDisLiked ? '../images/thumb_down_active.png' : '../images/thumb_down.png';
+                          } else {
+                              console.log('Document does not exist');
+                          }
+                      });
 
+                      document.getElementById("items-go-here").appendChild(newcard);
+                  }
+              });
+          }).catch(error => {
+              console.error("Error fetching items: ", error);
+          });
 
-                    document.getElementById("items-go-here").appendChild(newcard);
-                });
-            }).catch(error => {
-                console.error("Error fetching items: ", error);
-            });
-
-            // Remove recently searched header if applicable
-            if(true) { 
-                document.querySelector("#recently-searched-header")?.remove();
-                document.querySelector("#most-frequently-searched-header")?.remove();
-            }
-        } else {
-            // No user is signed in, handle accordingly
-            console.log('No user signed in');
-        }
-    });
+          if (true) {
+              document.querySelector("#recently-searched-header")?.remove();
+              document.querySelector("#most-frequently-searched-header")?.remove();
+          }
+      } else {
+          console.log('No user signed in');
+      }
+  });
 }
+
 
 // Call displayCardsDynamically with the collection name
 displayCardsDynamically("waste");
