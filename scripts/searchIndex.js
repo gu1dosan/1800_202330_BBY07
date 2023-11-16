@@ -37,17 +37,36 @@ function displayCardsDynamically(collection) {
                     
 
                     // Update the like icon based on whether the user has liked the post
-                    let userHasLiked = item.data().whoLiked && item.data().whoLiked.includes(user.uid);
-                    let userHasDisLiked = item.data().whoDisLiked && item.data().whoDisLiked.includes(user.uid);
-                    let likeIcon = newcard.querySelector('.likes');
-                    
-                    likeIcon.src = userHasLiked ? '../images/thumb_up_liked.png' : '../images/thumb_up_unliked.png';
-                    
-                    let disLikeIcon = newcard.querySelector('.disLikes');
-                    
-                    disLikeIcon.src = userHasDisLiked ? '../images/thumb_down_active.png' : '../images/thumb_down.png';
-                    newcard.querySelector('.likes').onclick = () => incrementLike(id);
-                    newcard.querySelector('.disLikes').onclick = () => incrementDisLike(id);
+
+
+                      // Attach event listeners
+                      let likeIcon = newcard.querySelector('.likes');
+                      let disLikeIcon = newcard.querySelector('.disLikes');
+  
+                      likeIcon.addEventListener('click', () => incrementLike(item.id));
+                      disLikeIcon.addEventListener('click', () => incrementDisLike(item.id));
+
+
+                    // Reference to Firestore document to listen for real-time updates
+                    let itemRef = db.collection(collection).doc(item.id);
+
+                    // Listening for real-time updates on the specific document
+                    itemRef.onSnapshot((doc) => {
+                        if (doc.exists) {
+                            // Extract the updated data from the document
+                            const itemData = doc.data();
+
+                            // Check if the user has liked or disliked the item
+                            let userHasLiked = itemData.whoLiked && itemData.whoLiked.includes(user.uid);
+                            let userHasDisLiked = itemData.whoDisLiked && itemData.whoDisLiked.includes(user.uid);
+                            likeIcon.src = userHasLiked ? '../images/thumb_up_liked.png' : '../images/thumb_up_unliked.png';
+                            disLikeIcon.src = userHasDisLiked ? '../images/thumb_down_active.png' : '../images/thumb_down.png';
+                        } else {
+                            console.log('Document does not exist');
+                        }
+                    });
+
+
                     document.getElementById("items-go-here").appendChild(newcard);
                 });
             }).catch(error => {
@@ -163,7 +182,7 @@ function incrementDisLike(id) {
 
         });
       }).then(() => {
-        window.location.reload();
+        // window.location.reload();
       }).catch(error => {
         console.error('Transaction failed: ', error);
       });
@@ -248,7 +267,7 @@ function incrementDisLike(id) {
         });
       }).then(() => {
         console.log('Like incremented successfully!');
-        window.location.reload();
+        // window.location.reload();
       }).catch(error => {
         console.error('Transaction failed: ', error);
       });
@@ -256,11 +275,4 @@ function incrementDisLike(id) {
       console.log('No user is signed in to like the post');
     }
   }
-  
-  
-  // Usage example
-  // incrementLike('document-id');
-  
-  
-  // Usage:
-  // incrementLike('documentID');
+

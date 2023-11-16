@@ -7,6 +7,7 @@ function displayItemInfo() {
         .doc( ID )
         .get()
         .then( doc => {
+            let user = firebase.auth().currentUser;
             item = doc.data();
             itemName = doc.data().title;
             console.log(item)
@@ -19,7 +20,33 @@ function displayItemInfo() {
             document.querySelector( ".detail-image" ).src = item.photo;
             document.querySelector( ".detail-description" ).innerHTML = doc.data().description;
             document.querySelector('body').style = "background-color: " + getBinColor(doc.data().bin) + ";";
-            document.getElementById("likesInput").innerText = doc.data().totalLikes + (doc.data().totalLikes != 1 ? " people " : " person ");
+
+            let likesInput = document.getElementById("likesInput");
+            let likeIcon = document.querySelector('.likes');
+            let disLikeIcon = document.querySelector('.disLikes');
+
+            likeIcon.addEventListener('click', () => incrementLike(ID));
+            disLikeIcon.addEventListener('click', () => incrementDisLike(ID));
+
+
+            // Reference to Firestore document to listen for real-time updates
+            let itemRef = db.collection("waste").doc(ID);
+
+            // Listening for real-time updates on the specific document
+            itemRef.onSnapshot((doc) => {
+                if (doc.exists) {
+                    // Extract the updated data from the document
+                    const itemData = doc.data();
+                    likesInput.innerHTML = doc.data().totalLikes;
+                    // Check if the user has liked or disliked the item
+                    let userHasLiked = itemData.whoLiked && itemData.whoLiked.includes(user.uid);
+                    let userHasDisLiked = itemData.whoDisLiked && itemData.whoDisLiked.includes(user.uid);
+                    likeIcon.src = userHasLiked ? '../images/thumb_up_liked.png' : '../images/thumb_up_unliked.png';
+                    disLikeIcon.src = userHasDisLiked ? '../images/thumb_down_active.png' : '../images/thumb_down.png';
+                } else {
+                    console.log('Document does not exist');
+                }
+            });
             
         } );
 }
