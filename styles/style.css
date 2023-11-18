@@ -188,3 +188,9 @@ img.item-card-image {
 .btnRed {
     background-color: red !important;
   }
+
+
+.material-symbols-rounded.md-18 { font-size: 18px; }
+.material-symbols-rounded.md-24 { font-size: 24px; }
+.material-symbols-rounded.md-36 { font-size: 36px; }
+.material-symbols-rounded.md-48 { font-size: 48px; }
