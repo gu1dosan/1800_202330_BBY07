@@ -11,10 +11,14 @@ function loadSkeleton() {
             // Do something for the user here.
             console.log($('#offcanvasPlaceholder').load('./components/offcanvas_after_index.html', () => {
                 logout();
+
+            $('#footerPlaceholder').load('./components/footer_after_login.html');
             }));
         } else {
             // No user is signed in.
             console.log($('#offcanvasPlaceholder').load('./components/offcanvas_before_index.html'));
+
+            $('#footerPlaceholder').load('./components/footer_before_login.html');
         }
     });
 }
