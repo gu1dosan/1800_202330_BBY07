@@ -257,3 +257,7 @@ footer.fixed-bottom a {
 footer.fixed-bottom span.material-symbols-rounded {
     color: black;
 }
+
+.makeItSmaller {
+    font-size: 10px;
+}

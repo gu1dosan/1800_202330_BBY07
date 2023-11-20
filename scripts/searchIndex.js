@@ -15,7 +15,7 @@ function displayCardsDynamically(collection) {
             db.collection("waste")
             .get()
             .then(querySnapshot => {
-                
+              document.getElementById("queryOrNot").innerHTML = "Sorted by your search";
                 querySnapshot.forEach(doc => {
                     const title = doc.data().title;
                     var item = doc;
@@ -34,14 +34,16 @@ function displayCardsDynamically(collection) {
                             let id = item.id;
       
                             let newcard = cardTemplate.content.cloneNode(true);
+                            
                             newcard.querySelector('.item-card-name').innerHTML = name;
                             newcard.querySelector('.item-card-image').src = imageUrl;
                             newcard.querySelector('.item-card-image').onclick = () => goToDetail(id);
                             newcard.querySelector('.item-card-name').onclick = () => goToDetail(id);
+                            newcard.querySelector('.item-card-see-more').onclick = () => goToDetail(id);
                             // newcard.querySelector('.item-card-color-band').style.backgroundColor = getBinColor(item.data().bin);
                             newcard.querySelector('.item-card-color-band').style.color = getBinColor(item.data().bin);
                             // newcard.querySelector('.item-card-likes').style.color = getBinColor(item.data().bin);
-                            newcard.getElementById('likesInput').innerHTML = item.data().totalLikes;
+                            let likeInput = newcard.getElementById('likesInput');
       
                             let likeIcon = newcard.querySelector('.like-icon');
                             let disLikeIcon = newcard.querySelector('.dislike-icon');
@@ -62,9 +64,15 @@ function displayCardsDynamically(collection) {
                                 } else {
                                     console.log('Document does not exist');
                                 }
+                                console.log(likeInput);
+                                likeInput.innerHTML = item.data().totalLikes;
                             });
       
                             document.getElementById("items-go-here").appendChild(newcard);
+                            if (true) { // if there are no recent searches show only the most frequently searched and no headers
+                              document.querySelector("#recently-searched-header")?.remove();
+                              document.querySelector("#most-frequently-searched-header")?.remove();
+                          }
                         }
                     }
                   }
@@ -75,7 +83,7 @@ function displayCardsDynamically(collection) {
           } else {
               where = where.orderBy('totalLikes', 'desc');
           
-
+          document.getElementById("queryOrNot").innerHTML = "Sorted by most helpful";
           where.get().then(items => {
               items.forEach(item => {
                   if (item.data().totalLikes < DELETEMINIMUM) {
@@ -92,30 +100,38 @@ function displayCardsDynamically(collection) {
                       newcard.querySelector('.item-card-image').src = imageUrl;
                       newcard.querySelector('.item-card-image').onclick = () => goToDetail(id);
                       newcard.querySelector('.item-card-name').onclick = () => goToDetail(id);
+                      newcard.querySelector('.item-card-see-more').onclick = () => goToDetail(id);
                       // newcard.querySelector('.item-card-color-band').style.backgroundColor = getBinColor(item.data().bin);
                       newcard.querySelector('.item-card-color-band').style.color = getBinColor(item.data().bin);
                       // newcard.querySelector('.item-card-likes').style.color = getBinColor(item.data().bin);
-                      newcard.getElementById('likesInput').innerHTML = item.data().totalLikes;
 
                       let likeIcon = newcard.querySelector('.like-icon');
                       let disLikeIcon = newcard.querySelector('.dislike-icon');
+                      let likesInput = newcard.getElementById('likesInput');
 
-                      likeIcon.addEventListener('click', () => incrementLike(id));
-                      disLikeIcon.addEventListener('click', () => incrementDisLike(id));
-
+                      likeIcon.addEventListener('click', () => {
+                        incrementLike(id).then(() => {
+                            
+                        });
+                    });
+                    disLikeIcon.addEventListener('click', () => {
+                        incrementDisLike(id).then(() => {
+                            
+                        });
+                    });
                       let itemRef = db.collection(collection).doc(item.id);
                       itemRef.onSnapshot((doc) => {
                           if (doc.exists) {
                               const itemData = doc.data();
-
                               let userHasLiked = itemData.whoLiked && itemData.whoLiked.includes(user.uid);
                               let userHasDisLiked = itemData.whoDisLiked && itemData.whoDisLiked.includes(user.uid);
-
+                              likesInput.innerHTML = doc.data().totalLikes;
                               likeIcon.style['font-variation-settings'] = userHasLiked ? "'FILL' 1, 'wght' 400, 'GRAD' 0, 'opsz' 24" : "'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24";
                               disLikeIcon.style['font-variation-settings'] = userHasDisLiked ? "'FILL' 1, 'wght' 400, 'GRAD' 0, 'opsz' 24" : "'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24";
                           } else {
                               console.log('Document does not exist');
                           }
+                          
                       });
 
                       document.getElementById("items-go-here").appendChild(newcard);
