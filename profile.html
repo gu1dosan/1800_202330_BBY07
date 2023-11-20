@@ -50,7 +50,15 @@
           <label>City</label>
           <input type="text" id="cityInput" class="form-control" placeholder="Enter your city">
         </div>
-        <br>
+      </fieldset>
+      <div class="d-flex justify-content-end mt-2">
+        <button type="button" class="btn btn-secondary" onclick="editUserInfo()">Edit</button>
+        <span style="width: 10px"></span>
+        <button type="button" class="btn btn-info" onclick="saveUserInfo()">Save</button>
+      </div>
+    </form>
+  </div>
+  <br>
         <div>
           Email: <span id="emailInput"></span>
         </div>
@@ -61,8 +69,9 @@
         <br>
         <div>
           Total number of post: <span id="numOfPostInput"></span>
-        </div>
+        </div> 
         <br>
+        
         <div id="items-go-here">
           Your posts:
         </div>
@@ -126,16 +135,9 @@
           <input type="text" id="numOfPostInput" class="form-control" placeholder="number of post">
         </div> -->
 
-      </fieldset>
-      <div class="d-flex justify-content-end mt-5">
-        <button type="button" class="btn btn-secondary" onclick="editUserInfo()">Edit</button>
-        <span style="width: 10px"></span>
-        <button type="button" class="btn btn-info" onclick="saveUserInfo()">Save</button>
-      </div>
-    </form>
-  </div>
 
   <!-- Footer -->
+  <div class="text-center py-5"> </div>
   <div id="footerPlaceholder"></div>
 
   <!---------------------------------------------->
