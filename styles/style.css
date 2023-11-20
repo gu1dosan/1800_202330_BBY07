@@ -195,7 +195,7 @@ div.item-card-color-band span.bin {
 }
 
 div.item-card-likes-container {
-    padding: 1vh 2vw;
+    padding: 0.5vh 2vw;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -207,8 +207,8 @@ div.item-card-likes {
     justify-content: space-around;
 }
 div.item-card-likes #likesInput {
-    font-size: 1.2rem;
-    font-weight: 600;
+    font-size: 0.8rem;
+    font-weight: 400;
     margin: 0 2vw;
 }
 /* div.item-card-likes-gap {
@@ -224,7 +224,7 @@ div.item-card-likes #likesInput {
 div.item-card-see-more {
     width: 100%;
     background-color: #c7c7c7; 
-    padding: 1vh 2vw;
+    padding: 0.5vh 2vw;
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -269,4 +269,9 @@ footer.fixed-bottom span.material-symbols-rounded {
 
 .makeItSmaller {
     font-size: 12px;
+    display: flex;
+    justify-content: center; /* Center horizontally */
+    align-items: center; /* Center vertically */
+    height: 40px; /* Or any desired height */
+
 }
