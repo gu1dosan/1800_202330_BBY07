@@ -35,11 +35,13 @@ function displayCardsDynamically(collection) {
                       newcard.querySelector('.item-card-image').src = imageUrl;
                       newcard.querySelector('.item-card-image').onclick = () => goToDetail(id);
                       newcard.querySelector('.item-card-name').onclick = () => goToDetail(id);
-                      newcard.querySelector('.item-card-color-band').style = "background-color: " + getBinColor(item.data().bin) + ";";
-                      newcard.querySelector('.item-card-likes').style = "color: " + getBinColor(item.data().bin) + ";";
+                      // newcard.querySelector('.item-card-color-band').style.backgroundColor = getBinColor(item.data().bin);
+                      newcard.querySelector('.item-card-color-band').style.color = getBinColor(item.data().bin);
+                      // newcard.querySelector('.item-card-likes').style.color = getBinColor(item.data().bin);
+                      newcard.getElementById('likesInput').innerHTML = item.data().totalLikes;
 
-                      let likeIcon = newcard.querySelector('.likes');
-                      let disLikeIcon = newcard.querySelector('.disLikes');
+                      let likeIcon = newcard.querySelector('.like-icon');
+                      let disLikeIcon = newcard.querySelector('.dislike-icon');
 
                       likeIcon.addEventListener('click', () => incrementLike(id));
                       disLikeIcon.addEventListener('click', () => incrementDisLike(id));
@@ -52,8 +54,8 @@ function displayCardsDynamically(collection) {
                               let userHasLiked = itemData.whoLiked && itemData.whoLiked.includes(user.uid);
                               let userHasDisLiked = itemData.whoDisLiked && itemData.whoDisLiked.includes(user.uid);
 
-                              likeIcon.src = userHasLiked ? '../images/thumb_up_liked.png' : '../images/thumb_up_unliked.png';
-                              disLikeIcon.src = userHasDisLiked ? '../images/thumb_down_active.png' : '../images/thumb_down.png';
+                              likeIcon.style['font-variation-settings'] = userHasLiked ? "'FILL' 1, 'wght' 400, 'GRAD' 0, 'opsz' 24" : "'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24";
+                              disLikeIcon.style['font-variation-settings'] = userHasDisLiked ? "'FILL' 1, 'wght' 400, 'GRAD' 0, 'opsz' 24" : "'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24";
                           } else {
                               console.log('Document does not exist');
                           }
@@ -66,7 +68,7 @@ function displayCardsDynamically(collection) {
               console.error("Error fetching items: ", error);
           });
 
-          if (true) {
+          if (true) { // if there are no recent searches show only the most frequently searched and no headers
               document.querySelector("#recently-searched-header")?.remove();
               document.querySelector("#most-frequently-searched-header")?.remove();
           }

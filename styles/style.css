@@ -145,43 +145,89 @@ button.item-list-button {
     padding: 0;
 }
 
+h2.search-header {
+    margin: 2vh;
+    font-size: 1rem;
+}
+
 div.item-card {
     width: 100%;
-    height: 100px;
+    height: 50vw;
+    max-height: 300px;
     display: flex;
-    align-items: center;
-    /* justify-content: space-between; */
-}
-
-div.item-card-color-band {
-    width: 3vw;
-    margin-right: 2vw;
-    height: 100%;
-    background-color: grey;
-}
-
-div.item-card-likes {
-    /* height: 100%; */
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    /* justify-content: space-around; */
-    margin-right: 2vw;
-}
-div.item-card-likes-gap {
-    height: 8px;
-}
-
-div.item-card-name {
-    flex: 1;
-    font-size: 1.5rem;
-    text-align: left;
+    background-color: white;
+    box-shadow: 0px 0px 8px 0px rgba(0,0,0,0.25);
+    margin-bottom: 2vh;
 }
 
 img.item-card-image {
+    width: 50vw;
+    max-width: 300px;
+    height: 100%;
+    object-fit: contain;
+    background-color: #e5e5e5;
+}
+div.item-card-body {
+    flex: 1;
+    /* box-shadow: 0px 0px 16px 0px rgba(0,0,0,0.25); */
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+div.item-card-name {
+    margin: 1vh 2vw;
+    font-size: 1.2rem;
+    font-weight: 600;
+    text-align: left;
+}
+div.item-card-color-band {
+    flex: 1;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+div.item-card-color-band span.arrow {
+    font-size: 2rem;
+}
+div.item-card-color-band span.bin {
+    font-size: 5rem;
+}
+
+div.item-card-likes-container {
+    padding: 1vh 2vw;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+div.item-card-likes {
+    margin-left: 2vw;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+}
+div.item-card-likes #likesInput {
+    font-size: 1.2rem;
+    font-weight: 600;
+    margin: 0 2vw;
+}
+/* div.item-card-likes-gap {
+    height: 8px;
+} */
+
+/* img.item-card-image {
     width: 150px;
     height: 100px;
     object-fit: contain;
+} */
+
+div.item-card-see-more {
+    width: 100%;
+    background-color: #f4f4f4; 
+    padding: 1vh 2vw;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
 }
 
 
@@ -201,7 +247,7 @@ footer.fixed-bottom {
 }
 footer.fixed-bottom a {
     flex: 1;
-    padding: 1vw;
+    padding: 1vh 1vw;
     display: flex;
     flex-direction: column;
     align-items: center;
