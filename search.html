@@ -29,6 +29,7 @@
     <body>
         <nav id="nav_with_searchPlaceholder"></nav>
         <nav id="offcanvasPlaceholder"></nav>
+        <h2 class="search-header">Sorted by most helpful</h2>
 
         <h2 id="recently-searched-header">Recently searched</h2>
         <div id="recently-searched-items-go-here">
@@ -36,23 +37,42 @@
           <template id="itemCardTemplate">
             
               <div class="item-card">
-                <div class="item-card-color-band">
-                </div>
-                <div class="item-card-likes">
-                  <div>
-                    <img class="likes" src="" alt="...">
+                <img class="item-card-image" src="" class="card-img-top" alt="...">
+                <div class="item-card-body">
+                  <div class="item-card-name">
+                    Item name placeholder
                   </div>
-                  <div class="item-card-likes-gap"></div>
-                  <span class="material-symbols-rounded thumbs-down">
-                    <div>
-                      <img class="disLikes" src="" alt="...">
+                  <div class="item-card-color-band">
+                    <span class="material-symbols-rounded arrow">
+                      east
+                    </span>
+                    <span class="material-symbols-rounded bin">
+                      delete
+                    </span>
+                  </div>
+                  <div class="item-card-likes-container">
+                    Is this helpful?
+                    <div class="item-card-likes">
+                      <span class="material-symbols-rounded thumbs-up like-icon">
+                        thumb_up
+                      </span>
+                      <span id="likesInput"></span>
+                      <span class="material-symbols-rounded thumbs-down dislike-icon">
+                        thumb_down
+                      </span>
                     </div>
-                  </span>
+                  </div>
+                  <div class="item-card-see-more">
+                    See more... 
+                    <span class="material-symbols-rounded">
+                      arrow_forward_ios
+                    </span>
+                  </div>
                 </div>
 
-                <div class="item-card-name">
-                  Item name placeholder
-                </div>
+                
+
+                
                 <!-- <div class="card-body d-flex">
                     <div class="image-container"> 
                       <img src="" class="card-img-top" alt="..."> 
@@ -63,7 +83,7 @@
                         </p>
                     </div>
                 </div> -->
-                  <img class="item-card-image" src="" class="card-img-top" alt="...">
+                  
               </div>
            
           </template>
@@ -74,6 +94,9 @@
           
         </div>
       </div>
+      <div class="text-center py-5"> </div>
+      <!-- Footer -->
+      <div id="footerPlaceholder"></nav>
 
       <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-storage.js"></script>        
       <script src="./scripts/firebaseAPI_BBY07.js"></script>
