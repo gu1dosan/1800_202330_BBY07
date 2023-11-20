@@ -29,8 +29,9 @@ chooseFileListener();
     var user = firebase.auth().currentUser;
 
     if (user ) {
-        if (bin && garbageTitle && description){
-            var storageRef = firebase.storage().ref(ImageFile.name);
+        try{
+            if (user && description && bin && garbageTitle){
+                var storageRef = firebase.storage().ref(ImageFile.name);
 
         // Asynch call to put File Object (global variable ImageFile) onto Cloud
         storageRef.put(ImageFile, { contentType: ImageFile.type })
@@ -65,13 +66,13 @@ chooseFileListener();
             }).catch(function (error) {
                 console.error("Error uploading to Cloud Storage: ", error);
             });
-        } else {
+            } else{
+                alert("Not all required feilds were filled!");
+            }
+            
+        } catch(error) {
             alert("Not all required feilds were filled!");
-        }
-        
-    } else {
-        console.log("No user is signed in");
-        window.location.href = 'index.html';
+        };
     }
 }
 

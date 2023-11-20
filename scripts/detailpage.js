@@ -20,6 +20,7 @@ function displayItemInfo() {
             document.querySelector( ".detail-image" ).src = item.photo;
             document.querySelector( ".detail-description" ).innerHTML = doc.data().description;
             document.querySelector('body').style = "background-color: " + getBinColor(doc.data().bin) + ";";
+            document.querySelector(".DeleteButton").onclick = () => deleteThis();
 
             let likesInput = document.getElementById("likesInput");
             let likeIcon = document.querySelector('.likes');

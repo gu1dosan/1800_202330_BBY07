@@ -223,7 +223,16 @@ div.item-card-likes #likesInput {
 
 div.item-card-see-more {
     width: 100%;
-    background-color: #f4f4f4; 
+    background-color: #c7c7c7; 
+    padding: 1vh 2vw;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+div.deleteButton {
+    width: 100%;
+    background-color: #a69d9d; 
     padding: 1vh 2vw;
     display: flex;
     align-items: center;

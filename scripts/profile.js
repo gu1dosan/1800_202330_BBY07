@@ -76,3 +76,70 @@ function saveUserInfo() {
 
     document.getElementById('personalInfoFields').disabled = true;
 } 
+
+
+function displayCardsDynamically(collection) {
+firebase.auth().onAuthStateChanged(function(user) {
+    if (user) {
+        let cardTemplate = document.getElementById("itemCardTemplate");
+        let where = db.collection(collection);
+        
+        
+            db.collection("waste")
+            .get()
+            .then(querySnapshot => {
+                querySnapshot.forEach(doc => {
+                    if (doc.data().userID.includes(user.uid)) {
+                    const title = doc.data().title;
+                    var item = doc;
+
+                        
+                        console.log(item);
+                            console.log(item.data());
+    
+                            var name = item.data().title;
+                            var imageUrl = item.data().photo;
+                            let id = item.id;
+    
+                            let newcard = cardTemplate.content.cloneNode(true);
+                            
+                            newcard.querySelector('.item-card-name').innerHTML = name;
+                            newcard.querySelector('.item-card-image').src = imageUrl;
+                            newcard.querySelector('.item-card-image').onclick = () => goToDetail(id);
+                            newcard.querySelector('.item-card-name').onclick = () => goToDetail(id);
+                            newcard.querySelector('.item-card-see-more').onclick = () => goToDetail(id);
+                            // newcard.querySelector('.item-card-color-band').style.backgroundColor = getBinColor(item.data().bin);
+                            // newcard.querySelector('.item-card-likes').style.color = getBinColor(item.data().bin);
+                            newcard.querySelector('.item-card-color-band').style.color = getBinColor(item.data().bin);
+                            newcard.querySelector(".deleteButton").onclick = () => deleteThis(doc.ref);
+    
+                            document.getElementById("items-go-here").appendChild(newcard);
+                        }
+                        })
+                    })
+                }
+            
+        })
+};
+displayCardsDynamically("waste");
+function getBinColor(bin) {
+    switch (bin) {
+        case "Blue bin (Recylable waste)":
+            return "#0070b8";
+        case "Green bin (Organic waste)":
+            return "#017d47";
+        case "Black bin (General waste)":
+            return "#443f39";
+        case "Yellow bin/bag (Mixed paper)":
+            return "#ffc525";
+        default:
+            return "grey";
+    }
+}
+
+function deleteThis(docRef) {
+    docRef.delete().then(() => {
+        console.log("Document successfully deleted!");
+        window.location.reload();
+    })
+}
