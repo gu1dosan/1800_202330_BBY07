@@ -66,12 +66,17 @@ p.detail-likes-row {
   display: flex;
   align-items: center;
 }
-p.detail-likes-row span.material-symbols-rounded {
-  margin-left: 1vw;
+p.detail-likes-row span.like-icon {
+  cursor: pointer;
+  margin-left: 8px;
 }
-p.detail-likes-row #number-of-likes {
-  margin-left: 16px;
-  margin-right: 4px;
+p.detail-likes-row span.dislike-icon {
+  cursor: pointer;
+}
+p.detail-likes-row #likesInput {
+  font-size: 0.8rem;
+  font-weight: 600;
+  margin: 8px;
 }
 
 div.item-detail-bin {
