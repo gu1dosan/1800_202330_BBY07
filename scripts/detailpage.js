@@ -17,10 +17,17 @@ function displayItemInfo() {
             // document.querySelector( ".carousel-img" ).src = item.photo;
 
             document.querySelector( ".detail-name" ).innerHTML = itemName;
+            document.querySelector(".DeleteButton").hidden = true;
             document.querySelector( ".detail-image" ).src = item.photo;
             document.querySelector( ".detail-description" ).innerHTML = doc.data().description;
             document.querySelector('body').style = "background-color: " + getBinColor(doc.data().bin) + ";";
-            document.querySelector(".DeleteButton").onclick = () => deleteThis();
+            if (user.uid === item.userID){
+                document.querySelector(".DeleteButton").onclick = () => deleteThis();
+                document.querySelector(".DeleteButton").hidden = false;
+            } 
+
+            item.userID
+            
             document.querySelector(".like-icon").style.color = getBinColor(doc.data().bin);
             document.querySelector(".dislike-icon").style.color = getBinColor(doc.data().bin);
             document.querySelector('.item-detail-bin').style.color = getBinColor(doc.data().bin);
@@ -82,12 +89,13 @@ function deleteThis() {
     var docRef = firebase.firestore().collection('waste').doc(ID);
     var user = firebase.auth().currentUser;
 
-    if (user) {
+    let confirmation = prompt('Are you sure you want to delete this item? (type "yes")').toLowerCase();
+    if (confirmation === "yes"){
         docRef.get().then((doc) => {
             if (user.uid === doc.data().userID) {
                 docRef.delete().then(() => {
                     console.log("Document successfully deleted!");
-                    window.location.href = "../search.html";
+                    window.location.href = "../deleted.html";
                 });
             } 
         });

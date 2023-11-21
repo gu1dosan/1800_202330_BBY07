@@ -195,7 +195,7 @@
 
 
   <template id="itemCardTemplate">
-
+            
     <div class="item-card">
       <img class="item-card-image" src="" class="card-img-top" alt="...">
       <div class="item-card-body">
@@ -211,35 +211,43 @@
           </span>
         </div>
         <div class="item-card-likes-container">
-          <div class="deleteButton">
-            Delete Item
+          <p class="makeItSmaller">Is this helpful?</p>
+          <div class="item-card-likes">
+            <span class="material-symbols-rounded thumbs-up like-icon">
+              thumb_up
+            </span>
+            <span id="likesInput"></span>
+            <span class="material-symbols-rounded thumbs-down dislike-icon">
+              thumb_down
+            </span>
           </div>
+        
         </div>
         <div class="item-card-see-more">
-          See more...
+          See more... 
           <span class="material-symbols-rounded">
             arrow_forward_ios
           </span>
         </div>
       </div>
 
+      
 
-
-
+      
       <!-- <div class="card-body d-flex">
-                <div class="image-container"> 
-                  <img src="" class="card-img-top" alt="..."> 
-                </div>
-                <div class="description-container flex-grow-1">
-                    <p class="card-text">
-                        Description placeholder
-                    </p>
-                </div>
-            </div> -->
-
+          <div class="image-container"> 
+            <img src="" class="card-img-top" alt="..."> 
+          </div>
+          <div class="description-container flex-grow-1">
+              <p class="card-text">
+                  Description placeholder
+              </p>
+          </div>
+      </div> -->
+        
     </div>
-
-  </template>
+ 
+</template>
   <!-- <div class="form-group">
           <label>Likes</label>
           <input type="text" id="likesInput" class="form-control" placeholder="likes">
@@ -269,6 +277,7 @@
   <script src="./scripts/script.js"></script>
   <script src="./scripts/skeleton.js"></script>
   <script src="./scripts/profile.js"></script>
+  <script src="./scripts/searchIndex.js"></script>
 </body>
 
 </html>

@@ -92,28 +92,51 @@ firebase.auth().onAuthStateChanged(function(user) {
                     if (doc.data().userID.includes(user.uid)) {
                     const title = doc.data().title;
                     var item = doc;
+                    var name = item.data().title;
+                      var imageUrl = item.data().photo;
+                      let id = item.id;
 
-                        
-                        console.log(item);
-                            console.log(item.data());
-    
-                            var name = item.data().title;
-                            var imageUrl = item.data().photo;
-                            let id = item.id;
-    
-                            let newcard = cardTemplate.content.cloneNode(true);
+                      let newcard = cardTemplate.content.cloneNode(true);
+                      newcard.querySelector('.item-card-name').innerHTML = name;
+                      newcard.querySelector('.item-card-image').src = imageUrl;
+                      newcard.querySelector('.item-card-image').onclick = () => goToDetail(id);
+                      newcard.querySelector('.item-card-name').onclick = () => goToDetail(id);
+                      newcard.querySelector('.item-card-see-more').onclick = () => goToDetail(id);
+                      // newcard.querySelector('.item-card-color-band').style.backgroundColor = getBinColor(item.data().bin);
+                      newcard.querySelector('.item-card-color-band').style.color = getBinColor(item.data().bin);
+                      newcard.querySelector('.item-card-color-band').onclick = () => goToDetail(id);
+                      // newcard.querySelector('.item-card-likes').style.color = getBinColor(item.data().bin);
+
+                      let likeIcon = newcard.querySelector('.like-icon');
+                      let disLikeIcon = newcard.querySelector('.dislike-icon');
+                      let likesInput = newcard.getElementById('likesInput');
+
+                      likeIcon.addEventListener('click', () => {
+                        incrementLike(id).then(() => {
                             
-                            newcard.querySelector('.item-card-name').innerHTML = name;
-                            newcard.querySelector('.item-card-image').src = imageUrl;
-                            newcard.querySelector('.item-card-image').onclick = () => goToDetail(id);
-                            newcard.querySelector('.item-card-name').onclick = () => goToDetail(id);
-                            newcard.querySelector('.item-card-see-more').onclick = () => goToDetail(id);
-                            // newcard.querySelector('.item-card-color-band').style.backgroundColor = getBinColor(item.data().bin);
-                            // newcard.querySelector('.item-card-likes').style.color = getBinColor(item.data().bin);
-                            newcard.querySelector('.item-card-color-band').style.color = getBinColor(item.data().bin);
-                            newcard.querySelector(".deleteButton").onclick = () => deleteThis(doc.ref);
-    
-                            document.getElementById("items-go-here").appendChild(newcard);
+                        });
+                    });
+                    disLikeIcon.addEventListener('click', () => {
+                        incrementDisLike(id).then(() => {
+                            
+                        });
+                    });
+                      let itemRef = db.collection(collection).doc(item.id);
+                      itemRef.onSnapshot((doc) => {
+                          if (doc.exists) {
+                              const itemData = doc.data();
+                              let userHasLiked = itemData.whoLiked && itemData.whoLiked.includes(user.uid);
+                              let userHasDisLiked = itemData.whoDisLiked && itemData.whoDisLiked.includes(user.uid);
+                              likesInput.innerHTML = doc.data().totalLikes;
+                              likeIcon.style['font-variation-settings'] = userHasLiked ? "'FILL' 1, 'wght' 400, 'GRAD' 0, 'opsz' 12" : "'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24";
+                              disLikeIcon.style['font-variation-settings'] = userHasDisLiked ? "'FILL' 1, 'wght' 400, 'GRAD' 0, 'opsz' 12" : "'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24";
+                          } else {
+                              console.log('Document does not exist');
+                          }
+                          
+                      });
+
+                      document.getElementById("items-go-here").appendChild(newcard);
                         }
                         })
                     })
@@ -137,13 +160,6 @@ function getBinColor(bin) {
     }
 }
 
-function deleteThis(docRef) {
-    docRef.delete().then(() => {
-        console.log("Document successfully deleted!");
-        window.location.reload();
-    })
-}
-
 
 progressBar("likes", 25);
 function progressBar(id, num) {
@@ -159,4 +175,8 @@ function progressBar(id, num) {
         // ele[i].setAttribute("style", "width: " parseInt(achiven))
         // console.log(ele[i].getAttribute("class"));
     }
+}
+
+function goToDetail(id) {
+    window.location.href = "../detailpage.html?id=" + id;
 }
