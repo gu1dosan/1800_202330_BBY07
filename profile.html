@@ -69,12 +69,115 @@
     <div class="row mb-3">
       <div class="col">
         <div class="p-3 border bg-light">
-          <div>
+
+          <!-- this is likes -->
+          <div id="likes">
             Total Likes: <span id="likesInput"></span>
+
+            <div class="row">
+              <div class="col mt-1">
+                <div class="progress">
+                  <div class="progress-bar progress-bar-striped bg-info" role="progressbar"
+                    aria-label="Info striped example" style="width: 100%" aria-valuenow="100" aria-valuemin="0"
+                    aria-valuemax="100"> / 1</div>
+                </div>
+              </div>
+              <div class="col-2">
+                <span class="badge rounded-pill bg-secondary">1 like</span>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col mt-1">
+                <div class="progress">
+                  <div class="progress-bar progress-bar-striped bg-warning" role="progressbar"
+                    aria-label="Warning striped example" style="width: 100%" aria-valuenow="100" aria-valuemin="0"
+                    aria-valuemax="100"> / 5</div>
+                </div>
+              </div>
+              <div class="col-2">
+                <span class="badge rounded-pill bg-secondary">5 likes</span>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col mt-1">
+                <div class="progress">
+                  <div class="progress-bar progress-bar-striped bg-danger" role="progressbar"
+                    aria-label="Danger striped example" style="width: 100%" aria-valuenow="100" aria-valuemin="0"
+                    aria-valuemax="100"> / 25</div>
+                </div>
+              </div>
+              <div class="col-2">
+                <span class="badge rounded-pill bg-secondary">25 likes</span>
+              </div>
+            </div>
+
           </div>
-          <div>
-            Total number of post: <span id="numOfPostInput"></span>
+
+
+          <!-- this is post -->
+          <div id="posts">
+            Total Posts: <span id="numOfPostInput"></span>
+
+            <div class="row">
+              <div class="col mt-1">
+                <div class="progress">
+                  <div class="progress-bar progress-bar-striped bg-info" role="progressbar"
+                    aria-label="Info striped example" style="width: 100%" aria-valuenow="100" aria-valuemin="0"
+                    aria-valuemax="100"> / 1</div>
+                </div>
+              </div>
+              <div class="col-2">
+                <span class="badge rounded-pill bg-secondary">1 post</span>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col mt-1">
+                <div class="progress">
+                  <div class="progress-bar progress-bar-striped bg-warning" role="progressbar"
+                    aria-label="Warning striped example" style="width: 100%" aria-valuenow="100" aria-valuemin="0"
+                    aria-valuemax="100"> / 5</div>
+                </div>
+              </div>
+              <div class="col-2">
+                <span class="badge rounded-pill bg-secondary">5 posts</span>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col mt-1">
+                <div class="progress">
+                  <div class="progress-bar progress-bar-striped bg-danger" role="progressbar"
+                    aria-label="Danger striped example" style="width: 100%" aria-valuenow="100" aria-valuemin="0"
+                    aria-valuemax="100"> / 25</div>
+                </div>
+              </div>
+              <div class="col-2">
+                <span class="badge rounded-pill bg-secondary">25 posts</span>
+              </div>
+            </div>
+            
           </div>
+
+
+          <!-- This is Template Element for Progress bar -->
+          <template id="progressTemplate">
+            <div class="row">
+              <div class="col mt-1">
+                <div class="progress">
+                  <div class="progress-bar progress-bar-striped bg-danger" role="progressbar"
+                    aria-label="Danger striped example" style="width: 100%" aria-valuenow="100" aria-valuemin="0"
+                    aria-valuemax="100">5</div>
+                </div>
+              </div>
+              <div class="col-3">
+                <span class="badge rounded-pill bg-danger"> like</span>
+              </div>
+            </div>
+          </template>
+
+
+
+
+
         </div>
       </div>
     </div>
@@ -85,7 +188,7 @@
     <div id="items-go-here">
       Your posts:
     </div>
-    
+
   </div>
 
 
