@@ -21,10 +21,13 @@ function displayItemInfo() {
             document.querySelector( ".detail-description" ).innerHTML = doc.data().description;
             document.querySelector('body').style = "background-color: " + getBinColor(doc.data().bin) + ";";
             document.querySelector(".DeleteButton").onclick = () => deleteThis();
+            document.querySelector(".like-icon").style.color = getBinColor(doc.data().bin);
+            document.querySelector(".dislike-icon").style.color = getBinColor(doc.data().bin);
+            document.querySelector('.item-detail-bin').style.color = getBinColor(doc.data().bin);
 
             let likesInput = document.getElementById("likesInput");
-            let likeIcon = document.querySelector('.likes');
-            let disLikeIcon = document.querySelector('.disLikes');
+            let likeIcon = document.querySelector('.like-icon');
+            let disLikeIcon = document.querySelector('.dislike-icon');
 
             likeIcon.addEventListener('click', () => incrementLike(ID));
             disLikeIcon.addEventListener('click', () => incrementDisLike(ID));
@@ -42,8 +45,8 @@ function displayItemInfo() {
                     // Check if the user has liked or disliked the item
                     let userHasLiked = itemData.whoLiked && itemData.whoLiked.includes(user.uid);
                     let userHasDisLiked = itemData.whoDisLiked && itemData.whoDisLiked.includes(user.uid);
-                    likeIcon.src = userHasLiked ? '../images/thumb_up_liked.png' : '../images/thumb_up_unliked.png';
-                    disLikeIcon.src = userHasDisLiked ? '../images/thumb_down_active.png' : '../images/thumb_down.png';
+                    likeIcon.style['font-variation-settings'] = userHasLiked ? "'FILL' 1, 'wght' 400, 'GRAD' 0, 'opsz' 12" : "'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24";
+                    disLikeIcon.style['font-variation-settings'] = userHasDisLiked ? "'FILL' 1, 'wght' 400, 'GRAD' 0, 'opsz' 12" : "'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24";
                 } else {
                     console.log('Document does not exist');
                 }

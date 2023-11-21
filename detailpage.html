@@ -39,7 +39,16 @@
   <nav id="offcanvasPlaceholder"></nav>
 
   <div class="detail-content">
-    <h2 class="detail-name">name_placeholder</h2>
+    <div class="aligned">
+      <button class="btn back-button" onclick="history.back()">
+        <span class="material-symbols-rounded">
+          arrow_back
+        </span>
+      </button>
+      <h2 class="detail-name">
+        name_placeholder
+      </h2>
+    </div>
     <!-- <div id="carouselExampleAutoplaying" class="carousel slide" data-bs-ride="carousel">
       <div class="carousel-inner">
         <div class="carousel-item active">
@@ -62,21 +71,39 @@
       </button>
     </div> -->
     <img class="detail-image" src="" alt="item image"/>
-    <p class="detail-description">
-      description_placeholder
-    </p>
-    <p class="detail-likes-row">
-      Is this helpful?
-      <img class="likes" src='' alt="...">
-      <img class="disLikes" src='' alt="...">
-    </p>
-    <p class="detail-likes-row">
-       <span><span id="likesInput"></span> users found this helpful</span>
-    </p>
-    <p class="DeleteButton">
-      Delete Button
-    </p>
-    <span><button onclick="goToIndex()" class="btnRed"><img src="/images/backarrow.png" width="40px" height="30px"></button></span>
+    <div style="display:flex;justify-content:space-between">
+      <div>
+        <p class="detail-description">
+          description_placeholder
+        </p>
+        <p class="detail-likes-row">
+          Is this helpful?
+          <span class="material-symbols-rounded thumbs-up like-icon">
+            thumb_up
+          </span>
+          <span class="material-symbols-rounded thumbs-down dislike-icon">
+            thumb_down
+          </span>
+        </p>
+        <p class="detail-likes-row">
+           <span><span id="likesInput"></span> users found this helpful</span>
+        </p>
+      </div>
+      <div class="item-detail-bin">
+        <span class="material-symbols-rounded arrow">
+          east
+        </span>
+        <span class="material-symbols-rounded bin">
+          delete
+        </span>
+      </div>
+    </div>
+    <span class="DeleteButton">
+      <span class="material-symbols-rounded">
+        delete_forever
+      </span>
+       Delete
+    </span>
   <!-- <div class="card">
     <div class="card-header">
       paper bag
@@ -132,7 +159,7 @@
   </div> -->
 
     <!-- Footer -->
-    <div class="text-center py-5"> </div>
+    <!-- <div class="text-center py-5"> </div> -->
     <div id="footerPlaceholder"></div>
 
   <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-storage.js"></script>

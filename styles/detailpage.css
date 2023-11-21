@@ -2,40 +2,87 @@
 
 div.detail-content {
   overflow: auto;
-  margin: 3vw;
+  margin: 2vw;
   /* padding: 2vw; */
   background-color: white;
+  border-radius: 1vh;
   display: flex;
   flex-direction: column;
-  align-items: left;
+  position: relative;
+  padding-bottom: 2vh;
+}
+
+div.aligned {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+button.back-button {
+  margin: 1vw;
+  padding: 1vw;
+  border-radius: 50%;
+  background-color: #e5e5e5;
+}
+button.back-button span {
+  vertical-align: bottom;
 }
 
 h2.detail-name {
   margin: 2vw;
   font-weight: 700;
   font-size: 1.8rem;
+  /* width: unset; */
+}
+
+span.DeleteButton {
+  display: flex;
+  align-items: center;
+  font-size: 1rem;
+  font-weight: 600;
+  color: white;
+  cursor: pointer;
+  position: absolute;
+  right: 2vw;
+  top: 2vw;
+  background-color: #ff0000;
+  padding: 1vw;
+  border-radius: 1vw;
 }
 
 img.detail-image {
-  max-height: 500px;
+  max-height: 400px;
   max-width: 100%;
-  align-self: center;
+  /* align-self: center; */
+  object-fit: contain;
+  background-color: #e5e5e5;
 }
 
 p.detail-description {
-  margin: 2vw;
+  margin: 2vh 2vw 0 2vw;
 }
 
 p.detail-likes-row {
-  margin: 2vw;
+  margin: 2vh 2vw 0 2vw;
   display: flex;
   align-items: center;
+}
+p.detail-likes-row span.material-symbols-rounded {
+  margin-left: 1vw;
 }
 p.detail-likes-row #number-of-likes {
   margin-left: 16px;
   margin-right: 4px;
 }
 
-div.carousel-item {
-  text-align: center;
+div.item-detail-bin {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-right: 4vw;
+}
+div.item-detail-bin span.arrow {
+  font-size: 2rem;
+}
+div.item-detail-bin span.bin {
+  font-size: 4rem;
 }
