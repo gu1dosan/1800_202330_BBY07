@@ -23,13 +23,10 @@ loadSkeleton(); //invoke the function
 Log out function
  */
 function logout() {
-    document.getElementById("sidebar-profile-logout-button").addEventListener("click" , (evt) => {
-        evt.preventDefault();
-        firebase.auth().signOut().then(() => {
-            console.log("logging out successsfully");
-            location.href = "/search.html";
-        }).catch((err) => {
-            console.log(err);
-        });
+    firebase.auth().signOut().then(() => {
+        console.log("logging out successsfully");
+        location.href = "/index.html";
+    }).catch((err) => {
+        console.log(err);
     });
 }
