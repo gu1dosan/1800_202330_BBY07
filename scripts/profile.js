@@ -145,18 +145,21 @@ function deleteThis(docRef) {
 }
 
 
-progressBar("likes", 25);
-function progressBar(id, num) {
-    const bars = ["info", "warning", "danger"];
-    const MUL_FACTOR = 5;
-    let achive = 1;
+// // progressBar("likes", 25);
+// function progressBar(id, num) {
+//     const bars = ["info", "warning", "danger"];
+//     const MUL_FACTOR = 5;
+//     let achivementNum = 1;
 
-    for(let i = 0; i < bars.length; i++) {
-        // let ele = document.getElementById(id)
-        // ele = ele.getElementsByClassName("progress-bar");
-        // ele[i].setAttribute("class", ele[i].getAttribute("class") + "");
-        // if()
-        // ele[i].setAttribute("style", "width: " parseInt(achiven))
-        // console.log(ele[i].getAttribute("class"));
-    }
-}
+//     for(let i = 0; i < bars.length; i++) {
+//         let ele = document.getElementById(id)
+//         ele = ele.getElementsByClassName("progress-bar");
+//         ele[i].setAttribute("class", ele[i].getAttribute("class") + "");
+        
+//         // ele[i].setAttribute("style", "width: " parseInt(achivementNum, 10))
+
+
+//         achivementNum
+//         console.log(ele[i].getAttribute("class"));
+//     }
+// }
