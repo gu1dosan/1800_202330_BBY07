@@ -26,7 +26,6 @@ function displayItemInfo() {
                 document.querySelector(".DeleteButton").hidden = false;
             } 
 
-            item.userID
             
             document.querySelector(".like-icon").style.color = getBinColor(doc.data().bin);
             document.querySelector(".dislike-icon").style.color = getBinColor(doc.data().bin);
