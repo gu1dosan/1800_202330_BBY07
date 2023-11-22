@@ -41,19 +41,19 @@
     <div class="row mt-3 mb-3">
       <div class="col">
         <div class="p-3 border bg-light">
-          <h1>User Profile </h1>
+          <strong><h1>User Profile </h1></strong>
           <form>
             <fieldset class="mb-3" id="personalInfoFields" disabled>
               <div class="form-group mb-3">
-                <label>Name</label>
+                <strong><label>Name</label></strong>
                 <input type="text" id="nameInput" class="form-control" placeholder="Enter your name">
               </div>
               <div class="form-group mb-3">
-                <label>City</label>
+                <strong><label>City</label></strong>
                 <input type="text" id="cityInput" class="form-control" placeholder="Enter your city">
               </div>
               <div class="form-group">
-                <label>Email</label>
+                <strong><label>Email</label></strong>
                 <input type="email" id="emailInput" class="form-control" placeholder="" disabled>
               </div>
             </fieldset>
@@ -72,7 +72,7 @@
           <h1>Achivements</h1>
           <!-- this is likes -->
           <div id="likes">
-            Total Likes: <span id="likesInput"></span>
+            <strong>Total Likes: <span id="likesInput"></span></strong>
 
             <div class="row">
               <div class="col mt-1">
@@ -118,8 +118,7 @@
 
           <!-- this is post -->
           <div id="posts">
-            Total Posts: <span id="numOfPostInput"></span>
-
+            <strong>Total Posts: <span id="numOfPostInput"></span></strong>
             <div class="row">
               <div class="col mt-1">
                 <div class="progress">
@@ -186,9 +185,11 @@
     <div class="d-flex justify-content-end mt-2">
       <button type="button" class="btn btn-danger" onclick="logout()">Log out</button>
     </div>
-
+    <div class="userPost">
+      <Strong>Your posts:</Strong>
+    </div>
     <div id="items-go-here">
-      Your posts:
+      
     </div>
 
   </div>
