@@ -87,8 +87,10 @@ function deleteThis() {
     let ID = params.searchParams.get("id");
     var docRef = firebase.firestore().collection('waste').doc(ID);
     var user = firebase.auth().currentUser;
-
+    
+    console.log(docRef)
     let confirmation = prompt('Are you sure you want to delete this item? (type "yes")').toLowerCase();
+    
     if (confirmation === "yes"){
         docRef.get().then((doc) => {
             if (user.uid === doc.data().userID) {
