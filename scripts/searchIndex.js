@@ -2,6 +2,8 @@
 var DELETEMINIMUM = -3;
 
 function displayCardsDynamically(collection) {
+    document.querySelector("#recently-searched-header").innerHTML = "Searching...";
+
   firebase.auth().onAuthStateChanged(function(user) {
       if (user) {
           let params = new URL(window.location.href);
@@ -16,6 +18,8 @@ function displayCardsDynamically(collection) {
             .get()
             .then(querySnapshot => {
               document.getElementById("queryOrNot").innerHTML = "Sorted by your search";
+              document.querySelector("#recently-searched-header").innerHTML = "We don't have this item! But you can contribute and add it!";
+              document.querySelector("#searchingText").innerHTML = '(Click the "Contribute item" button in the footer)';
                 querySnapshot.forEach(doc => {
                     const title = doc.data().title;
                     var item = doc;
@@ -27,7 +31,8 @@ function displayCardsDynamically(collection) {
                         } else {
                           
                           
-                            
+                            document.querySelector("#searchingText").hidden = true;
+                            document.querySelector("#recently-searched-header").hidden = true;
       
                             var name = item.data().title;
                             var imageUrl = item.data().photo;
