@@ -35,11 +35,12 @@ function displayCardsDynamically(collection) {
       
                             let newcard = cardTemplate.content.cloneNode(true);
                             
+                            newcard.querySelector('.item-card').onclick = () => goToDetail(id);
                             newcard.querySelector('.item-card-name').innerHTML = name;
                             newcard.querySelector('.item-card-image').src = imageUrl;
-                            newcard.querySelector('.item-card-image').onclick = () => goToDetail(id);
-                            newcard.querySelector('.item-card-name').onclick = () => goToDetail(id);
-                            newcard.querySelector('.item-card-see-more').onclick = () => goToDetail(id);
+                            // newcard.querySelector('.item-card-image').onclick = () => goToDetail(id);
+                            // newcard.querySelector('.item-card-name').onclick = () => goToDetail(id);
+                            // newcard.querySelector('.item-card-see-more').onclick = () => goToDetail(id);
                             // newcard.querySelector('.item-card-color-band').style.backgroundColor = getBinColor(item.data().bin);
                             newcard.querySelector('.item-card-color-band').style.color = getBinColor(item.data().bin);
                             // newcard.querySelector('.item-card-likes').style.color = getBinColor(item.data().bin);
@@ -48,8 +49,14 @@ function displayCardsDynamically(collection) {
                             let likeIcon = newcard.querySelector('.like-icon');
                             let disLikeIcon = newcard.querySelector('.dislike-icon');
       
-                            likeIcon.addEventListener('click', () => incrementLike(id));
-                            disLikeIcon.addEventListener('click', () => incrementDisLike(id));
+                            likeIcon.addEventListener('click', e => {
+                              e.stopPropagation()
+                              incrementLike(id)
+                            });
+                            disLikeIcon.addEventListener('click', e => {
+                              e.stopPropagation()
+                              incrementDisLike(id)
+                            });
       
                             let itemRef = db.collection(collection).doc(item.id);
                             itemRef.onSnapshot((doc) => {
@@ -96,30 +103,30 @@ function displayCardsDynamically(collection) {
                       let id = item.id;
 
                       let newcard = cardTemplate.content.cloneNode(true);
+                      newcard.querySelector('.item-card').onclick = () => goToDetail(id);
                       newcard.querySelector('.item-card-name').innerHTML = name;
                       newcard.querySelector('.item-card-image').src = imageUrl;
-                      newcard.querySelector('.item-card-image').onclick = () => goToDetail(id);
-                      newcard.querySelector('.item-card-name').onclick = () => goToDetail(id);
-                      newcard.querySelector('.item-card-see-more').onclick = () => goToDetail(id);
+                      // newcard.querySelector('.item-card-image').onclick = () => goToDetail(id);
+                      // newcard.querySelector('.item-card-name').onclick = () => goToDetail(id);
+                      // newcard.querySelector('.item-card-see-more').onclick = () => goToDetail(id);
                       // newcard.querySelector('.item-card-color-band').style.backgroundColor = getBinColor(item.data().bin);
                       newcard.querySelector('.item-card-color-band').style.color = getBinColor(item.data().bin);
-                      newcard.querySelector('.item-card-color-band').onclick = () => goToDetail(id);
+                      // newcard.querySelector('.item-card-color-band').onclick = () => goToDetail(id);
                       // newcard.querySelector('.item-card-likes').style.color = getBinColor(item.data().bin);
 
                       let likeIcon = newcard.querySelector('.like-icon');
                       let disLikeIcon = newcard.querySelector('.dislike-icon');
                       let likesInput = newcard.getElementById('likesInput');
 
-                      likeIcon.addEventListener('click', () => {
-                        incrementLike(id).then(() => {
-                            
-                        });
-                    });
-                    disLikeIcon.addEventListener('click', () => {
-                        incrementDisLike(id).then(() => {
-                            
-                        });
-                    });
+                      likeIcon.addEventListener('click', e => {
+                        e.stopPropagation()
+                        incrementLike(id)
+                      });
+                      disLikeIcon.addEventListener('click', e => {
+                        e.stopPropagation()
+                        incrementDisLike(id)
+                      });
+                      
                       let itemRef = db.collection(collection).doc(item.id);
                       itemRef.onSnapshot((doc) => {
                           if (doc.exists) {
