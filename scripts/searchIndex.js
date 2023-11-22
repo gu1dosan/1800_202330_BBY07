@@ -26,8 +26,8 @@ function displayCardsDynamically(collection) {
                             db.collection("waste").doc(item.id).delete();
                         } else {
                           
-                          console.log(item);
-                            console.log(item.data());
+                          
+                            
       
                             var name = item.data().title;
                             var imageUrl = item.data().photo;
@@ -71,7 +71,7 @@ function displayCardsDynamically(collection) {
                                 } else {
                                     console.log('Document does not exist');
                                 }
-                                console.log(likeInput);
+                                
                                 likeInput.innerHTML = item.data().totalLikes;
                             });
       
@@ -96,7 +96,7 @@ function displayCardsDynamically(collection) {
                   if (item.data().totalLikes < DELETEMINIMUM) {
                       db.collection("waste").doc(item.id).delete();
                   } else {
-                      console.log(item.data());
+                  
 
                       var name = item.data().title;
                       var imageUrl = item.data().photo;

@@ -103,3 +103,5 @@ function deleteThis() {
     }
 }
 
+//document.querySelector("#viewPoster").addEventListener('click', function() {     let params = new URL(window.location.href);     let ID = params.searchParams.get("docID");      window.location.assign("profile.html?docID=" + ID) })
+
