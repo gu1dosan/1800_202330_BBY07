@@ -119,8 +119,8 @@ function incrementDisLike(id) {
           }
   
           // Get the current whoLiked and whoDisLiked strings
-          const whoLiked = wasteDoc.data().whoLiked || "";
-          let whoDisLiked = wasteDoc.data().whoDisLiked || "";
+          const whoLiked = wasteDoc.data().whoLiked;
+          let whoDisLiked = wasteDoc.data().whoDisLiked;
   
           // Check if the user has already liked the post
           if (whoLiked.includes(user.uid)) {

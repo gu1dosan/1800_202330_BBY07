@@ -1,5 +1,5 @@
 
-var DELETEMINIMUM = -3;
+const DELETEMINIMUM = -3;
 
 function displayCardsDynamically(collection) {
     document.querySelector("#recently-searched-header").innerHTML = "Searching...";
@@ -162,13 +162,11 @@ function displayCardsDynamically(collection) {
     }
   }); 
 } 
-
-
-
-// Call displayCardsDynamically with the collection name
 displayCardsDynamically("waste");
 
 
+//use const
+//let better than var
 
 
 function getBinColor(bin) {
