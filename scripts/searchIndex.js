@@ -2,8 +2,10 @@
 var DELETEMINIMUM = -3;
 
 function displayCardsDynamically(collection) {
-    firebase.auth().onAuthStateChanged(function(user) {
-    if (user) {
+    document.querySelector("#recently-searched-header").innerHTML = "Searching...";
+
+  firebase.auth().onAuthStateChanged(function(user) {
+      if (user) {
           let params = new URL(window.location.href);
           let query = params.searchParams.get("search");
 
@@ -15,7 +17,9 @@ function displayCardsDynamically(collection) {
             db.collection("waste")
             .get()
             .then(querySnapshot => {
-                document.getElementById("queryOrNot").innerHTML = "Sorted by your search";
+              document.getElementById("queryOrNot").innerHTML = "Sorted by your search";
+              document.querySelector("#recently-searched-header").innerHTML = "We don't have this item! But you can contribute and add it!";
+              document.querySelector("#searchingText").innerHTML = '(Click the "Contribute item" button in the footer)';
                 querySnapshot.forEach(doc => {
                     const title = doc.data().title;
                     var item = doc;
@@ -25,8 +29,8 @@ function displayCardsDynamically(collection) {
                             if (item.data().totalLikes < DELETEMINIMUM) {
                             db.collection("waste").doc(item.id).delete();
                         } else {
-                            // console.log(item);
-                            // console.log(item.data());
+                            document.querySelector("#searchingText").hidden = true;
+                            document.querySelector("#recently-searched-header").hidden = true;
         
                             let newcard = cardTemplate.content.cloneNode(true);
 
@@ -47,8 +51,6 @@ function displayCardsDynamically(collection) {
                     if (item.data().totalLikes < DELETEMINIMUM) {
                         db.collection("waste").doc(item.id).delete();
                     } else {
-                        // console.log(item.data());
-
                         let newcard = cardTemplate.content.cloneNode(true);
                         
                         populateItem(newcard, item, user) ;
