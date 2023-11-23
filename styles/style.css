@@ -181,18 +181,31 @@ div.item-card-name {
     font-weight: 600;
     text-align: left;
 }
-div.item-card-color-band {
+div.item-card-colored-bin {
+    position: relative;
     flex: 1;
     width: 100%;
     display: flex;
     align-items: center;
     justify-content: center;
+    width: fit-content;
+    align-self: center;
 }
-div.item-card-color-band span.arrow {
+div.item-card-colored-bin span.arrow {
     font-size: 2rem;
 }
-div.item-card-color-band span.bin {
+div.item-card-colored-bin span.bin {
     font-size: 4rem;
+}
+div.item-card-colored-bin span.bin-icon {
+    position: absolute;
+    font-size: 2rem;
+    border-radius: 50%;
+    background-color: white;
+    padding: 4px;
+    box-shadow: 0px 0px 4px 0px rgba(0,0,0,0.25);
+    right: -8px;
+    bottom: -4px;
 }
 
 div.item-card-likes-container {

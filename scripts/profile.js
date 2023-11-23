@@ -104,9 +104,9 @@ function displayCardsDynamically(collection) {
                             newcard.querySelector('.item-card-image').onclick = () => goToDetail(id);
                             newcard.querySelector('.item-card-name').onclick = () => goToDetail(id);
                             newcard.querySelector('.item-card-see-more').onclick = () => goToDetail(id);
-                            // newcard.querySelector('.item-card-color-band').style.backgroundColor = getBinColor(item.data().bin);
-                            newcard.querySelector('.item-card-color-band').style.color = getBinColor(item.data().bin);
-                            newcard.querySelector('.item-card-color-band').onclick = () => goToDetail(id);
+                            // newcard.querySelector('.item-card-colored-bin').style.backgroundColor = getBinColor(item.data().bin);
+                            newcard.querySelector('.item-card-colored-bin').style.color = getBinColor(item.data().bin);
+                            newcard.querySelector('.item-card-colored-bin').onclick = () => goToDetail(id);
                             // newcard.querySelector('.item-card-likes').style.color = getBinColor(item.data().bin);
 
                             let likeIcon = newcard.querySelector('.like-icon');
