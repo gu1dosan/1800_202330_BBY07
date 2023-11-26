@@ -6,10 +6,10 @@ function displayCardsDynamically(collection) {
 
   firebase.auth().onAuthStateChanged(function(user) {
       if (user) {
-          let params = new URL(window.location.href);
-          let query = params.searchParams.get("search");
+          const params = new URL(window.location.href);
+          const query = params.searchParams.get("search");
 
-          let cardTemplate = document.getElementById("itemCardTemplate");
+          const cardTemplate = document.getElementById("itemCardTemplate");
           let where = db.collection(collection);
         //   console.log(query);
           
@@ -157,6 +157,3 @@ function getBinIcon(bin) {
 function goToDetail(id) {
     window.location.href = "../detailpage.html?id=" + id;
 }
-
-
-

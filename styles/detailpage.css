@@ -50,6 +50,29 @@ span.DeleteButton {
   border-radius: 1vw;
 }
 
+span.goToProfileButton {
+  padding: 0.5vw; 
+  display: flex;
+  justify-content: center; 
+  align-items: center; 
+  flex-direction: column;
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: white;
+  cursor: pointer;
+  position: absolute;
+  right: 2vw;
+  top: 3vw;
+  background-color: rgb(89, 0, 255);
+  width: 80px; 
+  height: 50px;
+  white-space: normal; 
+  text-align: center; 
+  border-radius: 1vw;
+  line-height: 0.8;
+}
+
+
 img.detail-image {
   max-height: 400px;
   max-width: 100%;

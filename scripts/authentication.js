@@ -22,7 +22,9 @@ var uiConfig = {
                     email: user.email,
                     city: "",                            //with authenticated user's ID (user.uid)
                     likes: 0,                           //optional default profile info      
-                    numOfPost: 0                         //optional default profile info
+                    numOfPost: 0,                         //optional default profile info
+                    userName: user.displayName
+                    
                 }).then(function () {
                     console.log("New user added to firestore");
                     window.location.assign("search.html");       //re-direct to search.html after signup

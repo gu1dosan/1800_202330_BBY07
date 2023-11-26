@@ -11,12 +11,15 @@ function displayItemInfo() {
             item = doc.data();
             itemName = doc.data().title;
             console.log(item)
+            db.collection("users").doc(item.userID).get().then(userDoc => {
+                userName = userDoc.data().userName;
             
             // only populate title, and image
             // document.querySelector( ".card-header" ).innerHTML = itemName;
             // document.querySelector( ".carousel-img" ).src = item.photo;
-
+            document.querySelector(".goToProfileButton").onclick = () => goToProfile(doc.data().userID)
             document.querySelector( ".detail-name" ).innerHTML = itemName;
+            document.getElementById( "userName" ).innerHTML = userName + "'s";
             document.querySelector(".DeleteButton").hidden = true;
             document.querySelector( ".detail-image" ).src = item.photo;
             document.querySelector( ".detail-description" ).innerHTML = doc.data().description;
@@ -24,7 +27,10 @@ function displayItemInfo() {
             if (user.uid === item.userID){
                 document.querySelector(".DeleteButton").onclick = () => deleteThis();
                 document.querySelector(".DeleteButton").hidden = false;
+                document.querySelector(".goToProfileButton").hidden = true;
+                
             } 
+            
 
             
             document.querySelector(".like-icon").style.color = getBinColor(doc.data().bin);
@@ -57,7 +63,7 @@ function displayItemInfo() {
                     console.log('Document does not exist');
                 }
             });
-            
+        });
         } );
 }
 displayItemInfo();
@@ -105,3 +111,6 @@ function deleteThis() {
 
 //document.querySelector("#viewPoster").addEventListener('click', function() {     let params = new URL(window.location.href);     let ID = params.searchParams.get("docID");      window.location.assign("profile.html?docID=" + ID) })
 
+function goToProfile(id) {
+    window.location.href = "../profile.html?profile=" + id;
+}
