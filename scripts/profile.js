@@ -25,12 +25,14 @@ function populateUserInfo() {
                 document.querySelector(".profileNoHide").hidden = true;
                 //get the data fields of the user
                 let userName = userDoc.data().userName;
-                var nameOfUser = userDoc.data().name;
-                var userCity = userDoc.data().city;
-                var userEmail = userDoc.data().email;
-                var userLikes = userDoc.data().likes;
-                var userNumOfPost = userDoc.data().numOfPost;
-                
+                let nameOfUser = userDoc.data().name;
+                let userCity = userDoc.data().city;
+                let userEmail = userDoc.data().email;
+                let userLikes = userDoc.data().likes;
+                let userNumOfPost = userDoc.data().numOfPost;
+                let picUrl = userDoc.data().profilePic;
+
+
                 document.getElementById("userOrNot2").innerHTML = "Your";
                 document.getElementById("userOrNot1").hidden = true;
                 //if the data fields are not empty, then write them in to the form.
@@ -46,11 +48,27 @@ function populateUserInfo() {
                 if (userEmail) {
                     document.getElementById("emailInput").value = userEmail;
                 }
+                if (picUrl != null){
+                    console.log(picUrl);
+                    $("#mypic-goes-here").attr("src", picUrl);
+                }
                 document.getElementById("emailInput").innerText = userEmail;
                 
             } else {
                 document.querySelector(".profileHide").hidden = true;
                 document.querySelector(".logOutButtonHide").hidden = true;
+                let proPic = userDoc.data().profilePic;
+                console.log(proPic);
+                if (proPic){
+                    console.log(document.querySelector("#SEprofilePic"))
+                    let img = document.querySelector("#SEprofilePic")
+                    img.src = userDoc.data().profilePic;
+                    img.style.borderRadius = "50%";
+                    img.style.width = "70px";
+                    img.style.height = "70px";
+                } else {
+                    document.querySelector("#SEprofilePic").src = "../images/material-icon-account.svg";
+                }
                 
                 document.getElementById("userOrNot1").innerHTML = userDoc.data().userName;
                 document.getElementById("userOrNot2").innerHTML = userDoc.data().userName + "'s";
@@ -99,20 +117,42 @@ function editUserInfo() {
     document.getElementById('personalInfoFields').disabled = false;
 }
 
-function saveUserInfo() {
-    nameOfUser = document.getElementById('nameInput').value;       //get the value of the field with id="nameInput"
-    userCity = document.getElementById('cityInput').value;       //get the value of the field with id="cityInput"
-    userName = document.getElementById("userName").value;
-    currentUser.update({
-        name: nameOfUser,
-        city: userCity,
-        userName: userName
-    }).then(() => {
-        
-    })
 
-    document.getElementById('personalInfoFields').disabled = true;
+function saveUserInfo() {
+    firebase.auth().onAuthStateChanged(function (user) {
+        var storageRef = storage.ref("images/" + user.uid + ".jpg");
+
+        //Asynch call to put File Object (global variable ImageFile) onto Cloud
+        storageRef.put(ImageFile)
+            .then(function () {
+                console.log('Uploaded to Cloud Storage.');
+
+                //Asynch call to get URL from Cloud
+                storageRef.getDownloadURL()
+                    .then(function (url) { // Get "url" of the uploaded file
+                        console.log("Got the download URL.");
+                        nameOfUser = document.getElementById('nameInput').value;       
+                        userCity = document.getElementById('cityInput').value;  
+                        userName = document.getElementById("userName").value;
+
+                        //Asynch call to save the form fields into Firestore.
+                        db.collection("users").doc(user.uid).update({
+                                name: nameOfUser,
+                                city: userCity,
+                                userName: userName,
+                                profilePic: url // Save the URL into users collection
+                            })
+                            .then(function () {
+                                console.log('Added Profile Pic URL to Firestore.');
+                                console.log('Saved use profile info');
+                                document.getElementById('personalInfoFields').disabled = true;
+                            })
+                    })
+            })
+    })
 }
+
+
 
 
 function displayCardsDynamically1(collection, currentUser) {
@@ -246,3 +286,23 @@ function getBinIcon(bin) {
             return "grey";
     }
 }
+
+var ImageFile;      //global variable to store the File Object reference
+
+function chooseFileListener(){
+    const fileInput = document.getElementById("mypic-input");   // pointer #1
+    const image = document.getElementById("mypic-goes-here");   // pointer #2
+
+    //attach listener to input file
+    //when this file changes, do something
+    fileInput.addEventListener('change', function(e){
+
+        //the change event returns a file "e.target.files[0]"
+	      ImageFile = e.target.files[0];
+        var blob = URL.createObjectURL(ImageFile);
+
+        //change the DOM img element source to point to this file
+        image.src = blob;    //assign the "src" property of the "img" tag
+    })
+}
+chooseFileListener();

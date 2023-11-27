@@ -18,3 +18,30 @@ menuItems.forEach(menuItem => {
     // menuItem.style.fontSize = '1.2rem';
   }
 });
+
+function loadProfilePhoto(){
+  firebase.auth().onAuthStateChanged(user => {
+    if (user){
+      db.collection("users").doc(user.uid).get().then(userDoc => {
+        let proPic = userDoc.data().profilePic;
+        console.log(proPic);
+        if (proPic){
+          
+          let img = document.querySelector(".profilePic");
+          img.src = proPic;     
+          img.style.borderRadius = '50%';
+          img.style.width = '40px';
+          img.style.height = '40px';
+        } else {
+          let img = document.querySelector(".profilePic");
+          img.src = "../images/material-icon-account.svg";     
+          img.style.borderRadius = '50%';
+          img.style.width = '40px';
+          img.style.height = '40px';
+        }
+      })
+    }
+  })
+}
+
+loadProfilePhoto();
