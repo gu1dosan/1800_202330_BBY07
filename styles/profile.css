@@ -1,0 +1,22 @@
+div.trophy-case {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-rows: 1fr 1fr;
+}
+div.trophy {
+  background-color: gold ;
+  margin: 1vh auto;
+  height: 50px;
+  width: 40px;
+}
+div.trophy {
+  background-color: gold ;
+  margin: 1vh auto;
+  height: 50px;
+  width: 40px;
+}
+p.trophy-name{
+  text-align: center;
+  font-size: 0.8rem;
+  font-weight: 600;
+}
