@@ -104,14 +104,21 @@ p.detail-likes-row #likesInput {
 }
 
 div.item-detail-bin {
+  margin: 2vh;
+}
+div.item-detail-bin-row {
   display: flex;
   align-items: center;
   justify-content: center;
   margin-right: 4vw;
 }
-div.item-detail-bin span.arrow {
+div.item-detail-bin-row span.arrow {
   font-size: 2rem;
 }
-div.item-detail-bin span.bin {
+div.item-detail-bin-row span.bin {
   font-size: 4rem;
+}
+p.item-detail-bin-name {
+  margin: none;
+  font-weight: 500;
 }

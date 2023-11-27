@@ -36,6 +36,8 @@ function displayItemInfo() {
             document.querySelector(".like-icon").style.color = getBinColor(doc.data().bin);
             document.querySelector(".dislike-icon").style.color = getBinColor(doc.data().bin);
             document.querySelector('.item-detail-bin').style.color = getBinColor(doc.data().bin);
+            document.querySelector('.item-detail-bin-name').innerHTML = doc.data().bin;
+            document.querySelector('.item-detail-bin-name').style.color = getBinColor(doc.data().bin);
 
             let likesInput = document.getElementById("likesInput");
             let likeIcon = document.querySelector('.like-icon');

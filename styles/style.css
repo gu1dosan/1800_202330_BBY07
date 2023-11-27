@@ -151,7 +151,10 @@ h2.search-header {
 }
 
 div.item-card {
-    width: 100%;
+    border-radius: 8px;
+    overflow: hidden;
+    width: calc(100% - 4vh);
+    margin: 0vw 2vh;
     height: 50vw;
     max-height: 200px;
     display: flex;
@@ -303,4 +306,9 @@ button.back-button span {
 
 .userPost{
     padding-left: 4vw;
+}
+
+label.exampleFormControlTextarea1Example {
+    font-size: 0.8rem;;
+    color: grey;
 }

@@ -26,6 +26,7 @@
   <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-auth.js"></script>
   <!-- Link to styles of your own -->
   <link rel="stylesheet" href="./styles/style.css">
+  <link rel="stylesheet" href="./styles/profile.css">
 </head>
 
 <body>
@@ -79,7 +80,15 @@
     <div class="row mb-3">
       <div class="col">
         <div class="p-3 border bg-light">
-          <h1>Achivements</h1>
+          <h1>Achievements</h1>
+          <div class="trophy-case">
+            <div><div class="trophy"></div><p class="trophy-name">1 like</p></div>
+            <div><div class="trophy"></div><p class="trophy-name">5 likes</p></div>
+            <div><div class="trophy"></div><p class="trophy-name">25 likes</p></div>
+            <div><div class="trophy"></div><p class="trophy-name">1 contribution</p></div>
+            <div><div class="trophy"></div><p class="trophy-name">5 contributions</p></div>
+            <div><div class="trophy"></div><p class="trophy-name">25 contributions</p></div>
+          </div>
           <!-- this is likes -->
           <div id="likes">
             <strong>Total Likes: <span id="likesInput"></span></strong>
@@ -128,7 +137,7 @@
 
           <!-- this is post -->
           <div id="posts">
-            <strong>Total Posts: <span id="numOfPostInput"></span></strong>
+            <strong>Total Contributions: <span id="numOfPostInput"></span></strong>
             <div class="row">
               <div class="col mt-1">
                 <div class="progress">
@@ -138,7 +147,7 @@
                 </div>
               </div>
               <div class="col-3">
-                <span class="badge rounded-pill bg-secondary">1 post</span>
+                <span class="badge rounded-pill bg-secondary">1 contribution</span>
               </div>
             </div>
             <div class="row">
@@ -150,7 +159,7 @@
                 </div>
               </div>
               <div class="col-3">
-                <span class="badge rounded-pill bg-secondary">5 posts</span>
+                <span class="badge rounded-pill bg-secondary">5 contributions</span>
               </div>
             </div>
             <div class="row">
@@ -162,7 +171,7 @@
                 </div>
               </div>
               <div class="col-3">
-                <span class="badge rounded-pill bg-secondary">25 posts</span>
+                <span class="badge rounded-pill bg-secondary">25 contributions</span>
               </div>
             </div>
             
@@ -196,7 +205,7 @@
       <button type="button" class="btn btn-danger" onclick="logout()">Log out</button>
     </div>
     <div class="userPost">
-      <Strong><span id="userOrNot2"></span> posts:</Strong>
+      <Strong><span id="userOrNot2"></span> contributions:</Strong>
     </div>
     <div id="items-go-here">
       
