@@ -50,6 +50,8 @@ function populateUserInfo() {
                 
             } else {
                 document.querySelector(".profileHide").hidden = true;
+                document.querySelector(".logOutButtonHide").hidden = true;
+                
                 document.getElementById("userOrNot1").innerHTML = userDoc.data().userName;
                 document.getElementById("userOrNot2").innerHTML = userDoc.data().userName + "'s";
             }
