@@ -22,7 +22,7 @@ chooseFileListener();
 
 
   function writeReview() {
-    console.log("inside write review");
+    
     let garbageTitle = document.getElementById("title").value;
     let bin = document.getElementById("bin").value;
     let description = document.getElementById("description").value;
@@ -32,7 +32,7 @@ chooseFileListener();
         try{
             if (user && description && bin && garbageTitle){
                 var storageRef = firebase.storage().ref(ImageFile.name);
-
+                document.getElementById("add-submit-button").disabled=true
         // Asynch call to put File Object (global variable ImageFile) onto Cloud
         storageRef.put(ImageFile, { contentType: ImageFile.type })
             .then(function () {
@@ -67,10 +67,12 @@ chooseFileListener();
                 console.error("Error uploading to Cloud Storage: ", error);
             });
             } else{
+                document.getElementById("add-submit-button").disabled=false
                 alert("Not all required feilds were filled!");
             }
             
         } catch(error) {
+            document.getElementById("add-submit-button").disabled=false
             alert("Not all required feilds were filled!");
         };
     }
