@@ -76,6 +76,8 @@ function populateUserInfo() {
                         document.getElementById("numOfPostInput").innerText = numOfPosts;
                         progressBar("likes", numOfLikes);
                         progressBar("posts", numOfPosts);
+                        giveAchivement("likes", numOfLikes);
+                        giveAchivement("posts", numOfPosts);
                     })
                     
                 })
@@ -175,11 +177,47 @@ function progressBar(id, num) {
         if (percent >= 100) {
             let newAttr = badge[i].getAttribute("class").replace("secondary", bars[i]);
             badge[i].setAttribute("class", newAttr);
+        } else {
+            return;
         }
         achivementNum *= MUL_FACTOR;
     }
 }
 
+function giveAchivement(className, num) {
+    //const bars = numOfAchivements;
+
+    const MUL_FACTOR = 5;
+    let achivementNum = 1;
+
+    let trophies = document.querySelectorAll("div.trophy." + className + " img");
+
+    for (let i = 0; i < trophies.length; i++) {
+        let achievedGoal = num / achivementNum;
+        achievedGoal = (achievedGoal < 0) ? 0 : achievedGoal;
+
+        console.log(trophies[i]);
+        if(achievedGoal >= 1) {
+            trophies[i].style.filter = "grayscale(0)";
+            trophies[i].style.opacity = "1";
+            console.log(trophies[i]);
+        } else {
+            return;
+        }
+        
+        // progress[i].innerText = percent + "%";
+        // progress[i].setAttribute("class", progress[i].getAttribute("class") + "");
+        // progress[i].setAttribute("style", "width: " + percent + "%");
+
+        // if (percent >= 100) {
+        //     let newAttr = badge[i].getAttribute("class").replace("secondary", bars[i]);
+        //     badge[i].setAttribute("class", newAttr);
+        // } else {
+        //     return;
+        // }
+        achivementNum *= MUL_FACTOR;
+    }
+}
 
 function goToDetail(id) {
     window.location.href = "../detailpage.html?id=" + id;
