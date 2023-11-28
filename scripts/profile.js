@@ -94,8 +94,8 @@ function populateUserInfo() {
                         document.getElementById("numOfPostInput").innerText = numOfPosts;
                         progressBar("likes", numOfLikes);
                         progressBar("posts", numOfPosts);
-                        giveAchivement("likes", -1);//numOfLikes);
-                        giveAchivement("posts", 25);//numOfPosts);
+                        giveAchivement("likes", numOfLikes);
+                        giveAchivement("posts", numOfPosts);
                     })
                     
                 })
