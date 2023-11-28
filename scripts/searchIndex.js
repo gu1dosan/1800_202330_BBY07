@@ -20,7 +20,7 @@ function displayCardsDynamically(collection) {
               document.getElementById("queryOrNot").innerHTML = "Sorted by your search";
               document.querySelector("#recently-searched-header").innerHTML = "We don't have this item! But you can contribute and add it!";
               document.querySelector("#searchingText").innerHTML = '(Click the "Contribute item" button in the footer)';
-              document.querySelector(".footer-add-item-alert").style.display = "block";
+              document.querySelector(".footer-add-item-alert").style.display = "none";
               document.querySelector(".search-header").style.display = "none";
               querySnapshot.forEach(doc => {
                     const title = doc.data().title;
@@ -33,7 +33,7 @@ function displayCardsDynamically(collection) {
                         } else {
                             document.querySelector("#searchingText").hidden = true;
                             document.querySelector("#recently-searched-header").hidden = true;
-                            document.querySelector(".footer-add-item-alert").style.display = "none";
+                            document.querySelector(".footer-add-item-alert").style.display = "block";
                             document.querySelector(".search-header").style.display = "block";
                             let newcard = cardTemplate.content.cloneNode(true);
 
