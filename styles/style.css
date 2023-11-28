@@ -312,3 +312,28 @@ label.exampleFormControlTextarea1Example {
     font-size: 0.8rem;;
     color: grey;
 }
+
+div.footer-add-item-alert {
+    position: absolute;
+    top: -54px;
+    border-radius: 24px;
+    padding: 8px 16px;
+    background: white;
+    display: none;
+    filter: 
+    drop-shadow(0px 0px 16px #0d6efd);
+}
+div.footer-add-item-alert::before {
+    content: ''; 
+    position: absolute;
+    background: white;
+    width: calc(1.5rem / 2 * 3);
+    height: 1.5rem;
+    top: calc(100% - 2px);
+    left: calc(50% - calc(1.5rem / 2 * 3) / 2);
+    clip-path: polygon(12.5% 0, 87.5% 0, 50% 100%);
+}
+
+#recently-searched-header, #searchingText {
+    margin: 2vh;
+}
