@@ -30,7 +30,6 @@ function loadProfilePhoto(){
           
           img.src = proPic;     
         } else {
-          console.log("Hello");
           img.src = "../images/material-icon-account.svg";     
         }
         img.style.borderRadius = '50%';
