@@ -126,13 +126,18 @@ function saveUserInfo() {
         var storageRef = storage.ref("images/" + user.uid + ".jpg");
 
         //Asynch call to put File Object (global variable ImageFile) onto Cloud
-        storageRef.put(ImageFile)
+
+            storageRef.put(ImageFile)
+    
+        
             .then(function () {
                 console.log('Uploaded to Cloud Storage.');
 
                 //Asynch call to get URL from Cloud
                 storageRef.getDownloadURL()
+                
                     .then(function (url) { // Get "url" of the uploaded file
+                        
                         console.log("Got the download URL.");
                         nameOfUser = document.getElementById('nameInput').value;       
                         userCity = document.getElementById('cityInput').value;  
@@ -315,7 +320,7 @@ function getBinIcon(bin) {
 }
 
 var ImageFile;      //global variable to store the File Object reference
-
+    
 function chooseFileListener(){
     const fileInput = document.getElementById("mypic-input");   // pointer #1
     const image = document.getElementById("mypic-goes-here");   // pointer #2

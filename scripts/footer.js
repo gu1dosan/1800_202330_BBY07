@@ -25,20 +25,17 @@ function loadProfilePhoto(){
       db.collection("users").doc(user.uid).get().then(userDoc => {
         let proPic = userDoc.data().profilePic;
         console.log(proPic);
+        let img = document.querySelector(".profilePic");
         if (proPic){
           
-          let img = document.querySelector(".profilePic");
           img.src = proPic;     
-          img.style.borderRadius = '50%';
-          img.style.width = '40px';
-          img.style.height = '40px';
         } else {
-          let img = document.querySelector(".profilePic");
+          console.log("Hello");
           img.src = "../images/material-icon-account.svg";     
-          img.style.borderRadius = '50%';
-          img.style.width = '40px';
-          img.style.height = '40px';
         }
+        img.style.borderRadius = '50%';
+        img.style.width = '40px';
+        img.style.height = '40px';
       })
     }
   })
