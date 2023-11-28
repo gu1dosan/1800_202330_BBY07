@@ -4,16 +4,13 @@ div.trophy-case {
   grid-template-rows: 1fr 1fr;
 }
 div.trophy {
-  background-color: gold ;
   margin: 1vh auto;
-  height: 50px;
-  width: 40px;
+  height: 64px;
+  width: 64px;
 }
-div.trophy {
-  background-color: gold ;
-  margin: 1vh auto;
-  height: 50px;
-  width: 40px;
+div.trophy img {
+  filter: grayscale(1);
+  opacity: 0.2;
 }
 p.trophy-name{
   text-align: center;
