@@ -31,7 +31,7 @@ chooseFileListener();
     if (user ) {
         try{
             if (user && description && bin && garbageTitle){
-                var storageRef = firebase.storage().ref(ImageFile.name);
+                var storageRef = firebase.storage().ref(crypto.randomUUID());
                 document.getElementById("add-submit-button").disabled=true
         // Asynch call to put File Object (global variable ImageFile) onto Cloud
         storageRef.put(ImageFile, { contentType: ImageFile.type })
