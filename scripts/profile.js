@@ -51,6 +51,7 @@ function populateUserInfo() {
                 if (picUrl != null){
                     console.log(picUrl);
                     $("#mypic-goes-here").attr("src", picUrl);
+                    document.querySelector("#mypic-goes-here").style.borderRadius = "50%";
                 }
                 document.getElementById("emailInput").innerText = userEmail;
                 
@@ -329,6 +330,7 @@ function chooseFileListener(){
 
         //change the DOM img element source to point to this file
         image.src = blob;    //assign the "src" property of the "img" tag
+        image.style.borderRadius = '50%';
     })
 }
 chooseFileListener();
