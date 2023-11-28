@@ -124,9 +124,9 @@ function editUserInfo() {
 function saveUserInfo() {
     firebase.auth().onAuthStateChanged(function (user) {
         var storageRef = storage.ref("images/" + user.uid + ".jpg");
-
-        //Asynch call to put File Object (global variable ImageFile) onto Cloud
-        storageRef.put(ImageFile)
+        if(ImageFile){
+            //Asynch call to put File Object (global variable ImageFile) onto Cloud
+            storageRef.put(ImageFile)
             .then(function () {
                 console.log('Uploaded to Cloud Storage.');
 
@@ -134,25 +134,31 @@ function saveUserInfo() {
                 storageRef.getDownloadURL()
                     .then(function (url) { // Get "url" of the uploaded file
                         console.log("Got the download URL.");
-                        nameOfUser = document.getElementById('nameInput').value;       
-                        userCity = document.getElementById('cityInput').value;  
-                        userName = document.getElementById("userName").value;
-
-                        //Asynch call to save the form fields into Firestore.
-                        db.collection("users").doc(user.uid).update({
-                                name: nameOfUser,
-                                city: userCity,
-                                userName: userName,
-                                profilePic: url // Save the URL into users collection
-                            })
-                            .then(function () {
-                                console.log('Added Profile Pic URL to Firestore.');
-                                console.log('Saved use profile info');
-                                document.getElementById('personalInfoFields').disabled = true;
-                            })
+                        saveUserTextInfo(user, url)
                     })
             })
+        } else {
+            saveUserTextInfo(user)
+        }
+        
     })
+}
+saveUserTextInfo = (user, url) => {
+    nameOfUser = document.getElementById('nameInput').value;       
+            userCity = document.getElementById('cityInput').value;  
+            userName = document.getElementById("userName").value;
+
+            //Asynch call to save the form fields into Firestore.
+            db.collection("users").doc(user.uid).update(
+                {...{
+                    name: nameOfUser,
+                    city: userCity,
+                    userName: userName,
+                },...(url) && {profilePic: url}})
+                .then(function () {
+                    console.log('Saved use profile info');
+                    document.getElementById('personalInfoFields').disabled = true;
+                })
 }
 
 
