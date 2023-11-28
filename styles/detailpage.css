@@ -85,19 +85,22 @@ p.detail-description {
   margin: 2vh 2vw 0 2vw;
 }
 
-p.detail-likes-row {
+.detail-likes-row {
   margin: 2vh 2vw 0 2vw;
   display: flex;
   align-items: center;
 }
-p.detail-likes-row span.like-icon {
+.detail-likes-row p {
+  margin: 0;
+}
+.detail-likes-row span.like-icon {
   cursor: pointer;
   margin-left: 8px;
 }
-p.detail-likes-row span.dislike-icon {
+.detail-likes-row span.dislike-icon {
   cursor: pointer;
 }
-p.detail-likes-row #likesInput {
+.detail-likes-row #likesInput {
   font-size: 0.8rem;
   font-weight: 600;
   margin: 8px;
