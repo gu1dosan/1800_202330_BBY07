@@ -17,7 +17,6 @@ function displayItemInfo() {
 			let user = firebase.auth().currentUser;
 			item = doc.data();
 			itemName = doc.data().title;
-			console.log(item)
 			db.collection("users").doc(item.userID).get().then(userDoc => {
 				userName = userDoc.data().userName;
 
@@ -111,10 +110,10 @@ function goToIndex() {
 function deleteThis() {
 	let params = new URL(window.location.href);
 	let ID = params.searchParams.get("id");
-	let docRef = firebase.firestore().collection('waste').doc(ID);
+	let docRef = db.collection('waste').doc(ID);
 	let user = firebase.auth().currentUser;
 
-	console.log(docRef)
+
 	let confirmation = prompt('Are you sure you want to delete this item? (type "yes")').toLowerCase();
 
 	if (confirmation === "yes") {

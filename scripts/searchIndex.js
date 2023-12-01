@@ -134,7 +134,6 @@ let populateItem = (newcard, item, user) => {
 			likeIcon.style['font-variation-settings'] = userHasLiked ? "'FILL' 1, 'wght' 400, 'GRAD' 0, 'opsz' 12" : "'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24";
 			disLikeIcon.style['font-variation-settings'] = userHasDisLiked ? "'FILL' 1, 'wght' 400, 'GRAD' 0, 'opsz' 12" : "'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24";
 		} else {
-			console.log('Document does not exist');
 		}
 		likeInput.innerHTML = doc.data().totalLikes;
 	});

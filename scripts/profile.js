@@ -60,7 +60,6 @@ function populateUserInfo() {
 						document.getElementById("emailInput").value = userEmail;
 					}
 					if (picUrl != null) {
-						console.log(picUrl);
 						$("#mypic-goes-here").attr("src", picUrl);
 						document.querySelector("#mypic-goes-here").style.borderRadius = "50%";
 					}
@@ -73,9 +72,7 @@ function populateUserInfo() {
 					document.querySelector(".profileHide").hidden = true;
 					document.querySelector(".logOutButtonHide").hidden = true;
 					let proPic = userDoc.data().profilePic;
-					console.log(proPic);
 					if (proPic) {
-						console.log(document.querySelector("#SEprofilePic"))
 						let img = document.querySelector("#SEprofilePic")
 						img.src = userDoc.data().profilePic;
 						img.style.borderRadius = "50%";
@@ -99,7 +96,6 @@ function populateUserInfo() {
 							numOfPosts++;
 							numOfLikes += doc.data().totalLikes;
 						}
-						console.log(doc.id, " => ", doc.data());
 					});
 					currentUser.update({
 						numOfPost: numOfPosts,
@@ -149,14 +145,12 @@ function saveUserInfo() {
 			
 			storageRef.put(ImageFile)
 				.then(function() {
-					console.log('Uploaded to Cloud Storage.');
 
 					
 					storageRef.getDownloadURL()
 
 						.then(function(url) { 
 
-							console.log("Got the download URL.");
 							saveUserTextInfo(user, url)
 						})
 				})
@@ -193,7 +187,7 @@ saveUserTextInfo = (user, url) => {
 			}
 		})
 		.then(function() {
-			console.log('Saved use profile info');
+			
 			document.getElementById('personalInfoFields').disabled = true;
 		})
 }

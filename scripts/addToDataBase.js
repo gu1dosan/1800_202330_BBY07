@@ -42,13 +42,13 @@ function writeReview() {
 						contentType: ImageFile.type
 					})
 					.then(function() {
-						console.log('Uploaded to Cloud Storage.');
+
 
 
 
 
 						storageRef.getDownloadURL().then(function(url) {
-							console.log("Got the download URL.");
+
 
 
 							db.collection("waste").add({

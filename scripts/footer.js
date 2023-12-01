@@ -6,9 +6,7 @@ const menuItems = document.querySelector('footer.fixed-bottom').querySelectorAll
 menuItems.forEach(menuItem => {
 
 	const menuItemUrl = menuItem.getAttribute('href');
-	console.log(menuItemUrl, currentUrl);
-
-
+	
 	if (currentUrl.includes(menuItemUrl.slice(1))) {
 		menuItem.style.backgroundColor = '#f2f2f2';
 		menuItem.style.fontWeight = '700';
@@ -24,7 +22,6 @@ function loadProfilePhoto() {
 		if (user) {
 			db.collection("users").doc(user.uid).get().then(userDoc => {
 				let proPic = userDoc.data().profilePic;
-				console.log(proPic);
 				let img = document.querySelector(".profilePic");
 				if (proPic) {
 

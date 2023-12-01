@@ -13,7 +13,6 @@ function incrementDisLike(id) {
 	let newDisLikes = 0;
 	let docID = id;
 	let user = firebase.auth().currentUser;
-	console.log(user);
 	if (user) {
 		const wasteDocRef = db.collection('waste').doc(docID);
 
@@ -69,7 +68,6 @@ function incrementDisLike(id) {
 			console.error('Transaction failed: ', error);
 		});
 	} else {
-		console.log('No user is signed in to dislike the post');
 	}
 }
 
@@ -83,7 +81,6 @@ function incrementLike(id) {
 	let newLikes = 0;
 	let docID = id;
 	let user = firebase.auth().currentUser;
-	console.log(user);
 	if (user) {
 		const wasteDocRef = db.collection('waste').doc(docID);
 
@@ -97,7 +94,6 @@ function incrementLike(id) {
 				let whoDisLiked = wasteDoc.data().whoDisLiked;
 
 				if (whoLiked.includes(user.uid)) {
-					console.log('User is removing their like from this post.');
 
 					let newWhoLiked = whoLiked.split(',').filter(id => id !== user.uid).join(',');
 
@@ -111,7 +107,6 @@ function incrementLike(id) {
 
 					return;
 				} else if (whoDisLiked.includes(user.uid)) {
-					console.log('User is removing their like and adding dislike from this post.');
 
 					let newWhoDisLiked = whoDisLiked.split(',').filter(id => id !== user.uid).join(',');
 
@@ -121,14 +116,12 @@ function incrementLike(id) {
 					transaction.update(wasteDocRef, {
 						whoDisLiked: newWhoDisLiked
 					});
-					console.log("updated 1");
 				}
 
 				const newWhoLiked = whoLiked ? `${whoLiked},${user.uid}` : user.uid;
 
 
 				newLikes++;
-				console.log("updated 2");
 				totalLikes = wasteDoc.data().totalLikes;
 				newLikes = totalLikes + newLikes;
 				transaction.update(wasteDocRef, {
@@ -137,11 +130,9 @@ function incrementLike(id) {
 				});
 			});
 		}).then(() => {
-			console.log('Like incremented successfully!');
 		}).catch(error => {
 			console.error('Transaction failed: ', error);
 		});
 	} else {
-		console.log('No user is signed in to like the post');
 	}
 }
