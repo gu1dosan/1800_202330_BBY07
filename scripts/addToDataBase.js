@@ -1,84 +1,90 @@
-var ImageFile;      //global variable to store the File Object reference
+/**
+ * ChooseFIleListener lets the user upload a profile picture and 
+ * changes the displayed photo to whichever photo they uploaded.
+ */
+let ImageFile;
+function chooseFileListener() {
+	const fileInput = document.getElementById("garbagePhoto");
+	const image = document.getElementById("mypic-goes-here");
 
-function chooseFileListener(){
-    const fileInput = document.getElementById("garbagePhoto");   // pointer #1
-    const image = document.getElementById("mypic-goes-here");   // pointer #2
 
-    //attach listener to input file
-    //when this file changes, do something
-    fileInput.addEventListener('change', function(e){
+	fileInput.addEventListener('change', function(e) {
 
-        //the change event returns a file "e.target.files[0]"
-        ImageFile = e.target.files[0];
-        var blob = URL.createObjectURL(ImageFile);
 
-        //change the DOM img element source to point to this file
-        image.src = blob;    //assign the "src" property of the "img" tag
-    }
-  )}
+		ImageFile = e.target.files[0];
+		let blob = URL.createObjectURL(ImageFile);
+
+		image.src = blob;
+	})
+}
 
 
 chooseFileListener();
 
 
-  function writeReview() {
-    
-    let garbageTitle = document.getElementById("title").value;
-    let bin = document.getElementById("bin").value;
-    let description = document.getElementById("description").value;
-    var user = firebase.auth().currentUser;
+/**
+ * writeReview lets the user add an item to the firebase database.
+ */
+function writeReview() {
 
-    if (user ) {
-        try{
-            if (user && description && bin && garbageTitle){
-                var storageRef = firebase.storage().ref(crypto.randomUUID());
-                document.getElementById("add-submit-button").disabled=true
-        // Asynch call to put File Object (global variable ImageFile) onto Cloud
-        storageRef.put(ImageFile, { contentType: ImageFile.type })
-            .then(function () {
-                console.log('Uploaded to Cloud Storage.');
+	let garbageTitle = document.getElementById("title").value;
+	let bin = document.getElementById("bin").value;
+	let description = document.getElementById("description").value;
+	let user = firebase.auth().currentUser;
+
+	if (user) {
+		try {
+			if (user && description && bin && garbageTitle) {
+				let storageRef = firebase.storage().ref(crypto.randomUUID());
+				document.getElementById("add-submit-button").disabled = true
+
+				storageRef.put(ImageFile, {
+						contentType: ImageFile.type
+					})
+					.then(function() {
+						console.log('Uploaded to Cloud Storage.');
 
 
 
-                // Asynch call to get URL from Cloud
-                storageRef.getDownloadURL().then(function (url) {
-                    console.log("Got the download URL.");
 
-                    // Get the document for the current user.
-                    db.collection("waste").add({
-                        userID: user.uid,
-                        title: garbageTitle,
-                        photo: url, // Use the URL obtained from Cloud Storage
-                        bin: bin,
-                        description: description,
-                        whoLiked: "",
-                        totalLikes: 0,
-                        whoDisLiked: "",
-                        timestamp: firebase.firestore.FieldValue.serverTimestamp()
-                    }).then(() => {
-                        window.location.href = "thanks.html"; // Redirect to the thanks page
-                    }).catch((error) => {
-                        console.error("Error adding document: ", error);
-                    });
-                }).catch(function (error) {
-                    console.error("Error getting download URL: ", error);
-                });
-            }).catch(function (error) {
-                console.error("Error uploading to Cloud Storage: ", error);
-            });
-            } else{
-                document.getElementById("add-submit-button").disabled=false
-                alert("Not all required feilds were filled!");
-            }
-            
-        } catch(error) {
-            document.getElementById("add-submit-button").disabled=false
-            alert("Not all required feilds were filled!");
-        };
-    }
+						storageRef.getDownloadURL().then(function(url) {
+							console.log("Got the download URL.");
+
+
+							db.collection("waste").add({
+								userID: user.uid,
+								title: garbageTitle,
+								photo: url,
+								bin: bin,
+								description: description,
+								whoLiked: "",
+								totalLikes: 0,
+								whoDisLiked: "",
+								timestamp: firebase.firestore.FieldValue.serverTimestamp()
+							}).then(() => {
+								window.location.href = "thanks.html";
+							}).catch((error) => {
+								console.error("Error adding document: ", error);
+							});
+						}).catch(function(error) {
+							console.error("Error getting download URL: ", error);
+						});
+					}).catch(function(error) {
+						console.error("Error uploading to Cloud Storage: ", error);
+					});
+			} else {
+				document.getElementById("add-submit-button").disabled = false
+				alert("Not all required feilds were filled!");
+			}
+
+		} catch (error) {
+			document.getElementById("add-submit-button").disabled = false
+			alert("Not all required feilds were filled!");
+		};
+	}
 }
 
 
-function goToIndex(){
-    window.location.href = "../search.html";
+function goToIndex() {
+	window.location.href = "../search.html";
 }
