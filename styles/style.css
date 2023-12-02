@@ -309,8 +309,12 @@ button.back-button span {
 }
 
 label.exampleFormControlTextarea1Example {
-    font-size: 0.8rem;;
+    font-size: 0.8rem;
     color: grey;
+}
+
+#add-submit-button {
+    margin-top: 1rem;
 }
 
 div.footer-add-item-alert {
@@ -335,5 +339,9 @@ div.footer-add-item-alert::before {
 }
 
 #recently-searched-header, #searchingText {
-    margin: 2vh;
+    margin: auto 2vh;
+    height: 100px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }

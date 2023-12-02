@@ -2,7 +2,9 @@
 const DELETEMINIMUM = -3;
 
 function displayCardsDynamically(collection) {
-    document.querySelector("#recently-searched-header").innerHTML = "Searching...";
+    document.querySelector("#recently-searched-header").innerHTML = `<div class="spinner-border" style="margin-right:8px" role="status">
+    <span class="visually-hidden">Loading...</span>
+  </div>Searching...`;
 
   firebase.auth().onAuthStateChanged(function(user) {
       if (user) {
@@ -31,8 +33,8 @@ function displayCardsDynamically(collection) {
                             if (item.data().totalLikes < DELETEMINIMUM) {
                             db.collection("waste").doc(item.id).delete();
                         } else {
-                            document.querySelector("#searchingText").hidden = true;
-                            document.querySelector("#recently-searched-header").hidden = true;
+                            document.querySelector("#searchingText").style.display = 'none';
+                            document.querySelector("#recently-searched-header").style.display = 'none';
                             document.querySelector(".footer-add-item-alert").style.display = "block";
                             document.querySelector(".search-header").style.display = "block";
                             let newcard = cardTemplate.content.cloneNode(true);
@@ -61,6 +63,7 @@ function displayCardsDynamically(collection) {
                         populateItem(newcard, item, user) ;
                     }
                 });
+                document.querySelector("#searchingText").style.display = 'none';
             }).catch(error => {
                 console.error("Error fetching items: ", error);
             });
