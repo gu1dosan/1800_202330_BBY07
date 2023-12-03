@@ -46,9 +46,10 @@ function displayCardsDynamically(collection) {
                         //Displays the item.
 						querySnapshot.forEach(doc => {
 							const title = doc.data().title;
+							const description = doc.data().description;
 							let item = doc;
 							if (title) {
-								if (title.toLowerCase().includes(query.toLowerCase())) {
+								if (title.toLowerCase().includes(query.toLowerCase()) || (description && description.toLowerCase().includes(query.toLowerCase()))) {
 									if (item.data().totalLikes < DELETEMINIMUM) {
 										db.collection("waste").doc(item.id).delete();
 									} else {
