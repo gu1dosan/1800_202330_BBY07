@@ -30,8 +30,8 @@ function loadProfilePhoto() {
 					img.src = "../images/material-icon-account.svg";
 				}
 				img.style.borderRadius = '50%';
-				img.style.width = '40px';
-				img.style.height = '40px';
+				img.style.width = '30px';
+				img.style.height = '30px';
 			})
 		}
 	})

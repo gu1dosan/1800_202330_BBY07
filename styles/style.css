@@ -301,6 +301,7 @@ footer.fixed-bottom a {
 }
 footer.fixed-bottom span.material-symbols-rounded {
     color: black;
+    font-size: 30px;
 }
 /* test */
 div.aligned {
