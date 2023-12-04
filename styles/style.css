@@ -310,7 +310,7 @@ button.back-button span {
 
 label.exampleFormControlTextarea1Example {
     font-size: 0.8rem;
-    color: grey;
+    color: rgb(146, 146, 146);
 }
 
 #add-submit-button {
