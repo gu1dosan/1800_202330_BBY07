@@ -33,7 +33,6 @@ function displayItemInfo() {
                 //Lets the user delete the item if they are the poster. If not this button gets hidden
                 //  and turned off.
 				if (user.uid === item.userID) {
-					document.querySelector(".DeleteButton").onclick = () => deleteThis();
 					document.querySelector(".DeleteButton").hidden = false;
 					document.querySelector(".goToProfileButton").hidden = true;
 
@@ -99,20 +98,14 @@ function deleteThis() {
 	let ID = params.searchParams.get("id");
 	let docRef = db.collection('waste').doc(ID);
 	let user = firebase.auth().currentUser;
+	docRef.get().then((doc) => {
+		if (user.uid === doc.data().userID) {
+			docRef.delete().then(() => {
 
-
-	let confirmation = prompt('Are you sure you want to delete this item? (type "yes")').toLowerCase();
-
-	if (confirmation === "yes") {
-		docRef.get().then((doc) => {
-			if (user.uid === doc.data().userID) {
-				docRef.delete().then(() => {
-
-					window.location.href = "../deleted.html";
-				});
-			}
-		});
-	}
+				window.location.href = "../deleted.html";
+			});
+		}
+	});
 }
 
 /**

@@ -33,7 +33,9 @@ function displayCardsDynamically(collection) {
 						displaySearchingText(querySnapshot, document, user);
                         //Displays the item.
 						querySnapshot.forEach(doc => {
+
 							displayEachDoc(doc, query, user, cardTemplate);
+
 						});
 					})
             //If no search was made.
@@ -204,7 +206,12 @@ function displayEachDoc(doc, query, user, cardTemplate){
 			if (item.data().totalLikes < DELETEMINIMUM) {
 				db.collection("waste").doc(item.id).delete();
 			} else {
-				displayPopUp(document);
+				document.querySelector("#searchingText").style.display = 'none';
+				document.querySelector("#recently-searched-header").style.display = 'none';
+				// if (!sessionStorage.getItem("footerAddItemAlertClosed")) {
+					document.querySelector(".footer-add-item-alert").style.display = "block";
+				// }
+				document.querySelector(".search-header").style.display = "block";
 				let newcard = cardTemplate.content.cloneNode(true);
 
 				populateItem(newcard, item, user);
