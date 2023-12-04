@@ -23,7 +23,7 @@ function displayItemInfo() {
 
 				document.querySelector(".goToProfileButton").onclick = () => goToProfile(doc.data().userID)
 				document.querySelector(".detail-name").innerHTML = itemName;
-				document.getElementById("userName").innerHTML = userName + "'s";
+				document.getElementById("userName").innerHTML = "Contributor: " + userName;
 				document.querySelector(".DeleteButton").hidden = true;
 				document.querySelector(".detail-image").src = item.photo;
 				document.querySelector(".detail-description").innerHTML = doc.data().description;

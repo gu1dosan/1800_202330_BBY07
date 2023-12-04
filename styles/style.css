@@ -150,11 +150,13 @@ h2.search-header {
     font-size: 1rem;
 }
 
+#items-go-here {
+    margin: 2vh;
+}
+
 div.item-card {
     border-radius: 8px;
     overflow: hidden;
-    width: calc(100% - 4vh);
-    margin: 0vw 2vh;
     height: 50vw;
     max-height: 200px;
     display: flex;
@@ -302,10 +304,6 @@ button.back-button span {
 }
 .add-to-db-header {
     margin: 0;
-}
-
-.userPost{
-    padding-left: 4vw;
 }
 
 label.exampleFormControlTextarea1Example {

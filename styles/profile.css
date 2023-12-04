@@ -1,3 +1,6 @@
+div.container {
+  margin-top: 2vh;
+}
 div.trophy-case {
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
@@ -16,4 +19,11 @@ p.trophy-name{
   text-align: center;
   font-size: 0.8rem;
   font-weight: 600;
+}
+#items-go-here {
+  margin: 0vh;
+}
+div.userPost {
+  font-size: 1.5rem;
+  margin-bottom: 1vh;
 }
