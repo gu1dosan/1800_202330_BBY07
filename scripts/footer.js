@@ -41,5 +41,5 @@ loadProfilePhoto();
 
 closeAddItemAlert = () => {
 	document.querySelector(".footer-add-item-alert").style.display = "none";
-	sessionStorage.setItem("footerAddItemAlertClosed", true);
+	// sessionStorage.setItem("footerAddItemAlertClosed", true);
 }
