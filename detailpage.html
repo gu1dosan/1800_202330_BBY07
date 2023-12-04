@@ -84,7 +84,7 @@
         </p>
       </div>
     </div>
-    <span class="DeleteButton">
+    <span class="DeleteButton" type="button" data-bs-toggle="modal" data-bs-target="#deleteModal">
        Delete
        <span class="material-symbols-rounded" style="margin-left:1vh">
         delete_forever
@@ -93,6 +93,23 @@
     <button class="btn btn-outline-secondary goToProfileButton">
        <span id="userName"></span>
     </button>
+    <div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="Delete Item Modal" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h1 class="modal-title fs-5" id="exampleModalLabel">Delete item?</h1>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            Are you sure you want to delete this item?
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">No</button>
+            <button type="button" class="btn btn-danger" id="confirmDeleteButton" onclick="deleteThis()" >Yes</button>
+          </div>
+        </div>
+      </div>
+    </div>
 
     <!-- Footer -->
     <!-- <div class="text-center py-5"> </div> -->

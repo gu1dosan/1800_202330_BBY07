@@ -1,0 +1,11 @@
+div.card {
+  margin: 2vh;
+}
+div.card-body {
+  display:flex;
+  flex-direction: column;
+  align-items: center;
+}
+a.btn {
+  margin: 2vh;
+}
