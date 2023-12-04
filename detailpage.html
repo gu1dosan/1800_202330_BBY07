@@ -39,7 +39,7 @@
   <nav id="offcanvasPlaceholder"></nav>
 
   <div class="detail-content">
-    <div class="aligned">
+    <div class="top-aligned">
       <button class="btn back-button" onclick="history.back()">
         <span class="material-symbols-rounded">
           arrow_back
@@ -49,7 +49,11 @@
         name_placeholder
       </h2>
     </div>
-    
+    <div class="contributor-row"> 
+      <button class="btn goToProfileButton">
+        <img id="contributor-profile-pic" src="" alt="profile pic" /><span id="userName"></span>
+      </button>
+    </div>
     <img class="detail-image" src="" alt="item image"/>
     <div style="display:flex;justify-content:space-between">
       <div>
@@ -90,9 +94,8 @@
         delete_forever
       </span>
     </span>
-    <button class="btn btn-outline-secondary goToProfileButton">
-       <span id="userName"></span>
-    </button>
+    
+    <!-- Delete Item Modal -->
     <div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="Delete Item Modal" aria-hidden="true">
       <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">

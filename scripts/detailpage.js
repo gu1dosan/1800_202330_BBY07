@@ -23,7 +23,8 @@ function displayItemInfo() {
 
 				document.querySelector(".goToProfileButton").onclick = () => goToProfile(doc.data().userID)
 				document.querySelector(".detail-name").innerHTML = itemName;
-				document.getElementById("userName").innerHTML = "Contributor: " + userName;
+				document.getElementById("contributor-profile-pic").src = "images/elmo.jpg";
+				document.getElementById("userName").innerHTML = userName;
 				document.querySelector(".DeleteButton").hidden = true;
 				document.querySelector(".detail-image").src = item.photo;
 				document.querySelector(".detail-description").innerHTML = doc.data().description;
@@ -33,10 +34,7 @@ function displayItemInfo() {
 				if (user.uid === item.userID) {
 					document.querySelector(".DeleteButton").hidden = false;
 					document.querySelector(".goToProfileButton").hidden = true;
-
 				}
-
-
 
 				document.querySelector(".like-icon").style.color = getBinColor(doc.data().bin);
 				document.querySelector(".dislike-icon").style.color = getBinColor(doc.data().bin);

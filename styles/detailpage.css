@@ -11,10 +11,11 @@ div.detail-content {
   position: relative;
 }
 
-div.aligned {
+div.top-aligned {
   display: flex;
   flex-direction: row;
   align-items: center;
+  border-bottom: 1px solid rgb(226, 226, 226);
 }
 button.back-button {
   margin: 1vw;
@@ -51,8 +52,9 @@ span.DeleteButton {
 
 button.goToProfileButton {
   align-self: flex-start;
-  margin: 2vw;
-  padding: 0.5vw 2vw; 
+  /* margin: 2vw; */
+  /* padding: 0.5vw 2vw;  */
+  padding: 0px;
   /* display: flex; */
   /* justify-content: center;  */
   /* align-items: center;  */
@@ -79,6 +81,7 @@ img.detail-image {
   /* align-self: center; */
   object-fit: contain;
   background-color: #e5e5e5;
+  border: 1px solid #e5e5e5;
 }
 
 p.detail-description {
@@ -125,4 +128,19 @@ p.item-detail-bin-name {
   margin: 0px;
   font-weight: 500;
   text-align: center;
+}
+
+div.contributor-row {
+  display: flex;
+  align-items: center;
+  margin: 2vw;
+}
+#contributor-profile-pic {
+  height: 30px;
+  width: 30px;
+  /* margin: 1vh 0vh; */
+  margin-right: 1vh;
+  border-radius: 50%;
+  object-fit: cover;
+  /* background-color: #e5e5e5; */
 }
