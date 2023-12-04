@@ -18,9 +18,11 @@ function displayItemInfo() {
 			item = doc.data();
 			itemName = doc.data().title;
 			db.collection("users").doc(item.userID).get().then(userDoc => {
+				//This function is not decomposed as I do not believe it makes sense to.
+				//All of these document.querySelector essentially do the same thing.
+				//Thus decomposing would make it less readable. Because any decomposed function
+				//would be completely arbritrary.
 				userName = userDoc.data().userName;
-
-
 				document.querySelector(".goToProfileButton").onclick = () => goToProfile(doc.data().userID)
 				document.querySelector(".detail-name").innerHTML = itemName;
 				document.getElementById("userName").innerHTML = "Contributor: " + userName;
@@ -36,9 +38,6 @@ function displayItemInfo() {
 					document.querySelector(".goToProfileButton").hidden = true;
 
 				}
-
-
-
 				document.querySelector(".like-icon").style.color = getBinColor(doc.data().bin);
 				document.querySelector(".dislike-icon").style.color = getBinColor(doc.data().bin);
 				document.querySelector('.item-detail-bin').style.color = getBinColor(doc.data().bin);
@@ -54,20 +53,8 @@ function displayItemInfo() {
 
 
 				let itemRef = db.collection("waste").doc(ID);
-
-
 				itemRef.onSnapshot((doc) => {
-					if (doc.exists) {
-						const itemData = doc.data();
-						likesInput.innerHTML = doc.data().totalLikes;
-
-						let userHasLiked = itemData.whoLiked && itemData.whoLiked.includes(user.uid);
-						let userHasDisLiked = itemData.whoDisLiked && itemData.whoDisLiked.includes(user.uid);
-						likeIcon.style['font-variation-settings'] = userHasLiked ? "'FILL' 1, 'wght' 400, 'GRAD' 0, 'opsz' 12" : "'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24";
-						disLikeIcon.style['font-variation-settings'] = userHasDisLiked ? "'FILL' 1, 'wght' 400, 'GRAD' 0, 'opsz' 12" : "'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24";
-					} else {
-
-					}
+					likeButtonTotalLikes(doc, likesInput, user, likeIcon, disLikeIcon);
 				});
 			});
 		});
@@ -136,4 +123,25 @@ function deleteThis() {
  */
 function goToProfile(id) {
 	window.location.href = "../profile.html?profile=" + id;
+}
+
+/**
+ * Updates the display of total likes for an item based on real-time data from Firebase.
+ * Adjusts the visual representation of like and dislike icons based on the user's interaction with the item.
+ * It checks if the current user has liked or disliked the item and changes the icon styles accordingly.
+ *
+ * @param {DocumentSnapshot} doc - The Firebase document snapshot containing the item's data.
+ * @param {HTMLElement} likesInput - The HTML element where the total number of likes is displayed.
+ * @param {Object} user - The current authenticated user object.
+ * @param {HTMLElement} likeIcon - The HTML element representing the like icon.
+ * @param {HTMLElement} disLikeIcon - The HTML element representing the dislike icon.
+ */
+function likeButtonTotalLikes(doc, likesInput, user, likeIcon, disLikeIcon){
+	const itemData = doc.data();
+	likesInput.innerHTML = doc.data().totalLikes;
+
+	let userHasLiked = itemData.whoLiked && itemData.whoLiked.includes(user.uid);
+	let userHasDisLiked = itemData.whoDisLiked && itemData.whoDisLiked.includes(user.uid);
+	likeIcon.style['font-variation-settings'] = userHasLiked ? "'FILL' 1, 'wght' 400, 'GRAD' 0, 'opsz' 12" : "'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24";
+	disLikeIcon.style['font-variation-settings'] = userHasDisLiked ? "'FILL' 1, 'wght' 400, 'GRAD' 0, 'opsz' 12" : "'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24";
 }

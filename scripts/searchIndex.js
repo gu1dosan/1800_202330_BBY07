@@ -2,15 +2,13 @@
  * Automatically delets a post if the post reaches less total likes than this constant.
  */
 const DELETEMINIMUM = -3;
+
 /**
- * displayCardsDynamically uses htmls <template> to display different users posts
- *      from firebase.
- * It displays these items based on the search (query). If no query was made
- *      it will sort the posts by the totalLikes field in firebase (helpfulness).
- *      If a query was made it searches through every document and gets the title
- *      if query string is in the title it will display it. If query string is not
- *      in the title it doesnt display the item.
- * @param collection collection is the name of the collection in firebase.
+ * Dynamically displays cards with posts from the Firebase database in a user interface.
+ * It shows items based on a search query or, if no query is made, sorts the posts by total likes.
+ * Posts with total likes below the defined minimum (DELETEMINIMUM) are automatically deleted.
+ *
+ * @param {string} collection - The name of the collection in Firebase to query for posts.
  */
 function displayCardsDynamically(collection) {
     //Informs user the function is still searching.
@@ -32,45 +30,12 @@ function displayCardsDynamically(collection) {
 				db.collection("waste")
 					.get()
 					.then(querySnapshot => {
-						document.getElementById("queryOrNot").innerHTML = "Sorted by your search";
-
-                        //This gets hidden if a post is found.
-                        //stays if zero posts were found to inform the user nothing came up.
-						document.querySelector("#recently-searched-header").innerHTML = "We don't have this item! But you can contribute and add it!";
-						document.querySelector("#searchingText").innerHTML = '(Click the "Contribute item" button in the footer)';
-
-                        //Alerts the user that despite us finding an item including query.
-                        //They can add more items if they did not find the one they were searching for.
-						document.querySelector(".footer-add-item-alert").style.display = "none";
-						document.querySelector(".search-header").style.display = "none";
-
+						displaySearchingText(querySnapshot, document, user);
                         //Displays the item.
 						querySnapshot.forEach(doc => {
-							const title = doc.data().title;
-							const description = doc.data().description;
-							let item = doc;
-							if (title) {
-								if (title.toLowerCase().includes(query.toLowerCase()) || (description && description.toLowerCase().includes(query.toLowerCase()))) {
-									if (item.data().totalLikes < DELETEMINIMUM) {
-										db.collection("waste").doc(item.id).delete();
-									} else {
-										document.querySelector("#searchingText").style.display = 'none';
-										document.querySelector("#recently-searched-header").style.display = 'none';
-										if (!sessionStorage.getItem("footerAddItemAlertClosed")) {
-											document.querySelector(".footer-add-item-alert").style.display = "block";
-										}
-										document.querySelector(".search-header").style.display = "block";
-										let newcard = cardTemplate.content.cloneNode(true);
-
-										populateItem(newcard, item, user);
-									}
-								}
-							}
-
+							displayEachDoc(doc, query, user, cardTemplate);
 						});
-					}).catch(error => {
-						console.error("Error fetching items: ", error);
-					});
+					})
             //If no search was made.
 			} else {
                 //Orders by total likes.
@@ -85,14 +50,11 @@ function displayCardsDynamically(collection) {
 							db.collection("waste").doc(item.id).delete();
 						} else {
 							let newcard = cardTemplate.content.cloneNode(true);
-
 							populateItem(newcard, item, user);
 						}
 					});
                 document.querySelector("#searchingText").style.display = 'none';
-				}).catch(error => {
-					console.error("Error fetching items: ", error);
-				});
+				})
 
                 //Removes the "havent found item?".
                 document.querySelector("#recently-searched-header")?.remove();
@@ -104,10 +66,13 @@ function displayCardsDynamically(collection) {
 }
 
 /**
- * Uses HTML <template> to display items into the page.
- * @param {*} newcard the HTML template selector.
- * @param {*} item The doc id to display.
- * @param {*} user The user of the post.
+ * Populates a card template with data from a Firebase document.
+ * Sets up the card's click events, text content, image source, and styles.
+ * Adds event listeners for like and dislike interactions.
+ *
+ * @param {HTMLElement} newcard - The card template to populate with data.
+ * @param {DocumentSnapshot} item - The Firebase document containing the post data.
+ * @param {Object} user - The currently authenticated user's object.
  */
 let populateItem = (newcard, item, user) => {
 	newcard.querySelector('.item-card').onclick = () => goToDetail(item.id);
@@ -151,11 +116,11 @@ let populateItem = (newcard, item, user) => {
 displayCardsDynamically("waste");
 
 /**
- * This is a helper method for populateItem.
- * It decides what the background color, and icon colors are
- * depending on the bin.
- * @param {*} bin bin is the firebase data stored for that specific doc id.
- * @returns the color for the icons and background.
+ * Determines the color associated with a specific type of bin.
+ * Used to set the color of UI elements based on the bin type.
+ *
+ * @param {string} bin - The type of bin (e.g., "Blue bin (Recyclable waste)").
+ * @returns {string} The color corresponding to the given bin type.
  */
 function getBinColor(bin) {
 	switch (bin) {
@@ -173,11 +138,11 @@ function getBinColor(bin) {
 }
 
 /**
- * This is a helper method for populateItem.
- * It decides what the background color, and icon colors are
- * depending on the bin.
- * @param {*} bin bin is the firebase data stored for that specific doc id.
- * @returns the color for the icons and background.
+ * Determines the icon associated with a specific type of bin.
+ * Used to set the icon of UI elements based on the bin type.
+ *
+ * @param {string} bin - The type of bin (e.g., "Blue bin (Recyclable waste)").
+ * @returns {string} The icon corresponding to the given bin type.
  */
 function getBinIcon(bin) {
 	switch (bin) {
@@ -195,9 +160,78 @@ function getBinIcon(bin) {
 }
 
 /**
- * Goes to the detail page of a specific doc id.
- * @param {} id the document id clicked on by the user.
+ * Redirects the user to the detail page of a specific item.
+ * The item is identified by its document ID in Firebase.
+ *
+ * @param {string} id - The document ID of the item to display in detail.
  */
 function goToDetail(id) {
 	window.location.href = "../detailpage.html?id=" + id;
+}
+
+/**
+ * Displays a pop-up message on the page.
+ * Used to inform users about the status of their search or to provide additional options.
+ *
+ * @param {Document} document - The global document object representing the DOM.
+ */
+function displayPopUp(document){
+	document.querySelector("#searchingText").style.display = 'none';
+	document.querySelector("#recently-searched-header").style.display = 'none';
+	if (!sessionStorage.getItem("footerAddItemAlertClosed")) {
+		document.querySelector(".footer-add-item-alert").style.display = "block";
+	}
+	document.querySelector(".search-header").style.display = "block";
+}
+
+/**
+ * Processes each document from a Firebase query and displays it if it meets certain criteria.
+ * This function checks if the title or description of a document contains a specific query string.
+ * If the document meets the criteria and has total likes above a defined minimum, it will display the document.
+ * Otherwise, if total likes are below the minimum, the document is deleted from the database.
+ *
+ * @param {DocumentSnapshot} doc - The Firebase document to be processed.
+ * @param {string} query - The search query string to match against the document's title and description.
+ * @param {Object} user - The currently authenticated user's object.
+ * @param {HTMLTemplateElement} cardTemplate - The HTML template for displaying an individual document.
+ */
+function displayEachDoc(doc, query, user, cardTemplate){
+	const title = doc.data().title;
+	const description = doc.data().description;
+	let item = doc;
+	if (title) {
+		if (title.toLowerCase().includes(query.toLowerCase()) || (description && description.toLowerCase().includes(query.toLowerCase()))) {
+			if (item.data().totalLikes < DELETEMINIMUM) {
+				db.collection("waste").doc(item.id).delete();
+			} else {
+				displayPopUp(document);
+				let newcard = cardTemplate.content.cloneNode(true);
+
+				populateItem(newcard, item, user);
+			}
+		}
+	}
+}
+
+/**
+ * Displays search-related messages on the UI based on the results of the query.
+ * If no items matching the query are found, it shows a message indicating the item is not available,
+ * and prompts the user to contribute the item. It also updates elements to reflect that the results
+ * are sorted based on the user's search query.
+ *
+ * @param {QuerySnapshot} querySnapshot - The Firebase query snapshot containing the search results.
+ * @param {Document} document - The global document object representing the DOM.
+ * @param {Object} user - The currently authenticated user's object. (Unused in the current implementation, but may be needed for future enhancements).
+ */
+function displaySearchingText(querySnapshot, document, user){
+	document.getElementById("queryOrNot").innerHTML = "Sorted by your search";
+	//This gets hidden if a post is found.
+	//stays if zero posts were found to inform the user nothing came up.
+	document.querySelector("#recently-searched-header").innerHTML = "We don't have this item! But you can contribute and add it!";
+	document.querySelector("#searchingText").innerHTML = '(Click the "Contribute item" button in the footer)';
+
+	//Alerts the user that despite us finding an item including query.
+	//They can add more items if they did not find the one they were searching for.
+	document.querySelector(".footer-add-item-alert").style.display = "none";
+	document.querySelector(".search-header").style.display = "none";
 }

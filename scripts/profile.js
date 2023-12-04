@@ -7,10 +7,8 @@ let currentUser;
  */
 function populateUserInfo() {
 	firebase.auth().onAuthStateChanged(user => {
-        
         //Makes sure the user is logged in.
 		if (user) {
-
             //Gets the id of whose profile we should display.
 			let params = new URL(window.location.href);
 			let query = params.searchParams.get("profile");
@@ -25,73 +23,20 @@ function populateUserInfo() {
 				currentUserID = user.uid;
 				currentUser = db.collection("users").doc(currentUserID);
 			}
-
 			db.collection("users").doc(currentUserID).get().then(userDoc => {
-
                 //If we are at the current users profile page.
 				if (user.uid === currentUserID) {
-
-					document.querySelector(".profileNoHide").hidden = true;
-
-					//get the data fields of the user
-					let userName = userDoc.data().userName;
-					let nameOfUser = userDoc.data().name;
-					let userCity = userDoc.data().city;
-					let userEmail = userDoc.data().email;
-					let userLikes = userDoc.data().likes;
-					let userNumOfPost = userDoc.data().numOfPost;
-					let picUrl = userDoc.data().profilePic;
-
-                    //Hides stuff that would appear if you were at someone elses profile page.
-                    //And shows stuff that should appear that wouldn't if you were at someone
-                    //  elses profile page.
-					document.getElementById("userOrNot2").innerHTML = "Your";
-					document.getElementById("userOrNot1").hidden = true;
-					if (nameOfUser != null) {
-						document.getElementById("nameInput").value = nameOfUser;
-					}
-					if (userName != null) {
-						document.getElementById("userName").value = userName;
-					}
-					if (userCity != null) {
-						document.getElementById("cityInput").value = userCity;
-					}
-					if (userEmail) {
-						document.getElementById("emailInput").value = userEmail;
-					}
-					if (picUrl != null) {
-						$("#mypic-goes-here").attr("src", picUrl);
-						document.querySelector("#mypic-goes-here").style.borderRadius = "50%";
-					}
-					document.getElementById("emailInput").innerText = userEmail;
-
+					yourProfileTemplate(document, userDoc);
                 //If not at your own profile page.
 				} else {
-                    
                     //Hides stuff we don't want to let the user see.
-					document.querySelector(".profileHide").hidden = true;
-					document.querySelector(".logOutButtonHide").hidden = true;
-					let proPic = userDoc.data().profilePic;
-					if (proPic) {
-						let img = document.querySelector("#SEprofilePic")
-						img.src = userDoc.data().profilePic;
-						img.style.borderRadius = "50%";
-						img.style.width = "70px";
-						img.style.height = "70px";
-					} else {
-						document.querySelector("#SEprofilePic").src = "../images/material-icon-account.svg";
-					}
-
-					document.getElementById("userOrNot1").innerHTML = userDoc.data().userName;
-					document.getElementById("userOrNot2").innerHTML = userDoc.data().userName + "'s";
+					someoneElsesProfile(userDoc, document)
 				}
 				let numOfPosts = 0;
 				let numOfLikes = 0;
 
 				db.collection("waste").get().then((querySnapshot) => {
 					querySnapshot.forEach((doc) => {
-
-
 						if (doc.data().userID === currentUserID) {
 							numOfPosts++;
 							numOfLikes += doc.data().totalLikes;
@@ -101,22 +46,15 @@ function populateUserInfo() {
 						numOfPost: numOfPosts,
 						numOfLikes: numOfLikes
 					}).then(() => {
-
-						document.getElementById("likesInput").innerText = numOfLikes;
-						document.getElementById("numOfPostInput").innerText = numOfPosts;
-						progressBar("likes", numOfLikes);
-						progressBar("posts", numOfPosts);
-						giveAchivement("likes", numOfLikes);
-						giveAchivement("posts", numOfPosts);
+						displayProgressBar(document, numOfLikes, numOfPosts)
 					})
 
 				})
 				displayCardsDynamically1("waste", currentUserID);
 
 			});
-
 		} else {
-
+			window.location.href("../index.html");
 		}
 
 	});
@@ -129,7 +67,6 @@ populateUserInfo();
  * Lets the user edit their firebase information.
  */
 function editUserInfo() {
-
 	document.getElementById('personalInfoFields').disabled = false;
 }
 
@@ -142,15 +79,10 @@ function saveUserInfo() {
 	firebase.auth().onAuthStateChanged(function(user) {
 		let storageRef = storage.ref("images/" + user.uid + ".jpg");
 		if (ImageFile) {
-			
 			storageRef.put(ImageFile)
 				.then(function() {
-
-					
 					storageRef.getDownloadURL()
-
 						.then(function(url) { 
-
 							saveUserTextInfo(user, url)
 						})
 				})
@@ -318,14 +250,7 @@ function goToDetail(id) {
  */
 let populateItem = (newcard, item, Caruser) => {
 	firebase.auth().onAuthStateChanged(user => {
-		newcard.querySelector('.item-card').onclick = () => goToDetail(item.id);
-		newcard.querySelector('.item-card-name').innerHTML = item.data().title;
-		newcard.querySelector('.item-card-image').src = item.data().photo;
-		
-		newcard.querySelector('.item-card-colored-bin').style.color = getBinColor(item.data().bin);
-		newcard.querySelector('.item-card-colored-bin .bin-icon').innerHTML = getBinIcon(item.data().bin);;
-		newcard.querySelector('.item-card-colored-bin .bin-icon').style['font-variation-settings'] = "'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24";
-
+		ItemDisplayer(newcard, item);
 		let likeInput = newcard.getElementById('likesInput');
 		let likeIcon = newcard.querySelector('.like-icon');
 		let disLikeIcon = newcard.querySelector('.dislike-icon');
@@ -341,16 +266,7 @@ let populateItem = (newcard, item, Caruser) => {
 
 		let itemRef = db.collection("waste").doc(item.id);
 		itemRef.onSnapshot((doc) => {
-			if (doc.exists) {
-				const itemData = doc.data();
-
-				let userHasLiked = itemData.whoLiked && itemData.whoLiked.includes(user.uid);
-				let userHasDisLiked = itemData.whoDisLiked && itemData.whoDisLiked.includes(user.uid);
-
-				likeIcon.style['font-variation-settings'] = userHasLiked ? "'FILL' 1, 'wght' 400, 'GRAD' 0, 'opsz' 12" : "'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24";
-				disLikeIcon.style['font-variation-settings'] = userHasDisLiked ? "'FILL' 1, 'wght' 400, 'GRAD' 0, 'opsz' 12" : "'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24";
-			}
-			likeInput.innerHTML = doc.data().totalLikes;
+			likeButtonTotalLikes(doc, likeInput, user, likeIcon, disLikeIcon)
 		});
 
 		document.getElementById("items-go-here").appendChild(newcard);
@@ -398,3 +314,136 @@ function chooseFileListener() {
 	})
 }
 chooseFileListener();
+
+/**
+ * Updates the display of total likes for an item based on real-time data from Firebase.
+ * Adjusts the visual representation of like and dislike icons based on the user's interaction with the item.
+ * It checks if the current user has liked or disliked the item and changes the icon styles accordingly.
+ *
+ * @param {DocumentSnapshot} doc - The Firebase document snapshot containing the item's data.
+ * @param {HTMLElement} likesInput - The HTML element where the total number of likes is displayed.
+ * @param {Object} user - The current authenticated user object.
+ * @param {HTMLElement} likeIcon - The HTML element representing the like icon.
+ * @param {HTMLElement} disLikeIcon - The HTML element representing the dislike icon.
+ */
+function likeButtonTotalLikes(doc, likesInput, user, likeIcon, disLikeIcon){
+	const itemData = doc.data();
+	likesInput.innerHTML = doc.data().totalLikes;
+
+	let userHasLiked = itemData.whoLiked && itemData.whoLiked.includes(user.uid);
+	let userHasDisLiked = itemData.whoDisLiked && itemData.whoDisLiked.includes(user.uid);
+	likeIcon.style['font-variation-settings'] = userHasLiked ? "'FILL' 1, 'wght' 400, 'GRAD' 0, 'opsz' 12" : "'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24";
+	disLikeIcon.style['font-variation-settings'] = userHasDisLiked ? "'FILL' 1, 'wght' 400, 'GRAD' 0, 'opsz' 12" : "'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24";
+}
+
+/**
+ * Populates a given card element with specific data from an item.
+ * This function sets the click event to redirect to the item's detailed view,
+ * updates the card's text and image with the item's data, and applies styling
+ * based on the item's bin type.
+ *
+ * @param {HTMLElement} newcard - The card element to be populated with item data.
+ * @param {Object} item - The item object containing data to display on the card.
+ *      This object is expected to have an 'id', and a 'data()' method returning
+ *      an object with 'title', 'photo', and 'bin' properties.
+ */
+function ItemDisplayer(newcard, item){
+	newcard.querySelector('.item-card').onclick = () => goToDetail(item.id);
+	newcard.querySelector('.item-card-name').innerHTML = item.data().title;
+	newcard.querySelector('.item-card-image').src = item.data().photo;
+	
+	newcard.querySelector('.item-card-colored-bin').style.color = getBinColor(item.data().bin);
+	newcard.querySelector('.item-card-colored-bin .bin-icon').innerHTML = getBinIcon(item.data().bin);;
+	newcard.querySelector('.item-card-colored-bin .bin-icon').style['font-variation-settings'] = "'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24";
+}
+
+/**
+ * Populates the profile page with the current user's information.
+ * This function updates various elements on the page with the user's data,
+ * hides elements that are relevant only when viewing another user's profile,
+ * and displays the current user's profile information including their name, city, email,
+ * and profile picture.
+ *
+ * @param {Document} document - The global document object representing the DOM.
+ * @param {DocumentSnapshot} userDoc - The Firebase document snapshot containing the current user's data.
+ */
+function yourProfileTemplate(document, userDoc){
+	document.querySelector(".profileNoHide").hidden = true;
+
+	//get the data fields of the user
+	let userName = userDoc.data().userName;
+	let nameOfUser = userDoc.data().name;
+	let userCity = userDoc.data().city;
+	let userEmail = userDoc.data().email;
+	let userLikes = userDoc.data().likes;
+	let userNumOfPost = userDoc.data().numOfPost;
+	let picUrl = userDoc.data().profilePic;
+
+	//Hides stuff that would appear if you were at someone elses profile page.
+	//And shows stuff that should appear that wouldn't if you were at someone
+	//  elses profile page.
+	document.getElementById("userOrNot2").innerHTML = "Your";
+	document.getElementById("userOrNot1").hidden = true;
+	if (nameOfUser != null) {
+		document.getElementById("nameInput").value = nameOfUser;
+	}
+	if (userName != null) {
+		document.getElementById("userName").value = userName;
+	}
+	if (userCity != null) {
+		document.getElementById("cityInput").value = userCity;
+	}
+	if (userEmail) {
+		document.getElementById("emailInput").value = userEmail;
+	}
+	if (picUrl != null) {
+		$("#mypic-goes-here").attr("src", picUrl);
+		document.querySelector("#mypic-goes-here").style.borderRadius = "50%";
+	}
+	document.getElementById("emailInput").innerText = userEmail;
+}
+
+/**
+ * Populates the profile page with another user's information.
+ * This function hides certain elements that should not be visible when viewing someone else's profile,
+ * and updates the page with the other user's profile picture, username, and other relevant information.
+ *
+ * @param {DocumentSnapshot} userDoc - The Firebase document snapshot containing the other user's data.
+ * @param {Document} document - The global document object representing the DOM.
+ */
+function someoneElsesProfile(userDoc, document){
+	//Hides stuff we don't want to let the user see.
+	document.querySelector(".profileHide").hidden = true;
+	document.querySelector(".logOutButtonHide").hidden = true;
+	let proPic = userDoc.data().profilePic;
+	if (proPic) {
+		let img = document.querySelector("#SEprofilePic")
+		img.src = userDoc.data().profilePic;
+		img.style.borderRadius = "50%";
+		img.style.width = "70px";
+		img.style.height = "70px";
+	} else {
+		document.querySelector("#SEprofilePic").src = "../images/material-icon-account.svg";
+	}
+
+	document.getElementById("userOrNot1").innerHTML = userDoc.data().userName;
+	document.getElementById("userOrNot2").innerHTML = userDoc.data().userName + "'s";
+}
+
+/**
+ * Updates the profile page with progress bar values based on user's likes and posts.
+ * This function displays the number of likes and posts, updates progress bars accordingly,
+ * and triggers the achievement check for likes and posts.
+ *
+ * @param {Document} document - The global document object representing the DOM.
+ * @param {number} numOfLikes - The number of likes received by the user.
+ * @param {number} numOfPosts - The number of posts made by the user.
+ */
+function displayProgressBar(document, numOfLikes, numOfPosts){
+	document.getElementById("likesInput").innerText = numOfLikes;
+	document.getElementById("numOfPostInput").innerText = numOfPosts;
+	progressBar("likes", numOfLikes);
+	progressBar("posts", numOfPosts);
+	giveAchivement("likes", numOfLikes);
+	giveAchivement("posts", numOfPosts);
+}
