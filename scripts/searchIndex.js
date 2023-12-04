@@ -28,6 +28,7 @@ function displayCardsDynamically(collection) {
 			let where = db.collection(collection);
             //If the user made a query we have to populate the template appropriatly.
 			if (query) {
+				document.querySelector("#search-bar-input").placeholder = query;
 				db.collection("waste")
 					.get()
 					.then(querySnapshot => {
