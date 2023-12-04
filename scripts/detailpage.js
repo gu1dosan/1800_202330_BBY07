@@ -20,11 +20,16 @@ function displayItemInfo() {
 			db.collection("users").doc(item.userID).get().then(userDoc => {
 				userName = userDoc.data().userName;
 				displayInnerHTML(item, document, doc);
+				if (userDoc.data().profilePic){
+					document.getElementById("contributor-profile-pic").src = userDoc.data().profilePic;
+				} else {
+					document.getElementById("contributor-profile-pic").src = "../images/material-icon-account.svg";
+				}
+				
                 //Lets the user delete the item if they are the poster. If not this button gets hidden
                 //  and turned off.
 				if (user.uid === item.userID) {
 					document.querySelector(".DeleteButton").hidden = false;
-					document.querySelector(".goToProfileButton").hidden = true;
 				}
 				likeButtonTotalLikes(user, document, ID);
 			});
@@ -102,27 +107,27 @@ function goToProfile(id) {
  */
 function likeButtonTotalLikes(user, document, ID){
 	let likesInput = document.getElementById("likesInput");
-				let likeIcon = document.querySelector('.like-icon');
-				let disLikeIcon = document.querySelector('.dislike-icon');
+	let likeIcon = document.querySelector('.like-icon');
+	let disLikeIcon = document.querySelector('.dislike-icon');
 
-				likeIcon.addEventListener('click', () => incrementLike(ID));
-				disLikeIcon.addEventListener('click', () => incrementDisLike(ID));
-
-
-				let itemRef = db.collection("waste").doc(ID);
+	likeIcon.addEventListener('click', () => incrementLike(ID));
+	disLikeIcon.addEventListener('click', () => incrementDisLike(ID));
 
 
-				itemRef.onSnapshot((doc) => {
-					if (doc.exists) {
-						const itemData = doc.data();
-						likesInput.innerHTML = doc.data().totalLikes;
+	let itemRef = db.collection("waste").doc(ID);
 
-						let userHasLiked = itemData.whoLiked && itemData.whoLiked.includes(user.uid);
-						let userHasDisLiked = itemData.whoDisLiked && itemData.whoDisLiked.includes(user.uid);
-						likeIcon.style['font-variation-settings'] = userHasLiked ? "'FILL' 1, 'wght' 400, 'GRAD' 0, 'opsz' 12" : "'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24";
-						disLikeIcon.style['font-variation-settings'] = userHasDisLiked ? "'FILL' 1, 'wght' 400, 'GRAD' 0, 'opsz' 12" : "'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24";
-					} 
-				});
+
+	itemRef.onSnapshot((doc) => {
+		if (doc.exists) {
+			const itemData = doc.data();
+			likesInput.innerHTML = doc.data().totalLikes;
+
+			let userHasLiked = itemData.whoLiked && itemData.whoLiked.includes(user.uid);
+			let userHasDisLiked = itemData.whoDisLiked && itemData.whoDisLiked.includes(user.uid);
+			likeIcon.style['font-variation-settings'] = userHasLiked ? "'FILL' 1, 'wght' 400, 'GRAD' 0, 'opsz' 12" : "'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24";
+			disLikeIcon.style['font-variation-settings'] = userHasDisLiked ? "'FILL' 1, 'wght' 400, 'GRAD' 0, 'opsz' 12" : "'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24";
+		} 
+	});
 }
 
 /**
@@ -137,7 +142,6 @@ function likeButtonTotalLikes(user, document, ID){
 function displayInnerHTML(item, document, doc){
 	document.querySelector(".goToProfileButton").onclick = () => goToProfile(doc.data().userID)
 	document.querySelector(".detail-name").innerHTML = itemName;
-	document.getElementById("contributor-profile-pic").src = "images/elmo.jpg";
 	document.getElementById("userName").innerHTML = userName;
 	document.querySelector(".DeleteButton").hidden = true;
 	document.querySelector(".detail-image").src = item.photo;
