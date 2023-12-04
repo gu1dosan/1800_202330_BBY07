@@ -56,7 +56,9 @@ function displayCardsDynamically(collection) {
 									} else {
 										document.querySelector("#searchingText").style.display = 'none';
 										document.querySelector("#recently-searched-header").style.display = 'none';
-										document.querySelector(".footer-add-item-alert").style.display = "block";
+										if (!sessionStorage.getItem("footerAddItemAlertClosed")) {
+											document.querySelector(".footer-add-item-alert").style.display = "block";
+										}
 										document.querySelector(".search-header").style.display = "block";
 										let newcard = cardTemplate.content.cloneNode(true);
 
