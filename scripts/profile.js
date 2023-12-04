@@ -245,9 +245,10 @@ function getBinColor(bin) {
 }
 
 /**
- * 
- * @param {*} id 
- * @param {*} num 
+ * Draw a progress bar of likes and posts in user profile.html page, so 
+ * Users can visually see how much likes and posts they have.
+ * @param {*} id id of element in user profile.html page
+ * @param {*} num a number of likes or posts that a current user have
  * @returns 
  */
 function progressBar(id, num) {
@@ -279,10 +280,9 @@ function progressBar(id, num) {
 }
 
 /**
- * 
- * @param {*} className 
- * @param {*} num 
- * @returns 
+ * This will give the current user an achivement Badge or Medal in profile.html page.
+ * @param {*} className the HTML class name
+ * @param {*} num a number of likes or posts that a current user have
  */
 function giveAchivement(className, num) {
 	
