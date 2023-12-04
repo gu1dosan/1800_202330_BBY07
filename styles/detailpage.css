@@ -42,8 +42,8 @@ span.DeleteButton {
   color: white;
   cursor: pointer;
   position: absolute;
-  right: 2vw;
-  top: 3vw;
+  right: 2vh;
+  top: 2vw;
   background-color: #ff0000;
   
   border-radius: 1vw;
