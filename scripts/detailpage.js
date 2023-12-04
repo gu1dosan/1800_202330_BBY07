@@ -18,43 +18,15 @@ function displayItemInfo() {
 			item = doc.data();
 			itemName = doc.data().title;
 			db.collection("users").doc(item.userID).get().then(userDoc => {
-				//This function is not decomposed as I do not believe it makes sense to.
-				//All of these document.querySelector essentially do the same thing.
-				//Thus decomposing would make it less readable. Because any decomposed function
-				//would be completely arbritrary.
 				userName = userDoc.data().userName;
-				document.querySelector(".goToProfileButton").onclick = () => goToProfile(doc.data().userID)
-				document.querySelector(".detail-name").innerHTML = itemName;
-				document.getElementById("userName").innerHTML = "Contributor: " + userName;
-				document.querySelector(".DeleteButton").hidden = true;
-				document.querySelector(".detail-image").src = item.photo;
-				document.querySelector(".detail-description").innerHTML = doc.data().description;
-				document.querySelector('body').style = "background-color: " + getBinColor(doc.data().bin) + ";";
+				displayInnerHTML(item, document, doc);
                 //Lets the user delete the item if they are the poster. If not this button gets hidden
                 //  and turned off.
 				if (user.uid === item.userID) {
 					document.querySelector(".DeleteButton").hidden = false;
 					document.querySelector(".goToProfileButton").hidden = true;
-
 				}
-				document.querySelector(".like-icon").style.color = getBinColor(doc.data().bin);
-				document.querySelector(".dislike-icon").style.color = getBinColor(doc.data().bin);
-				document.querySelector('.item-detail-bin').style.color = getBinColor(doc.data().bin);
-				document.querySelector('.item-detail-bin-name').innerHTML = doc.data().bin;
-				document.querySelector('.item-detail-bin-name').style.color = getBinColor(doc.data().bin);
-
-				let likesInput = document.getElementById("likesInput");
-				let likeIcon = document.querySelector('.like-icon');
-				let disLikeIcon = document.querySelector('.dislike-icon');
-
-				likeIcon.addEventListener('click', () => incrementLike(ID));
-				disLikeIcon.addEventListener('click', () => incrementDisLike(ID));
-
-
-				let itemRef = db.collection("waste").doc(ID);
-				itemRef.onSnapshot((doc) => {
-					likeButtonTotalLikes(doc, likesInput, user, likeIcon, disLikeIcon);
-				});
+				likeButtonTotalLikes(user, document, ID);
 			});
 		});
 }
@@ -119,22 +91,53 @@ function goToProfile(id) {
 }
 
 /**
- * Updates the display of total likes for an item based on real-time data from Firebase.
- * Adjusts the visual representation of like and dislike icons based on the user's interaction with the item.
- * It checks if the current user has liked or disliked the item and changes the icon styles accordingly.
+ * Sets up the functionality for like and dislike buttons and updates their display based on real-time data.
+ * This function adds event listeners to the like and dislike buttons to handle click events, 
+ * and listens to changes in the Firestore document to update the like count and the visual state of the buttons.
+ * The visual state of the buttons changes based on whether the user has liked or disliked the item.
  *
- * @param {DocumentSnapshot} doc - The Firebase document snapshot containing the item's data.
- * @param {HTMLElement} likesInput - The HTML element where the total number of likes is displayed.
- * @param {Object} user - The current authenticated user object.
- * @param {HTMLElement} likeIcon - The HTML element representing the like icon.
- * @param {HTMLElement} disLikeIcon - The HTML element representing the dislike icon.
+ * @param {Object} user - The currently authenticated user's object.
+ * @param {Document} document - The global document object representing the DOM.
+ * @param {string} ID - The ID of the document in the Firestore 'waste' collection to which the like and dislike actions are related.
  */
-function likeButtonTotalLikes(doc, likesInput, user, likeIcon, disLikeIcon){
-	const itemData = doc.data();
-	likesInput.innerHTML = doc.data().totalLikes;
-
-	let userHasLiked = itemData.whoLiked && itemData.whoLiked.includes(user.uid);
-	let userHasDisLiked = itemData.whoDisLiked && itemData.whoDisLiked.includes(user.uid);
-	likeIcon.style['font-variation-settings'] = userHasLiked ? "'FILL' 1, 'wght' 400, 'GRAD' 0, 'opsz' 12" : "'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24";
-	disLikeIcon.style['font-variation-settings'] = userHasDisLiked ? "'FILL' 1, 'wght' 400, 'GRAD' 0, 'opsz' 12" : "'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24";
+function likeButtonTotalLikes(user, document, ID){
+	let likesInput = document.getElementById("likesInput");
+	let likeIcon = document.querySelector('.like-icon');
+	let disLikeIcon = document.querySelector('.dislike-icon');
+	likeIcon.addEventListener('click', () => incrementLike(ID));
+	disLikeIcon.addEventListener('click', () => incrementDisLike(ID));
+	
+	let itemRef = db.collection("waste").doc(ID);
+	itemRef.onSnapshot((doc) => {
+		const itemData = doc.data();
+		likesInput.innerHTML = doc.data().totalLikes;
+		let userHasLiked = itemData.whoLiked && itemData.whoLiked.includes(user.uid);
+		let userHasDisLiked = itemData.whoDisLiked && itemData.whoDisLiked.includes(user.uid);
+		likeIcon.style['font-variation-settings'] = userHasLiked ? "'FILL' 1, 'wght' 400, 'GRAD' 0, 'opsz' 12" : "'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24";
+		disLikeIcon.style['font-variation-settings'] = userHasDisLiked ? "'FILL' 1, 'wght' 400, 'GRAD' 0, 'opsz' 12" : "'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24";
+	});
 }
+
+/**
+ * Updates the inner HTML of various elements on a detail page based on the provided item and document data.
+ * This function sets the content and style of elements like the profile button, item name, contributor's name, 
+ * item image, and item description. It also adjusts styles based on the item's bin type.
+ *
+ * @param {Object} item - The item object containing data such as the photo URL.
+ * @param {Document} document - The global document object representing the DOM.
+ * @param {DocumentSnapshot} doc - The Firebase document snapshot containing the item's detailed data.
+ */
+function displayInnerHTML(item, document, doc){
+	document.querySelector(".goToProfileButton").onclick = () => goToProfile(doc.data().userID)
+	document.querySelector(".detail-name").innerHTML = itemName;
+	document.getElementById("userName").innerHTML = "Contributor: " + userName;
+	document.querySelector(".DeleteButton").hidden = true;
+	document.querySelector(".detail-image").src = item.photo;
+	document.querySelector(".detail-description").innerHTML = doc.data().description;
+	document.querySelector('body').style = "background-color: " + getBinColor(doc.data().bin) + ";";
+	document.querySelector(".like-icon").style.color = getBinColor(doc.data().bin);
+	document.querySelector(".dislike-icon").style.color = getBinColor(doc.data().bin);
+	document.querySelector('.item-detail-bin').style.color = getBinColor(doc.data().bin);
+	document.querySelector('.item-detail-bin-name').innerHTML = doc.data().bin;
+	document.querySelector('.item-detail-bin-name').style.color = getBinColor(doc.data().bin);
+};

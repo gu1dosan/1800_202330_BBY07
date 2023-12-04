@@ -30,7 +30,7 @@ function displayCardsDynamically(collection) {
 				db.collection("waste")
 					.get()
 					.then(querySnapshot => {
-						displaySearchingText(querySnapshot, document, user);
+						displaySearchingText(document);
                         //Displays the item.
 						querySnapshot.forEach(doc => {
 
@@ -226,11 +226,10 @@ function displayEachDoc(doc, query, user, cardTemplate){
  * and prompts the user to contribute the item. It also updates elements to reflect that the results
  * are sorted based on the user's search query.
  *
- * @param {QuerySnapshot} querySnapshot - The Firebase query snapshot containing the search results.
  * @param {Document} document - The global document object representing the DOM.
  * @param {Object} user - The currently authenticated user's object. (Unused in the current implementation, but may be needed for future enhancements).
  */
-function displaySearchingText(querySnapshot, document, user){
+function displaySearchingText(document){
 	document.getElementById("queryOrNot").innerHTML = "Sorted by your search";
 	//This gets hidden if a post is found.
 	//stays if zero posts were found to inform the user nothing came up.
