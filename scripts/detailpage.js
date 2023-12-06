@@ -6,7 +6,7 @@
  *      the firebase.
  */
 function displayItemInfo() {
-    //Gets the doc id.
+    //Gets the doc id.	
 	let params = new URL(window.location.href);
 	let ID = params.searchParams.get("id");
 
@@ -17,9 +17,11 @@ function displayItemInfo() {
 			let user = firebase.auth().currentUser;
 			item = doc.data();
 			itemName = doc.data().title;
+
 			db.collection("users").doc(item.userID).get().then(userDoc => {
 				userName = userDoc.data().userName;
 				displayInnerHTML(item, document, doc);
+
 				if (userDoc.data().profilePic){
 					document.getElementById("contributor-profile-pic").src = userDoc.data().profilePic;
 				} else {
@@ -75,6 +77,7 @@ function deleteThis() {
 	let ID = params.searchParams.get("id");
 	let docRef = db.collection('waste').doc(ID);
 	let user = firebase.auth().currentUser;
+
 	docRef.get().then((doc) => {
 		if (user.uid === doc.data().userID) {
 			docRef.delete().then(() => {
@@ -88,7 +91,7 @@ function deleteThis() {
 /**
  * Simple redirection function that gets a specific 
  * profile id to go to someone elses profile.
- * @param {} id id is the posters id that we send over to the next page to know whose 
+ * @param {string} id id is the posters id that we send over to the next page to know whose 
  * information we want to display.
  */
 function goToProfile(id) {
@@ -141,11 +144,14 @@ function likeButtonTotalLikes(user, document, ID){
  */
 function displayInnerHTML(item, document, doc){
 	document.querySelector(".goToProfileButton").onclick = () => goToProfile(doc.data().userID)
+
 	document.querySelector(".detail-name").innerHTML = itemName;
 	document.getElementById("userName").innerHTML = userName;
-	document.querySelector(".DeleteButton").hidden = true;
 	document.querySelector(".detail-image").src = item.photo;
 	document.querySelector(".detail-description").innerHTML = doc.data().description;
+
+	document.querySelector(".DeleteButton").hidden = true;
+
 	document.querySelector('body').style = "background-color: " + getBinColor(doc.data().bin) + ";";
 	document.querySelector(".like-icon").style.color = getBinColor(doc.data().bin);
 	document.querySelector(".dislike-icon").style.color = getBinColor(doc.data().bin);

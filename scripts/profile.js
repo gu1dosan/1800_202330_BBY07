@@ -1,5 +1,3 @@
-let currentUser; 
-
 /**
  * Displays only the users post based on the profile id.
  * This is done so that users can see other users profiles
@@ -217,7 +215,6 @@ function progressBar(id, num) {
  * @param {*} num a number of likes or posts that a current user have
  */
 function giveAchivement(className, num) {
-	
 	const MUL_FACTOR = 5;
 	let achivementNum = 1;
 
@@ -442,6 +439,7 @@ function someoneElsesProfile(userDoc, document){
 function displayProgressBar(document, numOfLikes, numOfPosts){
 	document.getElementById("likesInput").innerText = numOfLikes;
 	document.getElementById("numOfPostInput").innerText = numOfPosts;
+
 	progressBar("likes", numOfLikes);
 	progressBar("posts", numOfPosts);
 	giveAchivement("likes", numOfLikes);
