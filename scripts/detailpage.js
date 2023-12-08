@@ -43,7 +43,7 @@ displayItemInfo();
  * This is a helper method for displayItemInfo.
  * It decides what the background color, and icon colors are
  * depending on the bin.
- * @param {*} bin bin is the firebase data stored for that specific doc id.
+ * @param {String} bin bin is the firebase data stored for that specific doc id.
  * @returns the color for the icons and background.
  */
 function getBinColor(bin) {
@@ -106,7 +106,7 @@ function goToProfile(id) {
  *
  * @param {Object} user - The currently authenticated user's object.
  * @param {Document} document - The global document object representing the DOM.
- * @param {string} ID - The ID of the document in the Firestore 'waste' collection to which the like and dislike actions are related.
+ * @param {string} ID - The ID of the document in Firestore.
  */
 function likeButtonTotalLikes(user, document, ID){
 	let likesInput = document.getElementById("likesInput");

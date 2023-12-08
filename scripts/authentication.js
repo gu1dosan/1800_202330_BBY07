@@ -2,12 +2,6 @@ let ui = new firebaseui.auth.AuthUI(firebase.auth());
 
 /**
  * Configures and initializes the Firebase Authentication UI.
- * This setup includes specifying the authentication flow, the UI callbacks, and the authentication providers.
- * - The `signInSuccessWithAuthResult` callback handles the user sign-in process. It checks if the user is new and adds their information to Firestore.
- * - The `uiShown` callback hides the loader once the UI is displayed.
- * The configuration also specifies the sign-in flow type ('popup'), success URL, and links to the terms of service and privacy policy.
- * 
- * Finally, this script starts the Firebase authentication UI in the specified container.
  */
 let uiConfig = {
 	callbacks: {
