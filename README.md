@@ -2,6 +2,10 @@
 
 BBY07 Waste Sorting App
 
+# Project Live Link
+
+https://comp1800-202330-bby07.web.app/
+
 ## 1. Project Description
 The app lets people search for an item they don’t know how to dispose of, and the app will tell them which bin it goes in, along with any extra information the contributor wanted to provide about it.
 The data is also crowdsourced and crowd-moderated, it lets people upload items, what bin each item should be thrown into and a description for them. Once an item is uploaded it lets people vote on how helpful or unhelpful they are, automatically deleting them if they reach a set negative threshold.
